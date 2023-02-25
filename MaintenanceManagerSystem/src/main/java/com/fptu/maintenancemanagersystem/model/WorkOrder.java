@@ -4,10 +4,23 @@
  */
 package com.fptu.maintenancemanagersystem.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+
 /**
  *
  * @author lmphi
  */
-public class WorkOrder {
-    
+@Data
+@NoArgsConstructor
+public class WorkOrder implements Serializable {
+    private int workOrderId;
+    private boolean isAccepted;
+    private String declineReason;
+    private LocalDate createdDate;
+    private int faultedDeviceId;
+    private boolean isResolved;
 }

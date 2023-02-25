@@ -4,6 +4,7 @@
  */
 package com.fptu.maintenancemanagersystem.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,8 @@ import lombok.Setter;
  *
  * @author lmphi
  */
-@Getter @Setter @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class Floor {
     public int id;
     public String name;

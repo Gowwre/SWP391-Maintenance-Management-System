@@ -5,6 +5,8 @@
 package com.fptu.maintenancemanagersystem.model;
 
 import java.time.LocalDate;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +16,8 @@ import lombok.Setter;
  * @author lmphi
  */
 
-@Getter @Setter @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class MaintainanceReport {
     public int id;
     public int workOrderId;

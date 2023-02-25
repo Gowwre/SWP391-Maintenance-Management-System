@@ -5,6 +5,8 @@
 package com.fptu.maintenancemanagersystem.model;
 
 import java.time.LocalDate;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,14 +15,16 @@ import lombok.Setter;
  *
  * @author lmphi
  */
-@Getter @Setter @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class Equipment {
     public int id;
+    public int roomId;
     public String equipmentName;
-    public String equipmentCategory;
+
     public LocalDate installationDate;
-    public LocalDate warrantyDate;
+
     public String brand;
-    public LocalDate replacedDate;
+
     public String description;
 }
