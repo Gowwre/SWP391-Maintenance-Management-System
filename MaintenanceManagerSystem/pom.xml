@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.fptu</groupId>
-	<artifactId>maintenancemanagersystem</artifactId>
+	<artifactId>MaintenanceManagementSystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>MaintenanceManagerSystem</name>
 	<description>CashCard service for Family Cash Cards</description>
