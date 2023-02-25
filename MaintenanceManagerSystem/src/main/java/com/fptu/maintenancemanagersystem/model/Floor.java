@@ -9,13 +9,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  *
  * @author lmphi
  */
 @Data
 @NoArgsConstructor
-public class Floor {
+public class Floor implements Serializable {
     public int id;
     public String name;
     

@@ -4,6 +4,7 @@
  */
 package com.fptu.maintenancemanagersystem.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import lombok.Data;
@@ -17,7 +18,7 @@ import lombok.Setter;
  */
 @Data
 @NoArgsConstructor
-public class Equipment {
+public class Equipment implements Serializable {
     public int id;
     public int roomId;
     public String equipmentName;
