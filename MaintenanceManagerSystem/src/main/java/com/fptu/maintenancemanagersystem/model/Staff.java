@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Staff implements Serializable {
 
-    private int id;
-    private String fullName;
+    private int staffId;
+    private String fullname;
     private int managerId;
     private LocalDate dateOfBirth;
     private String specialization;

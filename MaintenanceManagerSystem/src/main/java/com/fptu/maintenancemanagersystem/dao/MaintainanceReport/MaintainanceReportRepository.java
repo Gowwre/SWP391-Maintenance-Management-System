@@ -4,7 +4,7 @@
  */
 package com.fptu.maintenancemanagersystem.dao.MaintainanceReport;
 
-import com.fptu.maintenancemanagersystem.model.MaintainanceReport;
+import com.fptu.maintenancemanagersystem.model.MaintenanceReport;
 import java.util.List;
 
 /**
@@ -12,11 +12,11 @@ import java.util.List;
  * @author lmphi
  */
 public class MaintainanceReportRepository {
-    public List<MaintainanceReport> getAll() {
+    public List<MaintenanceReport> getAll() {
         return null;
     }
     
-    public MaintainanceReport get() {
+    public MaintenanceReport get() {
         return null;
     }
     

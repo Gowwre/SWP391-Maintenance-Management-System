@@ -14,7 +14,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MaintainanceReportService {
-    @Autowired
-    MaintainanceReportRepository maintainanceReportRepository;
-    
+
 }

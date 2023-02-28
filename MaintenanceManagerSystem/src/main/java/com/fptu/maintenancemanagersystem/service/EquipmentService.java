@@ -5,8 +5,11 @@
 package com.fptu.maintenancemanagersystem.service;
 
 import com.fptu.maintenancemanagersystem.dao.Equipment.EquipmentRepository;
+import com.fptu.maintenancemanagersystem.model.Equipment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  *
@@ -14,7 +17,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EquipmentService {
-    @Autowired
+@Autowired
     EquipmentRepository equipmentRepository;
+
+    public List<Equipment> getAllEquipmentsByRoom(int roomId) {
+        return equipmentRepository.getAllEquipmentsByRoom(roomId);
+    }
     
 }

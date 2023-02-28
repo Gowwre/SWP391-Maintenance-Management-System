@@ -14,7 +14,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class WorkOrderService {
-    @Autowired
-    WorkOrderRepository workOrderRepository;
-    
+
 }

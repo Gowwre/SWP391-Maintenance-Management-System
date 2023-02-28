@@ -4,12 +4,11 @@
  */
 package com.fptu.maintenancemanagersystem.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  *
@@ -18,12 +17,12 @@ import lombok.Setter;
 
 @Data
 @NoArgsConstructor
-public class MaintainanceReport {
-    public int id;
-    public int workOrderId;
-    public boolean fixOrReplace;
-    public LocalDate dateSubmitted;
-    public String description;
-    public boolean isApproved;
-    public LocalDate dateUpdated;
+public class MaintenanceReport implements Serializable {
+    private int maintenanceReportId;
+    private int workOrderId;
+    private boolean fixOrReplace;
+    private LocalDate dateSubmitted;
+    private String description;
+    private boolean isApproved;
+    private LocalDate dateUpdated;
 }

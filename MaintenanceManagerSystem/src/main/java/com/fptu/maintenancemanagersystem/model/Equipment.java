@@ -19,13 +19,13 @@ import lombok.Setter;
 @Data
 @NoArgsConstructor
 public class Equipment implements Serializable {
-    public int id;
-    public int roomId;
-    public String equipmentName;
+    private int equipmentId;
+    private int roomId;
+    private String equipmentName;
 
-    public LocalDate installationDate;
+    private LocalDate installationDate;
 
-    public String brand;
+    private String brand;
 
-    public String description;
+    private String description;
 }

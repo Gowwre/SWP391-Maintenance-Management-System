@@ -1,9 +1,11 @@
 package com.fptu.maintenancemanagersystem.controller;
 
+import com.fptu.maintenancemanagersystem.model.Equipment;
 import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
 import com.fptu.maintenancemanagersystem.model.Room;
-import com.fptu.maintenancemanagersystem.service.ResidentReportedIssue.ResidentReportedIssueService;
-import com.fptu.maintenancemanagersystem.service.Room.RoomService;
+import com.fptu.maintenancemanagersystem.service.EquipmentService;
+import com.fptu.maintenancemanagersystem.service.ResidentReportedIssueService;
+import com.fptu.maintenancemanagersystem.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +23,21 @@ public class ResidentReportedIssueController {
     @Autowired
     RoomService roomService;
 
+    @Autowired
+    EquipmentService equipmentService;
     @GetMapping("/createNewReport")
     public String showCreateNewReportForm(Model model) {
         model.addAttribute("residentReportedIssue", new ResidentReportedIssue());
-        List<Room> allRooms = roomService.getAllRooms();
-        model.addAttribute("allRooms", allRooms);
-        return "reportForm/residentReportFaultDevice";
+        List<Room> rooms = roomService.getAllRooms();
+        model.addAttribute("rooms", rooms);
+        return "reportForm/reportFormStep1";
+    }
+
+    @PostMapping("/createNewReport/step2")
+    public String showCreateNewReportForm(@ModelAttribute("residentReportedIssue") ResidentReportedIssue residentReportedIssue, Model model) {
+        List<Equipment> equipments = equipmentService.getAllEquipmentsByRoom(residentReportedIssue.getRoomNumber());
+        model.addAttribute("equipments", equipments);
+        return "reportForm/reportFormStep2";
     }
 
     @PostMapping("/createNewReport")

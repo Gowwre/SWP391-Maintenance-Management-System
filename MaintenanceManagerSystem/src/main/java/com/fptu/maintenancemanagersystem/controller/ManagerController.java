@@ -1,7 +1,7 @@
 package com.fptu.maintenancemanagersystem.controller;
 
 import com.fptu.maintenancemanagersystem.model.Manager;
-import com.fptu.maintenancemanagersystem.service.Manager.ManagerService;
+import com.fptu.maintenancemanagersystem.service.ManagerService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

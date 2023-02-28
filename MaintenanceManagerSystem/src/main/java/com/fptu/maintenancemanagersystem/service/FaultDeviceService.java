@@ -14,6 +14,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FaultDeviceService {
-    @Autowired
-    FaultDeviceRepository faultDeviceRepository;
+
 }
