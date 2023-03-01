@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ResidentReportedIssue implements Serializable {
     private int residentReportedIssueId;
-    private int roomNumber;
+    private int roomId;
     private String residentName;
     private String residentEmail;
     private String residentPhoneNumber;
