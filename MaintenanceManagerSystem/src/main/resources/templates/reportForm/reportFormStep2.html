@@ -29,8 +29,19 @@
             <label for="issueDescription" class="form-label">Mô tả vấn đề</label>
             <textarea name="issueDescription" id="issueDescription" class="form-control" required th:field="*{description}"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button id="submitBtn" type="submit" class="btn btn-primary">Gửi</button>
     </form>
 </div>
 </body>
+<script>
+    document.getElementById("submitBtn").addEventListener("click", function(event) {
+        var checkboxes = document.getElementsByClassName("equipment");
+        var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+        if (!checkedOne) {
+            event.preventDefault();
+            alert("Xin hãy chọn ít nhất một thiết bị.");
+        }
+    });
+</script>
+
 </html>
