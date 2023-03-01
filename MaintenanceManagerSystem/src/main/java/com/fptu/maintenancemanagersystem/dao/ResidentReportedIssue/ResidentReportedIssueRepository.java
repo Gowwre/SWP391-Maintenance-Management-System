@@ -14,7 +14,12 @@ public class ResidentReportedIssueRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public void insertResidentReportedIssue(ResidentReportedIssue residentReportedIssue, List<Integer> equipmentIds) {
+    public void insertReportForm(ResidentReportedIssue residentReportedIssue, List<Integer> equipmentIds) {
+        insertResidentReportedIssue(residentReportedIssue);
+        insertFaultedDevice(equipmentIds);
+    }
+
+    private void insertResidentReportedIssue(ResidentReportedIssue residentReportedIssue) {
         String SQL = "INSERT INTO [ResidentReportedIssue] (room_id,resident_name,resident_email,resident_phone_number,description,date_reported) VALUES (?,?,?,?,?,?)";
         jdbcTemplate.update(SQL, residentReportedIssue.getRoomId(),
                 residentReportedIssue.getResidentName(),
@@ -22,17 +27,19 @@ public class ResidentReportedIssueRepository {
                 residentReportedIssue.getResidentPhoneNumber(),
                 residentReportedIssue.getDescription(),
                 Date.valueOf(LocalDate.now()));
-
-        insertFaultedDevice(equipmentIds);
     }
 
     private void insertFaultedDevice(List<Integer> equipmentIds) {
-        int currentIssueId = jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);
+        int currentIssueId = getCurrentIssueId();
 
         for (int equipmentId : equipmentIds) {
             String SQL2 = "INSERT INTO [FaultedDevice] (issue_id,equipment_id) VALUES (?,?)";
             jdbcTemplate.update(SQL2, currentIssueId, equipmentId);
         }
+    }
+
+    private Integer getCurrentIssueId() {
+        return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);
     }
 
 }

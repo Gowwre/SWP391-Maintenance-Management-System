@@ -13,7 +13,7 @@ public class ResidentReportedIssueService {
     private ResidentReportedIssueRepository residentReportedIssueRepository;
 
     public void createNewReport(ResidentReportedIssue residentReportedIssue, List<Integer> equipmentIds) {
-        residentReportedIssueRepository.insertResidentReportedIssue(residentReportedIssue, equipmentIds);
+        residentReportedIssueRepository.insertReportForm(residentReportedIssue, equipmentIds);
     }
 
 }
