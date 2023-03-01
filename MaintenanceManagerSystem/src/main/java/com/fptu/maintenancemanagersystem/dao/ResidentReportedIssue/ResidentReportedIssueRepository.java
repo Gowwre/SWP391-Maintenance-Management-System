@@ -14,8 +14,8 @@ public class ResidentReportedIssueRepository {
     JdbcTemplate jdbcTemplate;
 
     public void insertResidentReportedIssue(ResidentReportedIssue residentReportedIssue) {
-        String SQL = "INSERT INTO [ResidentReportedIssue] (room_number,resident_name,resident_email,resident_phone_number,description,date_reported) VALUES (?,?,?,?,?,?)";
-        jdbcTemplate.update(SQL, residentReportedIssue.getRoomNumber(),
+        String SQL = "INSERT INTO [ResidentReportedIssue] (room_id,resident_name,resident_email,resident_phone_number,description,date_reported) VALUES (?,?,?,?,?,?)";
+        jdbcTemplate.update(SQL, residentReportedIssue.getRoomId(),
                 residentReportedIssue.getResidentName(),
                 residentReportedIssue.getResidentEmail(),
                 residentReportedIssue.getResidentPhoneNumber(),
