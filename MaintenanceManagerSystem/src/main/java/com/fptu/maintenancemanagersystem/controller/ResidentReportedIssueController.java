@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ResidentReportedIssueController {
 
     @Autowired
     EquipmentService equipmentService;
-    @GetMapping("/createNewReport")
+    @GetMapping("/createReport")
     public String showCreateNewReportForm(Model model) {
         model.addAttribute("residentReportedIssue", new ResidentReportedIssue());
         List<Room> rooms = roomService.getAllRooms();
@@ -33,16 +34,17 @@ public class ResidentReportedIssueController {
         return "reportForm/reportFormStep1";
     }
 
-    @PostMapping("/createNewReport/step2")
-    public String showCreateNewReportForm(@ModelAttribute("residentReportedIssue") ResidentReportedIssue residentReportedIssue, Model model) {
-        List<Equipment> equipments = equipmentService.getAllEquipmentsByRoom(residentReportedIssue.getRoomId());
+    @PostMapping("/createReport/step2")
+    public String showCreateNewReportFormStep2(@ModelAttribute("residentReportedIssue") ResidentReportedIssue residentReportedIssue, Model model) {
+        int roomId = residentReportedIssue.getRoomId();
+        List<Equipment> equipments = equipmentService.getAllEquipmentsByRoom(roomId);
         model.addAttribute("equipments", equipments);
         return "reportForm/reportFormStep2";
     }
 
-    @PostMapping("/createNewReport")
-    public String createNewReport(@ModelAttribute("residentReportedIssue") ResidentReportedIssue residentReportedIssue) {
-        residentReportedIssueService.createNewReport(residentReportedIssue);
+    @PostMapping("/createReport")
+    public String createNewReport(@ModelAttribute("residentReportedIssue") ResidentReportedIssue residentReportedIssue, @RequestParam("equipmentIds") List<Integer> equipmentIds) {
+        residentReportedIssueService.createNewReport(residentReportedIssue,equipmentIds);
         return "redirect:/";
     }
 }

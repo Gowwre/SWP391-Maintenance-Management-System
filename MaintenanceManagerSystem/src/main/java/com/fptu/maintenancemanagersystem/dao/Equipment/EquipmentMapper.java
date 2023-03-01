@@ -12,7 +12,7 @@ public class EquipmentMapper implements RowMapper<Equipment> {
     public Equipment mapRow(ResultSet rs, int rowNum) throws SQLException {
         Equipment equipment = new Equipment();
         equipment.setEquipmentId(rs.getInt("equipment_id"));
-        equipment.setEquipmentName(rs.getString("name"));
+        equipment.setEquipmentName(rs.getString("equipment_name"));
         equipment.setRoomId(rs.getInt("room_id"));
         equipment.setBrand(rs.getString("brand"));
         equipment.setDescription(rs.getString("description"));

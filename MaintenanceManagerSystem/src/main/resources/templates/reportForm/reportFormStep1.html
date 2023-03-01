@@ -11,25 +11,25 @@
 <body>
 <div class="container my-5">
     <h1 class="text-center mb-5">Đơn báo cáo thiết bị hư hỏng</h1>
-    <form th:action="@{/createReport/step2}" method="post">
+    <form th:action="@{/createReport/step2}" method="post" th:object="${residentReportedIssue}">
         <div class="mb-3">
             <label for="roomNumber" class="form-label">Số Phòng</label>
-            <select name="roomNumber" id="roomNumber" class="form-select">
-                <option value="" selected disabled>Chọn số phòng</option>
+            <select name="roomNumber" id="roomNumber" class="form-select" th:field="*{roomId}">
+                <option value="0" selected disabled>Chọn số phòng</option>
                 <option th:each="room : ${rooms}" th:value="${room.roomId}" th:text="${room.roomNumber}"></option>
             </select>
         </div>
         <div class="mb-3">
             <label for="residentName" class="form-label">Họ và tên</label>
-            <input type="text" name="residentName" id="residentName" class="form-control" required>
+            <input type="text" name="residentName" id="residentName" class="form-control" required th:field="*{residentName}">
         </div>
         <div class="mb-3">
             <label for="residentPhone" class="form-label">Số điện thoại</label>
-            <input type="text" name="residentPhone" id="residentPhone" class="form-control" required>
+            <input type="text" name="residentPhone" id="residentPhone" class="form-control" required th:field="*{residentPhoneNumber}">
         </div>
         <div class="mb-3">
             <label for="residentEmail" class="form-label">Email</label>
-            <input type="email" name="residentEmail" id="residentEmail" class="form-control" required>
+            <input type="email" name="residentEmail" id="residentEmail" class="form-control" required th:field="*{residentEmail}">
         </div>
         <button type="submit" class="btn btn-primary">Tiếp tục</button>
     </form>

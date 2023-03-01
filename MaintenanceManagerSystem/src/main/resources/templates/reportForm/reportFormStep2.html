@@ -11,21 +11,23 @@
 <body>
 <div class="container my-5">
     <h1 class="text-center mb-5">Đơn báo cáo thiết bị hư hỏng</h1>
-    <form th:action="@{/createReport}" method="post">
-        <input type="hidden" name="roomNumber" th:value="${roomNumber}">
-        <input type="hidden" name="residentName" th:value="${residentName}">
-        <input type="hidden" name="residentPhone" th:value="${residentPhone}">
-        <input type="hidden" name="residentEmail" th:value="${residentEmail}">
+    <form th:action="@{/createReport}" method="post" th:object="${residentReportedIssue}">
+        <input type="hidden" name="roomNumber" th:value="${residentReportedIssue.roomId}" th:field="*{roomId}">
+        <input type="hidden" name="residentName" th:value="${residentReportedIssue.residentName}" th:field="*{residentName}">
+        <input type="hidden" name="residentPhone" th:value="${residentReportedIssue.residentPhoneNumber}" th:field="*{residentPhoneNumber}">
+        <input type="hidden" name="residentEmail" th:value="${residentReportedIssue.residentEmail}" th:field="*{residentEmail}">
         <div class="mb-3">
-            <label for="deviceType" class="form-label">Device Type:</label>
-            <select name="deviceType" id="deviceType" class="form-select" multiple required>
-                <option value="" selected disabled>Select a device type</option>
-                <option th:each="equipment : ${equipments}" th:value="${equipment.equipmentId}" th:text="${equipment.equipmentName}"></option>
-            </select>
+            <label class="form-label">Device Type:</label>
+            <div th:each="equipment : ${equipments}">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" th:value="${equipment.equipmentId}" name="equipmentIds">
+                    <label class="form-check-label" th:text="${equipment.equipmentName}"></label>
+                </div>
+            </div>
         </div>
         <div class="mb-3">
-            <label for="issueDescription" class="form-label">Issue Description:</label>
-            <textarea name="issueDescription" id="issueDescription" class="form-control" required></textarea>
+            <label for="issueDescription" class="form-label">Mô tả vấn đề</label>
+            <textarea name="issueDescription" id="issueDescription" class="form-control" required th:field="*{description}"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

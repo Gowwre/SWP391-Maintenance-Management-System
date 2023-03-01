@@ -25,7 +25,7 @@ public class EquipmentRepository {
        String SQL = "select * from \n" +
                "Equipment e join Room r \n" +
                "on e.room_id =r.room_id \n" +
-               "WHERE e.room_id =?";
+               "WHERE r.room_id =?";
        return jdbcTemplate.query(SQL, new Object[]{roomId}, new EquipmentMapper());
    }
 }
