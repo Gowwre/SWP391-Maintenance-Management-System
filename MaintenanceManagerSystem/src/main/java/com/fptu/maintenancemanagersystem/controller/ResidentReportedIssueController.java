@@ -35,7 +35,7 @@ public class ResidentReportedIssueController {
 
     @PostMapping("/createNewReport/step2")
     public String showCreateNewReportForm(@ModelAttribute("residentReportedIssue") ResidentReportedIssue residentReportedIssue, Model model) {
-        List<Equipment> equipments = equipmentService.getAllEquipmentsByRoom(residentReportedIssue.getRoomId());
+        List<Equipment> equipments = equipmentService.getAllEquipmentsByRoom(residentReportedIssue.getRoomNumber());
         model.addAttribute("equipments", equipments);
         return "reportForm/reportFormStep2";
     }
