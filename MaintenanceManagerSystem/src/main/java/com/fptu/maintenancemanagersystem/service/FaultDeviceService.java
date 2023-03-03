@@ -14,5 +14,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FaultDeviceService {
+@Autowired
+FaultDeviceRepository faultDeviceRepository;
 
+public void assignStaff(int faultDeviceId, int assignedStaffId) {
+    faultDeviceRepository.updateAssignedStaff(faultDeviceId, assignedStaffId);
+}
 }
