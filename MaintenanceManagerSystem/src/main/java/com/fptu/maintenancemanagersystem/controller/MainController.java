@@ -22,12 +22,6 @@ public class MainController {
         return "viewRooms/viewAllRooms";
     }
 
-    @RequestMapping(value = {"/report"},method = RequestMethod.GET)
-    public String report(){
-        return "reportForm/residentReportFaultDevice";
-    }
-
-
 
     @RequestMapping(value = {"/forgotPassword"},method = RequestMethod.GET)
     public String forgotPassword(){
