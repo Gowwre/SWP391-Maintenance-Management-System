@@ -23,6 +23,9 @@ public class MainController {
     }
 
 
+
+
+
     @RequestMapping(value = {"/forgotPassword"},method = RequestMethod.GET)
     public String forgotPassword(){
         return "passwordProblemPages/forgotPassword";
