@@ -29,9 +29,14 @@ public class ResidentReportedIssueController {
     @GetMapping("/createReport")
     public String showCreateNewReportForm(Model model) {
         model.addAttribute("residentReportedIssue", new ResidentReportedIssue());
-        List<Room> rooms = roomService.getAllRooms();
-        model.addAttribute("rooms", rooms);
-        return "reportForm/reportFormStep1";
+        try {
+            List<Room> rooms = roomService.getAllRooms();
+            model.addAttribute("rooms", rooms);
+            return "reportForm/reportFormStep1";
+        } catch (Exception e) {
+           model.addAttribute("error", e.getMessage());
+           return "errorPage";
+        }
     }
 
     @PostMapping("/createReport/step2")

@@ -12,7 +12,7 @@ public class RoomService {
     @Autowired
     RoomRepository roomRepository;
 
-    public List<Room> getAllRooms() {
+    public List<Room> getAllRooms() throws Exception {
         return roomRepository.getAllRooms();
     }
 }

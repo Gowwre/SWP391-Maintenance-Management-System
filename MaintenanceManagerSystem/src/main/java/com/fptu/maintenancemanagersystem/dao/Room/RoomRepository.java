@@ -13,12 +13,8 @@ public class RoomRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<Room> getAllRooms() {
+    public List<Room> getAllRooms() throws Exception{
         String SQL = "SELECT * FROM [Room]";
-        try {
             return jdbcTemplate.query(SQL, new RoomMapper());
-        } catch (DataAccessException e) {
-            return null;
-        }
     }
 }
