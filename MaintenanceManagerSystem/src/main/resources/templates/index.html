@@ -1,4 +1,6 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:bootstrap="http://www.thymeleaf.org/thymeleaf-extras-bootstrap5">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Trang chủ</title>
@@ -7,16 +9,30 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> 
+
+        <style>
+            .navbar-custom {
+                background-color: #ffc107 !important;
+            }
+            .navbar-custom .navbar-brand img {
+                height: 50px;
+                width: auto;
+                margin-right: 10px;
+            }
+            .footer-custom {
+                background-color: #343a40;
+                color: #fff;
+            }
+        </style>
     </head>
     <body>
-        <section style = "height: 60px"> 
-            <nav class="navbar fixed-top shadow" style = "height: 60px; background: #F7ECE2">
-                <img src="/img/md-low-resolution-logo-color-on-transparent-background.png" alt="">
-               <a class="navbar-brand py-0 border"  href="index">
-
-               </a>
-            </nav>
-        </section>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/}">
+                    <h1> Maintainance System </h1>
+                </a>
+            </div>
+        </nav>
         <div class="container mt-5 d-grid">
             <div class="row" >
                 <div class="border col text-center">

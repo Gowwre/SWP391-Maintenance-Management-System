@@ -10,11 +10,12 @@ import java.util.List;
 
 @Repository
 public class RoomRepository {
+
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<Room> getAllRooms() throws Exception{
+    public List<Room> getAllRooms() throws Exception {
         String SQL = "SELECT * FROM [Room]";
-            return jdbcTemplate.query(SQL, new RoomMapper());
+        return jdbcTemplate.query(SQL, new RoomMapper());
     }
 }

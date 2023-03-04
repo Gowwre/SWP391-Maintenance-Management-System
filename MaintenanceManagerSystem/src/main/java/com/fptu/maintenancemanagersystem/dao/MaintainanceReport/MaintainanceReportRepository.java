@@ -6,11 +6,13 @@ package com.fptu.maintenancemanagersystem.dao.MaintainanceReport;
 
 import com.fptu.maintenancemanagersystem.model.MaintenanceReport;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author lmphi
  */
+@Repository
 public class MaintainanceReportRepository {
     public List<MaintenanceReport> getAll() {
         return null;

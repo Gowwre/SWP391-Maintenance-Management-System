@@ -6,11 +6,13 @@ package com.fptu.maintenancemanagersystem.dao.Floor;
 
 import com.fptu.maintenancemanagersystem.model.Floor;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author lmphi
  */
+@Repository
 public class FloorRepository {
     public List<Floor> getAll() {
         return null;

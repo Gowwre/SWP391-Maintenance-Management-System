@@ -14,6 +14,11 @@ public class ResidentReportedIssueRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    public List<ResidentReportedIssue> getAll() throws Exception{
+        String SQL = "SELECT * FROM [ResidentReportedIssue]";
+            return jdbcTemplate.query(SQL, new ResidentReportedIssueMapper());
+    }
+    
     public void insertReportForm(ResidentReportedIssue residentReportedIssue, List<Integer> equipmentIds) {
         insertResidentReportedIssue(residentReportedIssue);
         insertFaultedDevice(equipmentIds);

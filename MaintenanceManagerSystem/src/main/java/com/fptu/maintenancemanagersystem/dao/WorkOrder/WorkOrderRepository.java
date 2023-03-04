@@ -6,11 +6,13 @@ package com.fptu.maintenancemanagersystem.dao.WorkOrder;
 
 import com.fptu.maintenancemanagersystem.model.WorkOrder;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author lmphi
  */
+@Repository
 public class WorkOrderRepository {
     public List<WorkOrder> getAll() {
         return null;

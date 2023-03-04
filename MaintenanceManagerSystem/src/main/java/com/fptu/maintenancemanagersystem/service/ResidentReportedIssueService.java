@@ -12,6 +12,10 @@ public class ResidentReportedIssueService {
     @Autowired
     private ResidentReportedIssueRepository residentReportedIssueRepository;
 
+    public List<ResidentReportedIssue> getAllResidentReportedIssue() throws Exception{
+        return residentReportedIssueRepository.getAll();
+    }
+    
     public void createNewReport(ResidentReportedIssue residentReportedIssue, List<Integer> equipmentIds) {
         residentReportedIssueRepository.insertReportForm(residentReportedIssue, equipmentIds);
     }

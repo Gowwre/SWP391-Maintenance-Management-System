@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ResidentReportedIssueController {
@@ -26,6 +28,19 @@ public class ResidentReportedIssueController {
 
     @Autowired
     EquipmentService equipmentService;
+    
+    @RequestMapping(value = {"/residentReportedIssues"},method = RequestMethod.GET)
+    public String viewResidentReportedIssue(Model model) {
+        try {
+            List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
+            model.addAttribute("residentReportedIssueList", residentReportedIssues);
+            return "managerPages/reportedIssueList";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "errorPage";
+        }
+    }
+    
     @GetMapping("/createReport")
     public String showCreateNewReportForm(Model model) {
         model.addAttribute("residentReportedIssue", new ResidentReportedIssue());
