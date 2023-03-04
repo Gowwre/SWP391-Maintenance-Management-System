@@ -35,6 +35,14 @@ public class StaffController {
         }
     }
 
-
+@GetMapping("/homePages/maintenanceStaffHomePage")
+public String showStaffHomePage(HttpSession session, Model model) {
+    Staff staff = (Staff) session.getAttribute("staff");
+    if (staff != null) {
+        return "homePages/maintenanceStaffHomePage";
+    } else {
+        return "redirect:/";
+    }
+}
 
 }

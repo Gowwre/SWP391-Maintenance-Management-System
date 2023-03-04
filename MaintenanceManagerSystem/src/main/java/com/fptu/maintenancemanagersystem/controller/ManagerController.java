@@ -31,6 +31,14 @@ public class ManagerController {
             return "loginPages/maintenanceManagerLogin";
         }
     }
-
+@GetMapping("homePages/managerHomePage")
+public String showManagerHomePage(HttpSession session, Model model){
+    Manager manager = (Manager) session.getAttribute("manager");
+    if(manager != null){
+        return "homePages/managerHomePage";
+    }else{
+        return "redirect:/";
+    }
+}
 
 }
