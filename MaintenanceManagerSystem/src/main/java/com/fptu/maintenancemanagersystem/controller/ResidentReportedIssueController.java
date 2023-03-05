@@ -32,6 +32,8 @@ public class ResidentReportedIssueController {
     @RequestMapping(value = {"/residentReportedIssues"},method = RequestMethod.GET)
     public String viewResidentReportedIssue(Model model) {
         try {
+            List<Room> rooms = roomService.getAllRooms();
+            model.addAttribute("rooms", rooms);
             List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
             model.addAttribute("residentReportedIssueList", residentReportedIssues);
             return "managerPages/reportedIssueList";
