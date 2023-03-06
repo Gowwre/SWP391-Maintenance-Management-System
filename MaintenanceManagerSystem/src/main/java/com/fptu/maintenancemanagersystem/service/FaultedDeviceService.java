@@ -4,20 +4,27 @@
  */
 package com.fptu.maintenancemanagersystem.service;
 
-import com.fptu.maintenancemanagersystem.dao.FaultDevice.FaultDeviceRepository;
+import com.fptu.maintenancemanagersystem.dao.FaultDevice.FaultedDeviceRepository;
+import com.fptu.maintenancemanagersystem.model.FaultedDevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  *
  * @author lmphi
  */
 @Service
-public class FaultDeviceService {
+public class FaultedDeviceService {
 @Autowired
-FaultDeviceRepository faultDeviceRepository;
+FaultedDeviceRepository faultedDeviceRepository;
 
 public void assignStaff(int faultDeviceId, int assignedStaffId) {
-    faultDeviceRepository.updateAssignedStaff(faultDeviceId, assignedStaffId);
+    faultedDeviceRepository.updateAssignedStaff(faultDeviceId, assignedStaffId);
 }
+
+    public List<FaultedDevice> findAll() {
+        return faultedDeviceRepository.getAll();
+    }
 }
