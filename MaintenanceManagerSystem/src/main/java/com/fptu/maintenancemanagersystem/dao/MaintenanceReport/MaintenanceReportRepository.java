@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author lmphi
  */
+@Repository
 public class MaintenanceReportRepository {
     public List<MaintenanceReport> getAll() {
         return null;
