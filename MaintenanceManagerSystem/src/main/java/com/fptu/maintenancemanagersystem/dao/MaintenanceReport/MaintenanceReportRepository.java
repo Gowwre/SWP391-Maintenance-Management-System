@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.fptu.maintenancemanagersystem.dao.MaintainanceReport;
+package com.fptu.maintenancemanagersystem.dao.MaintenanceReport;
 
 import com.fptu.maintenancemanagersystem.model.MaintenanceReport;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author lmphi
  */
-public class MaintainanceReportRepository {
+public class MaintenanceReportRepository {
     public List<MaintenanceReport> getAll() {
         return null;
     }
