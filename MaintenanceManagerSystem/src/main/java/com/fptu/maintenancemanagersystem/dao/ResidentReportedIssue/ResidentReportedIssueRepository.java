@@ -64,8 +64,5 @@ public class ResidentReportedIssueRepository {
         return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);
     }
 
-    public List<ResidentReportedIssue> getAll() {
-        String SQL = "SELECT * FROM [ResidentReportedIssue]";
-        return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(ResidentReportedIssue.class));
-    }
+    
 }
