@@ -1,8 +1,8 @@
 package com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue;
 
-import com.fptu.maintenancemanagersystem.dao.FaultDevice.FaultDeviceRepository;
 import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -59,4 +59,8 @@ public class ResidentReportedIssueRepository {
         return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);
     }
 
+    public List<ResidentReportedIssue> getAll() {
+        String SQL = "SELECT * FROM [ResidentReportedIssue]";
+        return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(ResidentReportedIssue.class));
+    }
 }

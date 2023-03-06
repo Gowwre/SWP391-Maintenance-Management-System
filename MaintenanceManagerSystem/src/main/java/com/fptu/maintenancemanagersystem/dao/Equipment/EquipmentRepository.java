@@ -29,4 +29,9 @@ public class EquipmentRepository {
                "WHERE r.room_id =?";
        return jdbcTemplate.query(SQL, new Object[]{roomId}, new BeanPropertyRowMapper<>(Equipment.class));
    }
+
+    public List<Equipment> getAllEquipments() {
+       String SQL = "Select * from Equipment";
+       return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(Equipment.class));
+    }
 }
