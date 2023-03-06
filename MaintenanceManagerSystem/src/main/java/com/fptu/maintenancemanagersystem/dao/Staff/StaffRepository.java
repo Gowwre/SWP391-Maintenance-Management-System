@@ -17,7 +17,7 @@ public class StaffRepository {
     public Staff findUserByLogin(String email, String password) {
         String SQL = "Select * From [Staff] Where email=? and password=?";
         try {
-            Staff staff = jdbcTemplate.queryForObject(SQL,new Object[]{email,password}, new BeanPropertyRowMapper<>(Staff.class));
+            Staff staff = jdbcTemplate.queryForObject(SQL, new Object[]{email, password}, new BeanPropertyRowMapper<>(Staff.class));
             return staff;
         } catch (DataAccessException e) {
             return null;
