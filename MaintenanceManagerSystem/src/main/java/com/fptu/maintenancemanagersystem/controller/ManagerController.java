@@ -1,6 +1,7 @@
 package com.fptu.maintenancemanagersystem.controller;
 
 import com.fptu.maintenancemanagersystem.model.Manager;
+import com.fptu.maintenancemanagersystem.model.Staff;
 import com.fptu.maintenancemanagersystem.service.ManagerService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,16 @@ public class ManagerController {
             return "redirect:/";
 
         return "homePages/managerHomePage";
+    }
+
+    @GetMapping("/homePages/managerHomePage/changePassword")
+    public String showChangePassword(HttpSession session) {
+        Manager existedManager = (Manager) session.getAttribute("manager");
+
+        if (existedManager == null) return "redirect:/";
+
+
+        return "passwordProblemPages/changePassword";
     }
 
 }

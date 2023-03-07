@@ -1,5 +1,6 @@
 package com.fptu.maintenancemanagersystem.controller;
 
+import com.fptu.maintenancemanagersystem.model.Manager;
 import com.fptu.maintenancemanagersystem.model.Staff;
 import com.fptu.maintenancemanagersystem.service.StaffService;
 import jakarta.servlet.http.HttpSession;
@@ -39,7 +40,7 @@ public class StaffController {
     }
 
     @GetMapping("/homePages/maintenanceStaffHomePage")
-    public String showStaffHomePage(HttpSession session, Model model) {
+    public String showStaffHomePage(HttpSession session) {
         Staff staff = (Staff) session.getAttribute("staff");
         if (staff == null) return "redirect:/";
 
@@ -47,37 +48,14 @@ public class StaffController {
     }
 
     @GetMapping("/homePages/maintenanceStaffHomePage/changePassword")
-    public String showChangePassword(@ModelAttribute Staff staff, Model model, HttpSession session) {
+    public String showChangePassword(HttpSession session) {
         Staff existedStaff = (Staff) session.getAttribute("staff");
 
         if (existedStaff == null) return "redirect:/";
 
+
         return "passwordProblemPages/changePassword";
     }
 
-    @PostMapping("/passwordProblemPages/changePassword/change")
-    public String changePassword(@RequestParam("current-password") String currentPassword, @RequestParam("new-password") String newPassword, @RequestParam("confirm-password") String confirmPassword, Model model, HttpSession session) {
 
-        Staff currentLoggedInStaff = (Staff) session.getAttribute("staff");
-        String errorMessage = null;
-        boolean newPasswordDoesNotEqualConfirmPassword = !newPassword.equals(confirmPassword);
-
-        if (newPasswordDoesNotEqualConfirmPassword) {
-            errorMessage = "Mật khẩu xác nhận không trùng khớp. Vui lòng thử lại.";
-        } else {
-            boolean wrongCurrentPassword = !currentPassword.equals(currentLoggedInStaff.getPassword());
-            if (wrongCurrentPassword) {
-                errorMessage = "Mật khẩu hiện tại không đúng. Vui lòng thử lại.";
-            }
-        }
-
-        if (errorMessage != null) {
-            model.addAttribute("errorMessage", errorMessage);
-            return "passwordProblemPages/changePassword";
-        }
-
-        staffService.changePassword(currentLoggedInStaff.getEmail(), currentPassword, newPassword);
-        session.invalidate();
-        return "redirect:/";
-    }
 }
