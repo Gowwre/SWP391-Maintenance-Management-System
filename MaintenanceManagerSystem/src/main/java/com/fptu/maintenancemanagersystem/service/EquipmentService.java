@@ -20,6 +20,10 @@ public class EquipmentService {
 @Autowired
     EquipmentRepository equipmentRepository;
 
+    public List<Equipment> getAllEquipments() throws  Exception{
+        return equipmentRepository.getAll();
+    }
+
     public List<Equipment> getAllEquipmentsByRoom(int roomId) {
         return equipmentRepository.getAllEquipmentsByRoom(roomId);
     }

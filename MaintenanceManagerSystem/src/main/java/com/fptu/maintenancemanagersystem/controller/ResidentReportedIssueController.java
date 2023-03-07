@@ -1,9 +1,11 @@
 package com.fptu.maintenancemanagersystem.controller;
 
 import com.fptu.maintenancemanagersystem.model.Equipment;
+import com.fptu.maintenancemanagersystem.model.FaultedDevice;
 import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
 import com.fptu.maintenancemanagersystem.model.Room;
 import com.fptu.maintenancemanagersystem.service.EquipmentService;
+import com.fptu.maintenancemanagersystem.service.FaultedDeviceService;
 import com.fptu.maintenancemanagersystem.service.ResidentReportedIssueService;
 import com.fptu.maintenancemanagersystem.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,14 @@ public class ResidentReportedIssueController {
     @Autowired
     EquipmentService equipmentService;
     
+    @Autowired
+    FaultedDeviceService faultedDeviceService;
+    
     @RequestMapping(value = {"/residentReportedIssues"},method = RequestMethod.GET)
     public String viewResidentReportedIssue(Model model) {
         try {
+            List<FaultedDevice> faultedDevices = faultedDeviceService.getAllFaultedDevices();
+            model.addAttribute("faultDevices", faultedDevices);
             List<Room> rooms = roomService.getAllRooms();
             model.addAttribute("rooms", rooms);
             List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();

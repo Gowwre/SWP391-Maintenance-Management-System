@@ -21,6 +21,11 @@ public class EquipmentRepository {
     JdbcTemplate
     jdbcTemplate;
 
+   public List<Equipment> getAll() throws Exception{
+       String SQL = "Select * from [Equipment]";
+       return jdbcTemplate.query(SQL, new EquipmentMapper());
+   }
+   
    public List<Equipment> getAllEquipmentsByRoom(int roomId) {
        String SQL = "select * from \n" +
                "Equipment e join Room r \n" +

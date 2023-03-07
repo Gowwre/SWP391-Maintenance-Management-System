@@ -4,9 +4,8 @@
  */
 package com.fptu.maintenancemanagersystem.dao.FaultDevice;
 
-import com.fptu.maintenancemanagersystem.model.FaultDevice;
+import com.fptu.maintenancemanagersystem.model.FaultedDevice;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,14 +16,15 @@ import java.util.List;
  * @author lmphi
  */
 @Repository
-public class FaultDeviceRepository {
+public class FaultedDeviceRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
-    public List<FaultDevice> getAll() {
-        return null;
+    public List<FaultedDevice> getAll() throws Exception{
+        String SQL = "Select * From [FaultedDevice]";
+        return jdbcTemplate.query(SQL, new FaultedDeviceMapper());
     }
     
-    public FaultDevice get() {
+    public FaultedDevice get() {
         return null;
     }
     
