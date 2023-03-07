@@ -5,13 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class StaffRepository {
     @Autowired
-    private
     JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 
     public Staff findUserByLogin(String email, String password) {
@@ -22,6 +26,18 @@ public class StaffRepository {
         } catch (DataAccessException e) {
             return null;
         }
+
+    }
+
+    public void setNewPassword(String email ,String currentPassword, String newPassword) {
+        String SQL = "Update [Staff] set password=:newPassword where email=:email and password=:currentPassword";
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("email", email);
+        parameters.addValue("currentPassword", currentPassword);
+        parameters.addValue("newPassword", newPassword);
+
+        namedParameterJdbcTemplate.update(SQL, parameters);
 
     }
 

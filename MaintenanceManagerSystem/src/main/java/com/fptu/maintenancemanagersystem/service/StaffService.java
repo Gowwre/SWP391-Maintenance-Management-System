@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StaffService{
+public class StaffService {
     @Autowired
     StaffRepository staffRepository;
+
     public Staff findUserByLogin(String email, String password) {
         return staffRepository.findUserByLogin(email, password);
     }
 
-
+    public void changePassword(String email, String currentPassword, String newPassword) {
+        staffRepository.setNewPassword(email, currentPassword, newPassword);
+    }
 }
