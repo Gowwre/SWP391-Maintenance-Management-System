@@ -14,31 +14,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ManagerController {
     @Autowired
     ManagerService managerService;
+
     @GetMapping("/managerLogin")
-    public String showManagerLoginForm(Model model){
-        model.addAttribute("manager",new Manager());
+    public String showManagerLoginForm(Model model) {
+        model.addAttribute("manager", new Manager());
         return "loginPages/maintenanceManagerLogin";
     }
+
     @PostMapping(value = {"/managerLogin"})
-    public String managerLogin(@ModelAttribute("manager") Manager manager  , HttpSession session, Model model){
+    public String managerLogin(@ModelAttribute("manager") Manager manager, HttpSession session, Model model) {
         Manager existedManager = managerService.findUserByLogin(manager.getEmail(), manager.getPassword());
-        if(existedManager != null){
-            session.setAttribute("manager", existedManager);
-            return "homePages/managerHomePage";
-        }else{
+        if(existedManager==null) {
             String errorMessage = "Sai thông tin đăng nhập. Vui lòng thử lại.";
             model.addAttribute("errorMessage", errorMessage);
             return "loginPages/maintenanceManagerLogin";
         }
-    }
-@GetMapping("homePages/managerHomePage")
-public String showManagerHomePage(HttpSession session, Model model){
-    Manager manager = (Manager) session.getAttribute("manager");
-    if(manager != null){
+
+        session.setAttribute("manager", existedManager);
         return "homePages/managerHomePage";
-    }else{
-        return "redirect:/";
     }
-}
+
+    @GetMapping("homePages/managerHomePage")
+    public String showManagerHomePage(HttpSession session, Model model) {
+        Manager manager = (Manager) session.getAttribute("manager");
+        if (manager == null)
+            return "redirect:/";
+
+        return "homePages/managerHomePage";
+    }
 
 }
