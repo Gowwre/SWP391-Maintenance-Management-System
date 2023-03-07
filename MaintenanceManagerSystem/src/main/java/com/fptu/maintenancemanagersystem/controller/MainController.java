@@ -1,11 +1,10 @@
 package com.fptu.maintenancemanagersystem.controller;
 
+import com.fptu.maintenancemanagersystem.model.Staff;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -38,10 +37,7 @@ public class MainController {
         return "passwordProblemPages/createNewPassword";
     }
 
-    @RequestMapping(value = {"/changePassword"},method = RequestMethod.GET)
-    public String changePassword(){
-        return "passwordProblemPages/changePassword";
-    }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session){
