@@ -6,9 +6,9 @@ package com.fptu.maintenancemanagersystem.service;
 
 import com.fptu.maintenancemanagersystem.dao.FaultDevice.FaultedDeviceRepository;
 import com.fptu.maintenancemanagersystem.model.FaultedDevice;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 /**
  *

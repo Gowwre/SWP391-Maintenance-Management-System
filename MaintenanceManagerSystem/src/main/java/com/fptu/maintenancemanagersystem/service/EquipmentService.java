@@ -27,5 +27,7 @@ public class EquipmentService {
     public List<Equipment> getAllEquipmentsByRoom(int roomId) {
         return equipmentRepository.getAllEquipmentsByRoom(roomId);
     }
-    
+ public List<Equipment> getAllEquipments() {
+        return equipmentRepository.getAllEquipments();
+ }
 }

@@ -46,7 +46,7 @@ public class ResidentReportedIssueController {
             return "managerPages/reportedIssueList";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
-            return "errorPage";
+            return "error";
         }
     }
     
@@ -59,7 +59,7 @@ public class ResidentReportedIssueController {
             return "reportForm/reportFormStep1";
         } catch (Exception e) {
            model.addAttribute("error", e.getMessage());
-           return "errorPage";
+           return "error";
         }
     }
 

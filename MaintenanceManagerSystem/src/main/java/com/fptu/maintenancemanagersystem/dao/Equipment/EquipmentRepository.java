@@ -6,6 +6,7 @@ package com.fptu.maintenancemanagersystem.dao.Equipment;
 
 import com.fptu.maintenancemanagersystem.model.Equipment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +32,11 @@ public class EquipmentRepository {
                "Equipment e join Room r \n" +
                "on e.room_id =r.room_id \n" +
                "WHERE r.room_id =?";
-       return jdbcTemplate.query(SQL, new Object[]{roomId}, new EquipmentMapper());
+       return jdbcTemplate.query(SQL, new Object[]{roomId}, new BeanPropertyRowMapper<>(Equipment.class));
    }
+
+    public List<Equipment> getAllEquipments() {
+       String SQL = "Select * from Equipment";
+       return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(Equipment.class));
+    }
 }

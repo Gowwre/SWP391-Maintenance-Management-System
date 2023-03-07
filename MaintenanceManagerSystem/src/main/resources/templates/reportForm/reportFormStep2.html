@@ -35,8 +35,8 @@
 </body>
 <script>
     document.getElementById("submitBtn").addEventListener("click", function(event) {
-        var checkboxes = document.getElementsByClassName("equipment");
-        var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+        let checkboxes = document.getElementsByClassName("form-check-input");
+        const checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
         if (!checkedOne) {
             event.preventDefault();
             alert("Xin hãy chọn ít nhất một thiết bị.");

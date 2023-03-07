@@ -4,8 +4,6 @@
  */
 package com.fptu.maintenancemanagersystem.service;
 
-import com.fptu.maintenancemanagersystem.dao.MaintainanceReport.MaintainanceReportRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

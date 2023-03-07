@@ -12,4 +12,8 @@ public class ManagerService {
     public Manager findUserByLogin(String email, String password) {
         return managerRepository.findUserByLogin(email, password);
     }
+
+    public void changePassword(String email, String currentPassword, String newPassword) {
+        managerRepository.setNewPassword(email, currentPassword, newPassword);
+    }
 }
