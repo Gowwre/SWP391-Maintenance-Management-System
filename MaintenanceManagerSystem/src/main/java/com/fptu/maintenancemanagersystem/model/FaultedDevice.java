@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FaultedDevice {
    int faultDeviceId;
-   int roomId;
+   int issueId;
    int equipmentId;
    int assignedStaffId;
 }
