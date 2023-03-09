@@ -29,7 +29,9 @@ public class PasswordChangeController {
         Staff currentLoggedInStaff = (Staff) session.getAttribute("staff");
         Manager currentLoggedInManager = (Manager) session.getAttribute("manager");
 
-        if (currentLoggedInManager == null && currentLoggedInStaff == null) {
+        boolean isNoUserLoggedIn = currentLoggedInManager == null && currentLoggedInStaff == null;
+
+        if (isNoUserLoggedIn) {
             return "redirect:/";
         }
 
@@ -50,12 +52,15 @@ public class PasswordChangeController {
     }
 
     private String validatePasswordChange(Staff currentLoggedInStaff, Manager currentLoggedInManager, String currentPassword, String newPassword, String confirmPassword) {
-        if (!newPassword.equals(confirmPassword)) {
+        boolean isNewPasswordConfirmed = !newPassword.equals(confirmPassword);
+        boolean isCurrentPasswordValid = (currentLoggedInStaff != null && !currentPassword.equals(currentLoggedInStaff.getPassword())) ||
+                (currentLoggedInManager != null && !currentPassword.equals(currentLoggedInManager.getPassword()));
+
+
+        if (isNewPasswordConfirmed) {
             return "Mật khẩu xác nhận không trùng khớp. Vui lòng thử lại.";
         }
-
-        if ((currentLoggedInStaff != null && !currentPassword.equals(currentLoggedInStaff.getPassword())) ||
-                (currentLoggedInManager != null && !currentPassword.equals(currentLoggedInManager.getPassword()))) {
+        if (isCurrentPasswordValid) {
             return "Mật khẩu hiện tại không đúng. Vui lòng thử lại.";
         }
 

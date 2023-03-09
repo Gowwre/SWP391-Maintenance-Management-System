@@ -34,7 +34,7 @@ public class ResidentReportedIssueController {
     @Autowired
     FaultedDeviceService faultedDeviceService;
     
-    @RequestMapping(value = {"/residentReportedIssues"},method = RequestMethod.GET)
+    @GetMapping("/residentReportedIssues")
     public String viewResidentReportedIssue(Model model) {
         try {
             List<FaultedDevice> faultedDevices = faultedDeviceService.getAllFaultedDevices();
