@@ -17,17 +17,15 @@ import java.util.List;
  */
 @Service
 public class EquipmentService {
-@Autowired
-    EquipmentRepository equipmentRepository;
 
-    public List<Equipment> getAllEquipments() throws  Exception{
-        return equipmentRepository.getAll();
-    }
+    @Autowired
+    EquipmentRepository equipmentRepository;
 
     public List<Equipment> getAllEquipmentsByRoom(int roomId) {
         return equipmentRepository.getAllEquipmentsByRoom(roomId);
     }
- public List<Equipment> getAllEquipments() {
+
+    public List<Equipment> getAllEquipments() {
         return equipmentRepository.getAllEquipments();
- }
+    }
 }

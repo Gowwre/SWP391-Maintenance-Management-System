@@ -16,9 +16,36 @@
             background-color: #e9ecef;
             cursor: pointer;
         }
+
+        .navbar-custom {
+            background-color: #ffc107 !important;
+        }
+
+        .navbar-custom .navbar-brand {
+            height: 50px;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .footer {
+            background-color: black;
+            color: white;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">
+            <h1> Maintainance System </h1>
+        </a>
+    </div>
+</nav>
 <main class="container mt-4">
     <section class="row">
         <h1 class="text-center">Tầng 1</h1>
@@ -32,7 +59,7 @@
             </article>
         </th:block>
     </section>
-<br>
+    <br>
     <section class="row">
         <h1 class="text-center">Tầng 2</h1>
         <th:block th:each="i : ${#numbers.sequence(201,210,1)}">
@@ -59,5 +86,8 @@
         </th:block>
     </section>
 </main>
+<footer class="text-center py-3 footer">
+    &copy; 2023 Maintainance System. All rights reserved.
+</footer>
 </body>
 </html>

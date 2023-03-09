@@ -4,6 +4,7 @@
  */
 package com.fptu.maintenancemanagersystem.model;
 
+import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +15,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class FaultedDevice {
+public class FaultedDevice implements Serializable{
    int faultDeviceId;
-   int roomId;
    int equipmentId;
+   int issueId;
    int assignedStaffId;
 }

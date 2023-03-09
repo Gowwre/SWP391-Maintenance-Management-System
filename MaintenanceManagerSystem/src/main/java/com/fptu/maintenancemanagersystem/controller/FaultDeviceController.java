@@ -8,12 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class FaultDeviceController {
+
     @Autowired
     FaultedDeviceService faultedDeviceService;
 
     @GetMapping("/faultDevices")
     public String showFaultDevices(Model model) {
-        model.addAttribute("faultDevices", faultedDeviceService.findAll());
-        return "faultDevicePages/faultDevices";
+        try {
+            model.addAttribute("faultDevices", faultedDeviceService.getAllFaultedDevices());
+            return "faultDevicePages/faultDevices";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
     }
 }

@@ -43,6 +43,7 @@ public class ResidentReportedIssueController {
             model.addAttribute("rooms", rooms);
             List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
             model.addAttribute("residentReportedIssueList", residentReportedIssues);
+            model.addAttribute("equipments", equipmentService.getAllEquipments());
             return "managerPages/reportedIssueList";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());

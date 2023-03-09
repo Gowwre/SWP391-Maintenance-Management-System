@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Đơn báo cáo</title>
@@ -7,8 +8,36 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .navbar-custom {
+            background-color: #ffc107 !important;
+        }
+
+        .navbar-custom .navbar-brand {
+            height: 50px;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .footer {
+            background-color: black;
+            color: white;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">
+            <h1> Maintainance System </h1>
+        </a>
+    </div>
+</nav>
 <div class="container my-5">
     <h1 class="text-center mb-5">Đơn báo cáo thiết bị hư hỏng</h1>
     <form th:action="@{/createReport/step2}" method="post" th:object="${residentReportedIssue}">
@@ -21,18 +50,25 @@
         </div>
         <div class="mb-3">
             <label for="residentName" class="form-label">Họ và tên</label>
-            <input type="text" name="residentName" id="residentName" class="form-control" required th:field="*{residentName}">
+            <input type="text" name="residentName" id="residentName" class="form-control" required
+                   th:field="*{residentName}">
         </div>
         <div class="mb-3">
             <label for="residentPhone" class="form-label">Số điện thoại</label>
-            <input type="text" name="residentPhone" id="residentPhone" class="form-control" required th:field="*{residentPhoneNumber}">
+            <input type="text" name="residentPhone" id="residentPhone" class="form-control" required
+                   th:field="*{residentPhoneNumber}">
         </div>
         <div class="mb-3">
             <label for="residentEmail" class="form-label">Email</label>
-            <input type="email" name="residentEmail" id="residentEmail" class="form-control" required th:field="*{residentEmail}">
+            <input type="email" name="residentEmail" id="residentEmail" class="form-control" required
+                   th:field="*{residentEmail}">
         </div>
         <button type="submit" class="btn btn-primary">Tiếp tục</button>
     </form>
 </div>
+
+<footer class="text-center py-3 footer">
+    &copy; 2023 Maintainance System. All rights reserved.
+</footer>
 </body>
 </html>
