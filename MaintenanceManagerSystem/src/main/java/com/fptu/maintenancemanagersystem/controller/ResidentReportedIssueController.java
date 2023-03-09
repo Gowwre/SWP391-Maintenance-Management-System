@@ -28,8 +28,8 @@ public class ResidentReportedIssueController {
 
     @Autowired
     EquipmentService equipmentService;
-    
-    @RequestMapping(value = {"/residentReportedIssues"},method = RequestMethod.GET)
+
+    @GetMapping("/residentReportedIssues")
     public String viewResidentReportedIssue(Model model) {
         try {
             List<Room> rooms = roomService.getAllRooms();
