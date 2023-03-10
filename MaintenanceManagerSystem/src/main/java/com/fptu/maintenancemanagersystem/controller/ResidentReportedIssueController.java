@@ -1,9 +1,6 @@
 package com.fptu.maintenancemanagersystem.controller;
 
-import com.fptu.maintenancemanagersystem.model.Equipment;
-import com.fptu.maintenancemanagersystem.model.FaultedDevice;
-import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
-import com.fptu.maintenancemanagersystem.model.Room;
+import com.fptu.maintenancemanagersystem.model.*;
 import com.fptu.maintenancemanagersystem.service.EquipmentService;
 import com.fptu.maintenancemanagersystem.service.FaultedDeviceService;
 import com.fptu.maintenancemanagersystem.service.ResidentReportedIssueService;
@@ -11,14 +8,10 @@ import com.fptu.maintenancemanagersystem.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ResidentReportedIssueController {
@@ -30,10 +23,10 @@ public class ResidentReportedIssueController {
 
     @Autowired
     EquipmentService equipmentService;
-    
+
     @Autowired
     FaultedDeviceService faultedDeviceService;
-    
+
     @GetMapping("/residentReportedIssues")
     public String viewResidentReportedIssue(Model model) {
         try {
@@ -43,14 +36,26 @@ public class ResidentReportedIssueController {
             model.addAttribute("rooms", rooms);
             List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
             model.addAttribute("residentReportedIssueList", residentReportedIssues);
-            model.addAttribute("equipments", equipmentService.getAllEquipments());
             return "managerPages/reportedIssueList";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             return "error";
         }
     }
-    
+
+    @GetMapping("/viewIssue/{id}")
+    public String getreportedIssueByFaultedDeviceRecord (@PathVariable("id") int issueID, Model model) {
+        try {
+            List<ReportedIssueByFaultedDeviceRecord> reportedIssueByFaultedDeviceRecords = residentReportedIssueService.getAllReportedIssueByFaultedDeviceRecords(issueID);
+            model.addAttribute("avaiable", reportedIssueByFaultedDeviceRecords);
+            model.addAttribute("equipments", equipmentService.getAllEquipments());
+            return "managerPages/viewIssue";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+
     @GetMapping("/createReport")
     public String showCreateNewReportForm(Model model) {
         model.addAttribute("residentReportedIssue", new ResidentReportedIssue());
@@ -59,8 +64,8 @@ public class ResidentReportedIssueController {
             model.addAttribute("rooms", rooms);
             return "reportForm/reportFormStep1";
         } catch (Exception e) {
-           model.addAttribute("error", e.getMessage());
-           return "error";
+            model.addAttribute("error", e.getMessage());
+            return "error";
         }
     }
 
@@ -74,7 +79,7 @@ public class ResidentReportedIssueController {
 
     @PostMapping("/createReport")
     public String createNewReport(@ModelAttribute("residentReportedIssue") ResidentReportedIssue residentReportedIssue, @RequestParam("equipmentIds") List<Integer> equipmentIds) {
-        residentReportedIssueService.createNewReport(residentReportedIssue,equipmentIds);
+        residentReportedIssueService.createNewReport(residentReportedIssue, equipmentIds);
         return "redirect:/";
     }
 }

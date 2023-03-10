@@ -1,5 +1,6 @@
 package com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue;
 
+import com.fptu.maintenancemanagersystem.model.ReportedIssueByFaultedDeviceRecord;
 import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -9,12 +10,14 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public class ResidentReportedIssueRepository {
+
     @Autowired
     JdbcTemplate jdbcTemplate;
 
@@ -64,5 +67,13 @@ public class ResidentReportedIssueRepository {
         return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);
     }
 
-    
+    public List<ReportedIssueByFaultedDeviceRecord> getReportedIssueByFaultedDevice(int issueId) {
+        String SQL = "select * from ResidentReportedIssue ri join FaultedDevice fd\n" +
+                    "on ri.issue_id = fd.issue_id\n" +
+                    "join Room r on r.room_id = ri.room_id\n" +
+                    "join Equipment e \n" +
+                    "on e.room_id = r.room_id \n" +
+                    "Where ri.issue_id = ?";
+        return jdbcTemplate.query(SQL, new Object[]{issueId}, new ReportedIssueByFaultedDeviceRowMapper());
+    }
 }
