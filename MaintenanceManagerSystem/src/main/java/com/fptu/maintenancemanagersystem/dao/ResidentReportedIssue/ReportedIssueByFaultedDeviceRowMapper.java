@@ -10,7 +10,8 @@ public class ReportedIssueByFaultedDeviceRowMapper implements RowMapper<Reported
 
     @Override
     public ReportedIssueByFaultedDeviceRecord mapRow(ResultSet rs, int rowNum) throws SQLException {
-        ReportedIssueByFaultedDeviceRecord reportedIssueByFaultedDeviceRecord = new ReportedIssueByFaultedDeviceRecord(
+
+        return new ReportedIssueByFaultedDeviceRecord(
                 rs.getInt("faulted_device_id"),
                 rs.getInt("issue_id"),
                 rs.getString("resident_name"),
@@ -19,10 +20,8 @@ public class ReportedIssueByFaultedDeviceRowMapper implements RowMapper<Reported
                 rs.getString("description"),
                 rs.getDate("date_reported").toLocalDate(),
                 rs.getInt("room_id"),
-                rs.getString("room_number"),
-                rs.getInt("equipment_id")
-        );
+                rs.getString("room_number")
 
-        return reportedIssueByFaultedDeviceRecord;
+        );
     }
 }

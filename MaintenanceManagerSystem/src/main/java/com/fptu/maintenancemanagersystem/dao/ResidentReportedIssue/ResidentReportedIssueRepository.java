@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,11 +20,11 @@ public class ResidentReportedIssueRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<ResidentReportedIssue> getAll() throws Exception{
+    public List<ResidentReportedIssue> getAll() throws Exception {
         String SQL = "SELECT * FROM [ResidentReportedIssue]";
-            return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(ResidentReportedIssue.class));
+        return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(ResidentReportedIssue.class));
     }
-    
+
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -68,12 +67,10 @@ public class ResidentReportedIssueRepository {
     }
 
     public List<ReportedIssueByFaultedDeviceRecord> getReportedIssueByFaultedDevice(int issueId) {
-        String SQL = "select * from ResidentReportedIssue ri join FaultedDevice fd\n" +
-                    "on ri.issue_id = fd.issue_id\n" +
-                    "join Room r on r.room_id = ri.room_id\n" +
-                    "join Equipment e \n" +
-                    "on e.room_id = r.room_id \n" +
-                    "Where ri.issue_id = ?";
+        String SQL = "select* from ResidentReportedIssue ri join FaultedDevice fd\n" +
+                "on ri.issue_id = fd.issue_id\n" +
+                "join Room r on r.room_id = ri.room_id\n" +
+                "where ri.issue_id=?";
         return jdbcTemplate.query(SQL, new Object[]{issueId}, new ReportedIssueByFaultedDeviceRowMapper());
     }
 }

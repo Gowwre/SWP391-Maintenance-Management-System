@@ -28,4 +28,8 @@ public class EquipmentService {
     public List<Equipment> getAllEquipments() {
         return equipmentRepository.getAllEquipments();
     }
+
+    public List<Equipment> getEquipmentsByIssueId(int issueId) {
+        return equipmentRepository.getEquipmentsByIssueId(issueId);
+    }
 }

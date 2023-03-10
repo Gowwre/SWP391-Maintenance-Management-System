@@ -5,8 +5,8 @@ import java.time.LocalDate;
 
 public record ReportedIssueByFaultedDeviceRecord(int faultedDeviceId, int issueId, String residentName, String residentPhone,
                                                  String residentEmail, String description, LocalDate reportedDate, int roomId,
-                                                 String roomNumber, int equipmentId) {
-    public ReportedIssueByFaultedDeviceRecord(int faultedDeviceId, int issueId, String residentName, String residentPhone, String residentEmail, String description, LocalDate reportedDate, int roomId, String roomNumber, int equipmentId) {
+                                                 String roomNumber) {
+    public ReportedIssueByFaultedDeviceRecord(int faultedDeviceId, int issueId, String residentName, String residentPhone, String residentEmail, String description, LocalDate reportedDate, int roomId, String roomNumber) {
         this.faultedDeviceId = faultedDeviceId;
         this.issueId = issueId;
         this.residentName = residentName;
@@ -16,7 +16,6 @@ public record ReportedIssueByFaultedDeviceRecord(int faultedDeviceId, int issueI
         this.reportedDate = reportedDate;
         this.roomId = roomId;
         this.roomNumber = roomNumber;
-        this.equipmentId = equipmentId;
 
     }
 }

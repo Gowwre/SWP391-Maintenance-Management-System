@@ -44,11 +44,14 @@ public class ResidentReportedIssueController {
     }
 
     @GetMapping("/viewIssue/{id}")
-    public String getreportedIssueByFaultedDeviceRecord (@PathVariable("id") int issueID, Model model) {
+    public String getReportedIssueByFaultedDeviceRecord (@PathVariable("id") int issueID, Model model) {
         try {
             List<ReportedIssueByFaultedDeviceRecord> reportedIssueByFaultedDeviceRecords = residentReportedIssueService.getAllReportedIssueByFaultedDeviceRecords(issueID);
+            model.addAttribute("equipments", equipmentService.getEquipmentsByIssueId(issueID));
+
+
             model.addAttribute("avaiable", reportedIssueByFaultedDeviceRecords);
-            model.addAttribute("equipments", equipmentService.getAllEquipments());
+
             return "managerPages/viewIssue";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
