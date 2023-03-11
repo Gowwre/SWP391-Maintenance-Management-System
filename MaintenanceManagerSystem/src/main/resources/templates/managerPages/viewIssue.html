@@ -70,26 +70,25 @@
 </nav>
 <br/>
 
-<div th:each="avaiables : ${avaiable}">
     <h5 class="text-center">Issue Detail</h5>
     <div class="row">
         <div class="col-md-6">
             <h5 class="font-weight-bold mb-4">Reported By</h5>
             <p class="mb-2"><i class="fas fa-user mr-2"></i> <span
-                    th:text="${avaiables.residentName}"></span></p>
+                    th:text="${availableIssue.residentName}"></span></p>
             <p class="mb-2"><i class="fas fa-envelope mr-2"></i> <span
-                    th:text="${avaiables.residentEmail}"></span></p>
+                    th:text="${availableIssue.residentEmail}"></span></p>
             <p class="mb-2"><i class="fas fa-phone mr-2"></i> <span
-                    th:text="${avaiables.residentPhone}"></span></p>
+                    th:text="${availableIssue.residentPhone}"></span></p>
         </div>
         <div class="col-md-6">
             <h5 class="font-weight-bold mb-4">Issue Details</h5>
             <p class="mb-2"><i class="fas fa-calendar-alt mr-2"></i> <span
-                    th:text="${avaiables.reportedDate}"></span></p>
+                    th:text="${availableIssue.reportedDate}"></span></p>
             <p class="mb-2"><i class="fas fa-bed mr-2"></i> <span
-                    th:text="${avaiables.roomNumber}"></span></p>
+                    th:text="${availableIssue.roomNumber}"></span></p>
             <p class="mb-2"><i class="fas fa-exclamation-circle mr-2"></i> <span
-                    th:text="${avaiables.description}"></span></p>
+                    th:text="${availableIssue.description}"></span></p>
         </div>
     </div>
 
@@ -116,7 +115,6 @@
     <div class="d-grid gap-3">
         <a class="btn btn-primary btn-block" th:href="@{/residentReportedIssues}">Return to the list</a>
     </div>
-
     <footer class="text-center py-3 footer">
         &copy; 2023 Maintainance System. All rights reserved.
     </footer>
