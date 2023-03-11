@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,10 +30,11 @@ public class ResidentReportedIssueController {
     public String viewResidentReportedIssue(Model model) {
         try {
             List<FaultedDevice> faultedDevices = faultedDeviceService.getAllFaultedDevices();
-            model.addAttribute("faultDevices", faultedDevices);
             List<Room> rooms = roomService.getAllRooms();
-            model.addAttribute("rooms", rooms);
             List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
+
+            model.addAttribute("faultDevices", faultedDevices);
+            model.addAttribute("rooms", rooms);
             model.addAttribute("residentReportedIssueList", residentReportedIssues);
             return "managerPages/reportedIssueList";
         } catch (Exception e) {
@@ -44,13 +44,14 @@ public class ResidentReportedIssueController {
     }
 
     @GetMapping("/viewIssue/{id}")
-    public String getReportedIssueByFaultedDeviceRecord (@PathVariable("id") int issueID, Model model) {
+    public String getReportedIssueByFaultedDeviceRecord(@PathVariable("id") int issueID, Model model) {
         try {
             List<ReportedIssueByFaultedDeviceRecord> reportedIssueByFaultedDeviceRecords = residentReportedIssueService.getAllReportedIssueByFaultedDeviceRecords(issueID);
-            model.addAttribute("equipments", equipmentService.getEquipmentsByIssueId(issueID));
+            var reportedIssueByFaultedDeviceRecord = reportedIssueByFaultedDeviceRecords.get(0);
+            List<Equipment> equipmentsByIssueId = equipmentService.getEquipmentsByIssueId(issueID);
 
-
-            model.addAttribute("avaiable", reportedIssueByFaultedDeviceRecords);
+            model.addAttribute("equipments", equipmentsByIssueId);
+            model.addAttribute("availableIssue", reportedIssueByFaultedDeviceRecord);
 
             return "managerPages/viewIssue";
         } catch (Exception e) {
