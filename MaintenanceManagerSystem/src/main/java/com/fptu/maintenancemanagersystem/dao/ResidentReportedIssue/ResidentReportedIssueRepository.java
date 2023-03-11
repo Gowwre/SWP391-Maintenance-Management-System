@@ -73,4 +73,9 @@ public class ResidentReportedIssueRepository {
                 "where ri.issue_id=?";
         return jdbcTemplate.query(SQL, new Object[]{issueId}, new ReportedIssueByFaultedDeviceRowMapper());
     }
+
+    public ResidentReportedIssue getResidentReportedIssueById(int issueId) {
+        String SQL = "select* from ResidentReportedIssue where issue_id=?";
+        return jdbcTemplate.queryForObject(SQL, new Object[]{issueId}, new ResidentReportedIssueRowMapper());
+    }
 }

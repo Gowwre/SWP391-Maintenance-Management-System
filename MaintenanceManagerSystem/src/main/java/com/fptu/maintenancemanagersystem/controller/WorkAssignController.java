@@ -1,9 +1,6 @@
 package com.fptu.maintenancemanagersystem.controller;
 
-import com.fptu.maintenancemanagersystem.model.FaultedDevice;
-import com.fptu.maintenancemanagersystem.model.ReportedIssueByFaultedDeviceRecord;
-import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
-import com.fptu.maintenancemanagersystem.model.Room;
+import com.fptu.maintenancemanagersystem.model.*;
 import com.fptu.maintenancemanagersystem.service.EquipmentService;
 import com.fptu.maintenancemanagersystem.service.FaultedDeviceService;
 import com.fptu.maintenancemanagersystem.service.ResidentReportedIssueService;
@@ -33,11 +30,10 @@ public class WorkAssignController {
     @GetMapping("/workAssignList")
     public String viewResidentReportedIssue(Model model) {
         try {
-            List<FaultedDevice> faultedDevices = faultedDeviceService.getAllFaultedDevices();
-            model.addAttribute("faultDevices", faultedDevices);
             List<Room> rooms = roomService.getAllRooms();
-            model.addAttribute("rooms", rooms);
             List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
+
+            model.addAttribute("rooms", rooms);
             model.addAttribute("residentReportedIssueList", residentReportedIssues);
             return "staffPages/workAssignList";
         } catch (Exception e) {
@@ -49,12 +45,12 @@ public class WorkAssignController {
     @GetMapping("/viewWork/{id}")
     public String getReportedIssueByFaultedDeviceRecord (@PathVariable("id") int issueID, Model model) {
         try {
-            List<ReportedIssueByFaultedDeviceRecord> reportedIssueByFaultedDeviceRecords = residentReportedIssueService.getAllReportedIssueByFaultedDeviceRecords(issueID);
-            model.addAttribute("equipments", equipmentService.getEquipmentsByIssueId(issueID));
+            ResidentReportedIssue residentReportedIssue = residentReportedIssueService.getResidentReportedIssueById(issueID);
+            List<Equipment> equipmentsByIssueId = equipmentService.getEquipmentsByIssueId(issueID);
 
-
-            model.addAttribute("avaiable", reportedIssueByFaultedDeviceRecords);
-
+            model.addAttribute("rooms", roomService.getAllRooms());
+            model.addAttribute("equipments", equipmentsByIssueId);
+            model.addAttribute("availableIssue", residentReportedIssue);
             return "staffPages/viewWorkAssign";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());

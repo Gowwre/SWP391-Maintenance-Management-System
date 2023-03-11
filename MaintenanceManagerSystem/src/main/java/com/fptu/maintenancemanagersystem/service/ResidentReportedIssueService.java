@@ -25,4 +25,7 @@ public class ResidentReportedIssueService {
         return residentReportedIssueRepository.getReportedIssueByFaultedDevice(issueId);
     }
 
+    public ResidentReportedIssue getResidentReportedIssueById(int issueId) throws Exception {
+        return residentReportedIssueRepository.getResidentReportedIssueById(issueId);
+    }
 }

@@ -29,11 +29,9 @@ public class ResidentReportedIssueController {
     @GetMapping("/residentReportedIssues")
     public String viewResidentReportedIssue(Model model) {
         try {
-            List<FaultedDevice> faultedDevices = faultedDeviceService.getAllFaultedDevices();
             List<Room> rooms = roomService.getAllRooms();
             List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
 
-            model.addAttribute("faultDevices", faultedDevices);
             model.addAttribute("rooms", rooms);
             model.addAttribute("residentReportedIssueList", residentReportedIssues);
             return "managerPages/reportedIssueList";
@@ -46,13 +44,12 @@ public class ResidentReportedIssueController {
     @GetMapping("/viewIssue/{id}")
     public String getReportedIssueByFaultedDeviceRecord(@PathVariable("id") int issueID, Model model) {
         try {
-            List<ReportedIssueByFaultedDeviceRecord> reportedIssueByFaultedDeviceRecords = residentReportedIssueService.getAllReportedIssueByFaultedDeviceRecords(issueID);
-            var reportedIssueByFaultedDeviceRecord = reportedIssueByFaultedDeviceRecords.get(0);
+            ResidentReportedIssue residentReportedIssue = residentReportedIssueService.getResidentReportedIssueById(issueID);
             List<Equipment> equipmentsByIssueId = equipmentService.getEquipmentsByIssueId(issueID);
 
+            model.addAttribute("rooms", roomService.getAllRooms());
             model.addAttribute("equipments", equipmentsByIssueId);
-            model.addAttribute("availableIssue", reportedIssueByFaultedDeviceRecord);
-
+            model.addAttribute("availableIssue", residentReportedIssue);
             return "managerPages/viewIssue";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());

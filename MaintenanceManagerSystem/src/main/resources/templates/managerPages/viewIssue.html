@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Trang quản lý báo cáo thiết bị lỗi</title>
@@ -70,53 +70,57 @@
 </nav>
 <br/>
 
-    <h5 class="text-center">Issue Detail</h5>
-    <div class="row">
-        <div class="col-md-6">
-            <h5 class="font-weight-bold mb-4">Reported By</h5>
-            <p class="mb-2"><i class="fas fa-user mr-2"></i> <span
-                    th:text="${availableIssue.residentName}"></span></p>
-            <p class="mb-2"><i class="fas fa-envelope mr-2"></i> <span
-                    th:text="${availableIssue.residentEmail}"></span></p>
-            <p class="mb-2"><i class="fas fa-phone mr-2"></i> <span
-                    th:text="${availableIssue.residentPhone}"></span></p>
-        </div>
-        <div class="col-md-6">
-            <h5 class="font-weight-bold mb-4">Issue Details</h5>
-            <p class="mb-2"><i class="fas fa-calendar-alt mr-2"></i> <span
-                    th:text="${availableIssue.reportedDate}"></span></p>
-            <p class="mb-2"><i class="fas fa-bed mr-2"></i> <span
-                    th:text="${availableIssue.roomNumber}"></span></p>
-            <p class="mb-2"><i class="fas fa-exclamation-circle mr-2"></i> <span
-                    th:text="${availableIssue.description}"></span></p>
-        </div>
+<h5 class="text-center">Issue Detail</h5>
+<div class="row">
+    <div class="col-md-6">
+        <h5 class="font-weight-bold mb-4">Reported By</h5>
+        <p class="mb-2"><i class="fas fa-user mr-2"></i> <span
+                th:text="${availableIssue.residentName}"></span></p>
+        <p class="mb-2"><i class="fas fa-envelope mr-2"></i> <span
+                th:text="${availableIssue.residentEmail}"></span></p>
+        <p class="mb-2"><i class="fas fa-phone mr-2"></i> <span
+                th:text="${availableIssue.residentPhoneNumber}"></span></p>
     </div>
-
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>Equipment Name</th>
-                <th>Brand</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="equipment : ${equipments}">
-                <td th:text="${equipment.equipmentName}">
-                    Equipment Name
-                </td>
-                <td th:text="${equipment.brand}">
-            </tr>
-
-            </tbody>
-        </table>
+    <div class="col-md-6">
+        <h5 class="font-weight-bold mb-4">Issue Details</h5>
+        <p class="mb-2"><i class="fas fa-calendar-alt mr-2"></i> <span
+                th:text="${availableIssue.dateReported}"></span></p>
+        <p class="mb-2"><i class="fas fa-bed mr-2"></i>
+        <div th:each="allRoom : ${rooms}">
+            <div th:if="${allRoom.roomId == availableIssue.roomId}">
+                <span th:text="${allRoom.roomNumber}"></span>
+            </div>
+        </div></p>
+        <p class="mb-2"><i class="fas fa-exclamation-circle mr-2"></i> <span
+                th:text="${availableIssue.description}"></span></p>
     </div>
-    <div class="d-grid gap-3">
-        <a class="btn btn-primary btn-block" th:href="@{/residentReportedIssues}">Return to the list</a>
-    </div>
-    <footer class="text-center py-3 footer">
-        &copy; 2023 Maintainance System. All rights reserved.
-    </footer>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>Equipment Name</th>
+            <th>Brand</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="equipment : ${equipments}">
+            <td th:text="${equipment.equipmentName}">
+                Equipment Name
+            </td>
+            <td th:text="${equipment.brand}">
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+<div class="d-grid gap-3">
+    <a class="btn btn-primary btn-block" th:href="@{/residentReportedIssues}">Return to the list</a>
+</div>
+<footer class="text-center py-3 footer">
+    &copy; 2023 Maintainance System. All rights reserved.
+</footer>
 </body>
 </html>
