@@ -20,4 +20,5 @@ public class FaultedDevice implements Serializable{
    int equipmentId;
    int issueId;
    int assignedStaffId;
+   int workProgressId;
 }

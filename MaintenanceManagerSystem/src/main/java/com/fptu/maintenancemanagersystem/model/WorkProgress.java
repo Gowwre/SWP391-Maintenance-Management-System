@@ -13,5 +13,5 @@ public class WorkProgress {
     private LocalDate createdDate;
     private String workStatus;
     private LocalDate completedDate;
-    private int faultedDeviceId;
+
 }
