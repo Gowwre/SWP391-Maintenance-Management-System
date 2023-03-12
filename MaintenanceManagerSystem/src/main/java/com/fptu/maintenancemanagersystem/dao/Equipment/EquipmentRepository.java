@@ -27,10 +27,10 @@ public class EquipmentRepository {
     }
 
     public List<Equipment> getAllEquipmentsByRoom(int roomId) {
-        String SQL = "select * from \n" +
-                "Equipment e join Room r \n" +
-                "on e.room_id =r.room_id \n" +
-                "WHERE r.room_id =?";
+        String SQL = """
+                select * from Equipment e join Room r on e.room_id =r.room_id
+                WHERE r.room_id =?
+                """;
         return jdbcTemplate.query(SQL, new Object[]{roomId}, new BeanPropertyRowMapper<>(Equipment.class));
     }
 
@@ -40,10 +40,10 @@ public class EquipmentRepository {
     }
 
     public List<Equipment> getEquipmentsByIssueId(int issueId) {
-        String SQL = "select e.equipment_id,e.equipment_name,e.brand from FaultedDevice fd \n" +
-                "inner join Equipment e\n" +
-                "on fd.equipment_id = e.equipment_id\n" +
-                "where fd.issue_id=?";
+        String SQL = """
+                select e.equipment_id,e.equipment_name,e.brand from
+                 FaultedDevice fd inner join Equipment e on fd.equipment_id = e.equipment_id where fd.issue_id=?
+                """;
         return jdbcTemplate.query(SQL, new Object[]{issueId}, new BeanPropertyRowMapper<>(Equipment.class));
 
     }
