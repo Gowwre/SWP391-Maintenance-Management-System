@@ -5,8 +5,11 @@
 package com.fptu.maintenancemanagersystem.service;
 
 import com.fptu.maintenancemanagersystem.dao.Floor.FloorRepository;
+import com.fptu.maintenancemanagersystem.model.Floor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  *
@@ -14,6 +17,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FloorService {
+    @Autowired
+    FloorRepository floorRepository;
 
+    public List<Floor> getAll() {
+        return floorRepository.getAll();
+    }
     
 }

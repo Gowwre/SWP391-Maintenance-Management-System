@@ -17,6 +17,7 @@
             height: 50px;
             width: auto;
             margin-right: 10px;
+            color: black;
         }
 
         .footer {
@@ -34,7 +35,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">
-            <h1> Maintainance System </h1>
+            <h1> Maintenance System </h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,24 +45,24 @@
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                    <a class="nav-link mx-2 active" aria-current="page" href="#">Trang chủ</a>
+                    <a class="nav-link mx-2 text-dark active" aria-current="page" href="#">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#">Quản lý nhân viên</a>
+                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/staffList}">Quản lý nhân viên</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở chung
+                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở chung
                         cư</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Tài khoản</a></li>
-                        <li><a class="dropdown-item" th:href="@{/homePages/managerHomePage/changePassword}">Đổi mật
+                        <li><a class="dropdown-item text-dark" href="#">Tài khoản</a></li>
+                        <li><a class="dropdown-item text-dark" th:href="@{/homePages/managerHomePage/changePassword}">Đổi mật
                             khẩu</a></li>
-                        <li><a class="dropdown-item" href="#" th:href="@{/logout}">Đăng xuất</a></li>
+                        <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
                     </ul>
                 </li>
             </ul>

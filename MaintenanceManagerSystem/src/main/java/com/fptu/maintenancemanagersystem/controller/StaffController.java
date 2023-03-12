@@ -1,7 +1,9 @@
 package com.fptu.maintenancemanagersystem.controller;
 
+import com.fptu.maintenancemanagersystem.model.Floor;
 import com.fptu.maintenancemanagersystem.model.Manager;
 import com.fptu.maintenancemanagersystem.model.Staff;
+import com.fptu.maintenancemanagersystem.service.FloorService;
 import com.fptu.maintenancemanagersystem.service.StaffService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class StaffController {
     @Autowired
     StaffService staffService;
 
+    @Autowired
+    FloorService floorService;
 
     @GetMapping("/staffLogin")
     public String showStaffLoginForm(Model model) {
@@ -57,5 +64,13 @@ public class StaffController {
         return "passwordProblemPages/changePassword";
     }
 
+    @GetMapping("/staffList")
+    public String showStaffList(Model model) {
+        List<Staff> staffList = staffService.getAllStaff();
+        List<Floor> floorList = floorService.getAll();
 
+        model.addAttribute("floorList", floorList);
+        model.addAttribute("staffList", staffList);
+        return "managerPages/staffManagementList";
+    }
 }

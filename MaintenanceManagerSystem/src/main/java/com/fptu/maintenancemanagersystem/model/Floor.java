@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 public class Floor implements Serializable {
-    private int id;
+    private int floorId;
     private String name;
     
 }
