@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Trang quản lý báo cáo thiết bị lỗi</title>
@@ -20,7 +20,7 @@
             color: black;
         }
 
-        .nav-item .nav-link.active{
+        .nav-item .nav-link.active {
             color: black;
         }
 
@@ -55,16 +55,19 @@
                     <a class="nav-link mx-2 text-dark" href="#" th:href="@{/staffList}">Quản lý nhân viên</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở chung
+                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở
+                        chung
                         cư</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button"
+                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink"
+                       role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item text-dark" href="#">Tài khoản</a></li>
-                        <li><a class="dropdown-item text-dark" th:href="@{/homePages/managerHomePage/changePassword}">Đổi mật
+                        <li><a class="dropdown-item text-dark" th:href="@{/homePages/managerHomePage/changePassword}">Đổi
+                            mật
                             khẩu</a></li>
                         <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
                     </ul>
@@ -90,11 +93,11 @@
             <tr th:each="issue : ${residentReportedIssueList}">
                 <td th:text="${issue.dateReported}">Date</td>
                 <td>
-                    <div th:each="room : ${rooms}">
-                        <div th:if="${issue.roomId == room.roomId}">
-                            <span th:text="${room.roomNumber}">Room Num</span>
-                        </div>
-                    </div>
+                    <th:block th:each="room : ${rooms}" th:if="${issue.roomId == room.roomId}">
+
+                        <span th:text="${room.roomNumber}">Room Num</span>
+
+                    </th:block>
                 </td>
                 <td th:text="${issue.residentName}">Resident Name</td>
                 <td>
