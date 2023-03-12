@@ -27,4 +27,8 @@ public class FaultedDeviceService {
     public void assignStaff(int faultDeviceId, int assignedStaffId) {
         faultDeviceRepository.updateAssignedStaff(faultDeviceId, assignedStaffId);
     }
+
+    public void updateAssignStaffByIssueId(int assignStaffId, int issueId) {
+        faultDeviceRepository.updateAssignedStaff(assignStaffId, issueId);
+    }
 }

@@ -19,6 +19,10 @@ public class StaffService {
         return staffRepository.findUserByLogin(email, password);
     }
 
+    public List<Staff> getWorkingStaff() {
+        return staffRepository.getWorkingStaff();
+    }
+
     public void changePassword(String email, String currentPassword, String newPassword) {
         staffRepository.setNewPassword(email, currentPassword, newPassword);
     }

@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Trang quản lý báo cáo thiết bị lỗi</title>
@@ -51,16 +51,19 @@
                     <a class="nav-link mx-2 text-dark" href="#" th:href="@{/staffList}">Quản lý nhân viên</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở chung
+                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở
+                        chung
                         cư</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button"
+                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink"
+                       role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item text-dark" href="#">Tài khoản</a></li>
-                        <li><a class="dropdown-item text-dark" th:href="@{/homePages/managerHomePage/changePassword}">Đổi mật
+                        <li><a class="dropdown-item text-dark" th:href="@{/homePages/managerHomePage/changePassword}">Đổi
+                            mật
                             khẩu</a></li>
                         <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
                     </ul>
@@ -91,7 +94,8 @@
             <div th:if="${allRoom.roomId == availableIssue.roomId}">
                 <span th:text="${allRoom.roomNumber}"></span>
             </div>
-        </div></p>
+        </div>
+        </p>
         <p class="mb-2"><i class="fas fa-exclamation-circle mr-2"></i> <span
                 th:text="${availableIssue.description}"></span></p>
     </div>
@@ -116,6 +120,21 @@
 
         </tbody>
     </table>
+
+    <section>
+        <h5 class="font-weight-bold mb-4">Staffs to Assign</h5>
+        <br>
+
+
+        <form th:action="@{/updateAssignedStaff}">
+            <input type="hidden" name="issueId" th:object="${availableIssue}" th:value="${availableIssue.issueId}">
+            <select class="form-select" name="staffId" aria-label="Choose a Staff to assign">
+                <option th:each="workingStaff : ${workingStaffs}" th:value="${workingStaff.staffId}" th:text="${workingStaff.fullname}">Staff Name</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Assign</button>
+        </form>
+
+    </section>
 </div>
 <div class="d-grid gap-3">
     <a class="btn btn-primary btn-block" th:href="@{/residentReportedIssues}">Return to the list</a>
@@ -124,4 +143,5 @@
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>
 </body>
+
 </html>

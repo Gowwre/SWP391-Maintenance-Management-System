@@ -62,6 +62,7 @@ public class ResidentReportedIssueRepository {
         }
     }
 
+
     private Integer getCurrentIssueId() {
         return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);
     }

@@ -1,10 +1,7 @@
 package com.fptu.maintenancemanagersystem.controller;
 
 import com.fptu.maintenancemanagersystem.model.*;
-import com.fptu.maintenancemanagersystem.service.EquipmentService;
-import com.fptu.maintenancemanagersystem.service.FaultedDeviceService;
-import com.fptu.maintenancemanagersystem.service.ResidentReportedIssueService;
-import com.fptu.maintenancemanagersystem.service.RoomService;
+import com.fptu.maintenancemanagersystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +16,9 @@ public class ResidentReportedIssueController {
 
     @Autowired
     RoomService roomService;
+
+    @Autowired
+    StaffService staffService;
 
     @Autowired
     EquipmentService equipmentService;
@@ -46,10 +46,14 @@ public class ResidentReportedIssueController {
         try {
             ResidentReportedIssue residentReportedIssue = residentReportedIssueService.getResidentReportedIssueById(issueID);
             List<Equipment> equipmentsByIssueId = equipmentService.getEquipmentsByIssueId(issueID);
+            List<Staff> workingStaffs = staffService.getWorkingStaff();
+            FaultedDevice faultedDevice = new FaultedDevice();
 
+        model.addAttribute("faultedDevice",faultedDevice);
             model.addAttribute("rooms", roomService.getAllRooms());
             model.addAttribute("equipments", equipmentsByIssueId);
             model.addAttribute("availableIssue", residentReportedIssue);
+            model.addAttribute("workingStaffs", workingStaffs);
             return "managerPages/viewIssue";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
@@ -83,4 +87,15 @@ public class ResidentReportedIssueController {
         residentReportedIssueService.createNewReport(residentReportedIssue, equipmentIds);
         return "redirect:/";
     }
+
+    @GetMapping("/updateAssignedStaff")
+    public String updateAssignStaff(@RequestParam("issueId") int issueId, @RequestParam("staffId") int assignStaffId,Model model) {
+        try {
+            faultedDeviceService.updateAssignStaffByIssueId(assignStaffId,issueId);
+            return viewResidentReportedIssue(model);
+        } catch (Exception e) {
+            return "error";
+        }
+    }
+
 }

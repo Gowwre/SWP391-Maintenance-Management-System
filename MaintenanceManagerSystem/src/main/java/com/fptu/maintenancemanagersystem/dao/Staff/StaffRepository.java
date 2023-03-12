@@ -43,6 +43,28 @@ public class StaffRepository {
         });
     }
 
+    public List<Staff> getWorkingStaff() {
+        String SQL = "SELECT * FROM [Staff] WHERE is_working = 1";
+        return jdbcTemplate.query(SQL, new RowMapper<Staff>() {
+            @Override
+            public Staff mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Staff staff = new Staff();
+                staff.setStaffId(rs.getInt("staff_id"));
+                staff.setFullname(rs.getString("fullname"));
+                staff.setManagerId(rs.getInt("manager_id"));
+                staff.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
+                staff.setEmail(rs.getString("email"));
+                staff.setPhoneNumber(rs.getString("phone_number"));
+                staff.setPassword(rs.getString("password"));
+                staff.setBeginWorkDate(rs.getDate("begin_work_date").toLocalDate());
+                staff.setWorking(rs.getBoolean("is_working"));
+                staff.setFloorId(rs.getInt("floor_id"));
+                return staff;
+            }
+        });
+    }
+
+
     public Staff findUserByLogin(String email, String password) {
         String SQL = "Select * From [Staff] Where email=? and password=?";
         try {

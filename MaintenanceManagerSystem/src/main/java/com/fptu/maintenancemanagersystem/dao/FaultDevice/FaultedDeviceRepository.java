@@ -34,12 +34,12 @@ public class FaultedDeviceRepository {
         return null;
     }
 
-    public void updateAssignedStaff(int assignStaffId, int faultedDeviceId) {
-        String sql = "UPDATE FaultedDevice SET assign_staff_id = :assignStaffId WHERE faulted_device_id = :faultedDeviceId";
+    public void updateAssignedStaff(int assignStaffId, int issueId) {
+        String sql = "UPDATE FaultedDevice SET assign_staff_id = :assignStaffId WHERE issue_id = :issueId";
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("assignStaffId", assignStaffId);
-        parameters.addValue("faultedDeviceId", faultedDeviceId);
+        parameters.addValue("issueId", issueId);
 
         namedParameterJdbcTemplate.update(sql, parameters);
 
