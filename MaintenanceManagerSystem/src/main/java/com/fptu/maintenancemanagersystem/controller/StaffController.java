@@ -9,10 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,5 +69,14 @@ public class StaffController {
         model.addAttribute("floorList", floorList);
         model.addAttribute("staffList", staffList);
         return "managerPages/staffManagementList";
+    }
+
+    @GetMapping("/viewStaff/{staffId}")
+    public String viewStaff(@PathVariable("staffId") int staffId, Model model) {
+        Staff staff = staffService.getStaffById(staffId);
+        List<Floor> floorList = floorService.getAll();
+        model.addAttribute("staff", staff);
+        model.addAttribute("floorList", floorList);
+        return "managerPages/viewStaff";
     }
 }

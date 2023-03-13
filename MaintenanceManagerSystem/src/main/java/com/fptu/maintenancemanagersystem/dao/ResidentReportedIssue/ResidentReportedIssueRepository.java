@@ -1,6 +1,7 @@
 package com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue;
 
-import com.fptu.maintenancemanagersystem.model.ReportedIssueByFaultedDeviceRecord;
+import com.fptu.maintenancemanagersystem.dao.WorkProgress.WorkProgressAndIssueByResidentReportedIssueRowMapper;
+import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
 import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -67,12 +68,12 @@ public class ResidentReportedIssueRepository {
         return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);
     }
 
-    public List<ReportedIssueByFaultedDeviceRecord> getReportedIssueByFaultedDevice(int issueId) {
+    public List<WorkProgressAndIssueByResidentReportedIssue> getReportedIssueByFaultedDevice(int issueId) {
         String SQL = "select* from ResidentReportedIssue ri join FaultedDevice fd\n" +
                 "on ri.issue_id = fd.issue_id\n" +
                 "join Room r on r.room_id = ri.room_id\n" +
                 "where ri.issue_id=?";
-        return jdbcTemplate.query(SQL, new Object[]{issueId}, new ReportedIssueByFaultedDeviceRowMapper());
+        return jdbcTemplate.query(SQL, new Object[]{issueId}, new WorkProgressAndIssueByResidentReportedIssueRowMapper());
     }
 
     public ResidentReportedIssue getResidentReportedIssueById(int issueId) {

@@ -26,4 +26,8 @@ public class StaffService {
     public void changePassword(String email, String currentPassword, String newPassword) {
         staffRepository.setNewPassword(email, currentPassword, newPassword);
     }
+
+    public Staff getStaffById(int staffId) {
+        return staffRepository.findStaffById(staffId);
+    }
 }

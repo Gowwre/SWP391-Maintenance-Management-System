@@ -42,16 +42,6 @@ public class FaultedDeviceRepository {
         parameters.addValue("issueId", issueId);
 
         namedParameterJdbcTemplate.update(sql, parameters);
-
-
     }
-
-
-    public void update() {
-
-    }
-
-    public void delete() {
-
-    }
+    
 }
