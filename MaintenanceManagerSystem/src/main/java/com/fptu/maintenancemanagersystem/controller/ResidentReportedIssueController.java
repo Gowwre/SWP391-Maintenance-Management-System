@@ -29,8 +29,7 @@ public class ResidentReportedIssueController {
     @Autowired
     WorkProgressService workProgressService;
 
-    @Autowired
-    StaffService staffService;
+
 
     @GetMapping("/residentReportedIssues")
     public String viewResidentReportedIssue(Model model) {
