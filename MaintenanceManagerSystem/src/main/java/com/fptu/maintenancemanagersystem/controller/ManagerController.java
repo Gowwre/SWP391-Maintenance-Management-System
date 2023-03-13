@@ -32,7 +32,7 @@ public class ManagerController {
         }
 
         session.setAttribute("manager", existedManager);
-        return "homePages/managerHomePage";
+        return "redirect:/residentReportedIssues";
     }
 
     @GetMapping("homePages/managerHomePage")
@@ -41,7 +41,7 @@ public class ManagerController {
         if (manager == null)
             return "redirect:/";
 
-        return "homePages/managerHomePage";
+        return "redirect:/residentReportedIssues";
     }
 
     @GetMapping("/homePages/managerHomePage/changePassword")

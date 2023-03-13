@@ -43,5 +43,6 @@ public class FaultedDeviceRepository {
 
         namedParameterJdbcTemplate.update(sql, parameters);
     }
-    
+
+
 }

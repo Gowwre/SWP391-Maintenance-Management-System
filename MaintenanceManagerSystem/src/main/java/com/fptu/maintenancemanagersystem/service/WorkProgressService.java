@@ -3,6 +3,7 @@ package com.fptu.maintenancemanagersystem.service;
 import com.fptu.maintenancemanagersystem.dao.WorkProgress.WorkProgressRepository;
 import com.fptu.maintenancemanagersystem.model.WorkProgress;
 import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
+import com.fptu.maintenancemanagersystem.model.WorkProgressAndStaffNameRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +20,9 @@ public class WorkProgressService {
 
     public List<WorkProgressAndIssueByResidentReportedIssue> findWorkProgressAndIssueByResidentReportedIssue() {
         return workProgressRepository.findWorkProgressAndIssueByResidentReportedIssue();
+    }
+
+    public List<WorkProgressAndStaffNameRecord> findAllWorkProgressAndStaffName() {
+        return workProgressRepository.findWorkProgressAndStaffName();
     }
 }

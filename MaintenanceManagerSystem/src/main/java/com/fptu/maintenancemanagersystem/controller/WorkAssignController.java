@@ -31,10 +31,12 @@ public class WorkAssignController {
     public String viewResidentReportedIssue(Model model) {
         try {
             List<Room> rooms = roomService.getAllRooms();
-            List<WorkProgressAndIssueByResidentReportedIssue> workProgressAndIssueByResidentReportedIssues = workProgressService.findWorkProgressAndIssueByResidentReportedIssue();
+            List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
+            List<WorkProgressAndStaffNameRecord> workProgressAndStaffNameRecords = workProgressService.findAllWorkProgressAndStaffName();
 
+            model.addAttribute("workProgressAndStaffNameList", workProgressAndStaffNameRecords);
             model.addAttribute("rooms", rooms);
-            model.addAttribute("workProgressAndResidentReportedIssueList", workProgressAndIssueByResidentReportedIssues);
+            model.addAttribute("residentReportedIssueList", residentReportedIssues);
             return "staffPages/workAssignList";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());

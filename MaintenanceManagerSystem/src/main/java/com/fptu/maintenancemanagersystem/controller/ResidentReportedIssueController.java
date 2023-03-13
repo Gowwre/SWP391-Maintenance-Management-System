@@ -29,18 +29,16 @@ public class ResidentReportedIssueController {
     @Autowired
     WorkProgressService workProgressService;
 
-
-
     @GetMapping("/residentReportedIssues")
     public String viewResidentReportedIssue(Model model) {
         try {
             List<Room> rooms = roomService.getAllRooms();
-            List<WorkProgressAndIssueByResidentReportedIssue> workProgressAndIssueByResidentReportedIssues = workProgressService.findWorkProgressAndIssueByResidentReportedIssue();
-            List<Staff> staffs = staffService.getAllStaff();
+            List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
+            List<WorkProgressAndStaffNameRecord> workProgressAndStaffNameRecords = workProgressService.findAllWorkProgressAndStaffName();
 
-            model.addAttribute("staffs", staffs);
+            model.addAttribute("workProgressAndStaffNameList", workProgressAndStaffNameRecords);
             model.addAttribute("rooms", rooms);
-            model.addAttribute("workProgressAndResidentReportedIssueList", workProgressAndIssueByResidentReportedIssues);
+            model.addAttribute("residentReportedIssueList", residentReportedIssues);
             return "managerPages/reportedIssueList";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
