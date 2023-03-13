@@ -40,7 +40,7 @@ public class StaffController {
         }
 
         session.setAttribute("staff", existedStaff);
-        return "homePages/maintenanceStaffHomePage";
+        return "redirect:/workAssignList";
     }
 
     @GetMapping("/homePages/maintenanceStaffHomePage")
@@ -48,7 +48,7 @@ public class StaffController {
         Staff staff = (Staff) session.getAttribute("staff");
         if (staff == null) return "redirect:/";
 
-        return "homePages/maintenanceStaffHomePage";
+        return "redirect:/workAssignList";
     }
 
     @GetMapping("/homePages/maintenanceStaffHomePage/changePassword")

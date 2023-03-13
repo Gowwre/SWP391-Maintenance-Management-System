@@ -2,6 +2,7 @@ package com.fptu.maintenancemanagersystem.dao.WorkProgress;
 
 import com.fptu.maintenancemanagersystem.model.WorkProgress;
 import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
+import com.fptu.maintenancemanagersystem.model.WorkProgressAndStaffNameRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,10 +21,21 @@ public class WorkProgressRepository {
     }
 
     public List<WorkProgressAndIssueByResidentReportedIssue> findWorkProgressAndIssueByResidentReportedIssue() {
-        String SQL = "SELECT wp.*, rri.*, fd.assign_staff_id\n" +
-                     "FROM WorkProgress wp\n" +
-                     "INNER JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id\n" +
-                     "INNER JOIN ResidentReportedIssue rri ON fd.issue_id = rri.issue_id\n";
+        String SQL = """
+                     SELECT wp.*, rri.*, fd.assign_staff_id
+                     FROM WorkProgress wp
+                     INNER JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
+                     INNER JOIN ResidentReportedIssue rri ON fd.issue_id = rri.issue_id\n""";
         return jdbcTemplate.query(SQL, new WorkProgressAndIssueByResidentReportedIssueRowMapper());
+    }
+
+    public List<WorkProgressAndStaffNameRecord> findWorkProgressAndStaffName() {
+        String SQL = """
+                SELECT wp.*, r.issue_id, s.fullname
+                FROM WorkProgress wp
+                JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
+                JOIN ResidentReportedIssue r ON fd.issue_id = r.issue_id
+                JOIN Staff s ON fd.assign_staff_id = s.staff_id;""";
+        return jdbcTemplate.query(SQL, new WorkProgressAndStaffNameRecordRowMapper());
     }
 }
