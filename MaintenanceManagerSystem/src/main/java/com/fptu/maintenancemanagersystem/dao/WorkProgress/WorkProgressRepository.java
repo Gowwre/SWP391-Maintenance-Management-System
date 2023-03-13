@@ -20,10 +20,13 @@ public class WorkProgressRepository {
     }
 
     public List<WorkProgressAndIssueByResidentReportedIssue> findWorkProgressAndIssueByResidentReportedIssue() {
-        String SQL = "SELECT wp.*, rri.*, fd.assign_staff_id\n" +
-                     "FROM WorkProgress wp\n" +
-                     "INNER JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id\n" +
-                     "INNER JOIN ResidentReportedIssue rri ON fd.issue_id = rri.issue_id\n";
+        String SQL = """
+                     SELECT wp.*, rri.*, fd.assign_staff_id
+                     FROM WorkProgress wp
+                     INNER JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
+                     INNER JOIN ResidentReportedIssue rri ON fd.issue_id = rri.issue_id
+                     """;
+
         return jdbcTemplate.query(SQL, new WorkProgressAndIssueByResidentReportedIssueRowMapper());
     }
 }

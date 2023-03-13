@@ -68,8 +68,7 @@ public class StaffRepository {
     public Staff findUserByLogin(String email, String password) {
         String SQL = "Select * From [Staff] Where email=? and password=?";
         try {
-            Staff staff = jdbcTemplate.queryForObject(SQL, new Object[]{email, password}, new BeanPropertyRowMapper<>(Staff.class));
-            return staff;
+            return jdbcTemplate.queryForObject(SQL, new Object[]{email, password}, new BeanPropertyRowMapper<>(Staff.class));
         } catch (DataAccessException e) {
             return null;
         }
@@ -91,7 +90,7 @@ public class StaffRepository {
     public Staff findStaffById(int staffId) {
         String SQL = "Select * From [Staff] Where staff_id=?";
         try {
-            Staff staff = jdbcTemplate.queryForObject(SQL, new Object[]{staffId}, new RowMapper<Staff>() {
+            return jdbcTemplate.queryForObject(SQL, new Object[]{staffId}, new RowMapper<Staff>() {
                 @Override
                 public Staff mapRow(ResultSet rs, int rowNum) throws SQLException {
                     Staff staff = new Staff();
@@ -108,7 +107,6 @@ public class StaffRepository {
                     return staff;
                 }
             });
-            return staff;
         } catch (DataAccessException e) {
             return null;
         }
