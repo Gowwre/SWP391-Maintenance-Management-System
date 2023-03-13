@@ -15,7 +15,7 @@ public class WorkProgressRepository {
     JdbcTemplate jdbcTemplate;
 
     public WorkProgress findById(int id) {
-        String SQL = "SELECT * FROM WorkProgress WHERE workProgressId = ?";
+        String SQL = "SELECT * FROM WorkProgress WHERE work_progress_id = ?";
         return jdbcTemplate.queryForObject(SQL, new Object[]{id}, new BeanPropertyRowMapper<>(WorkProgress.class));
     }
 
