@@ -84,23 +84,33 @@
                 <th>Room</th>
                 <th>Resident Name</th>
                 <th>Actions</th>
+                <th>Staff Assigned</th>
+                <th>DeadLine Date</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="issue : ${residentReportedIssueList}">
-                <td th:text="${issue.dateReported}">Date</td>
+            <tr th:each="workProgressAndIssue : ${workProgressAndResidentReportedIssueList}">
+                <td th:text="${workProgressAndIssue.dateReported}">Date</td>
                 <td>
                     <div th:each="room : ${rooms}">
-                        <div th:if="${issue.roomId == room.roomId}">
+                        <div th:if="${workProgressAndIssue.roomId == room.roomId}">
                             <span th:text="${room.roomNumber}">Room Num</span>
                         </div>
                     </div>
                 </td>
-                <td th:text="${issue.residentName}">Resident Name</td>
+                <td th:text="${workProgressAndIssue.residentName}">Resident Name</td>
                 <td>
-                    <a class="btn btn-primary" th:href="@{/viewIssue/{id}(id=${issue.issueId})}">View Details
+                    <a class="btn btn-primary" th:href="@{/viewIssue/{id}(id=${workProgressAndIssue.issue_id})}">View Details
                     </a>
                 </td>
+                <td >
+                    <div th:each="staffList : ${staffs}">
+                        <div th:if="${workProgressAndIssue.assignStaffId == staffList.staffId}">
+                            <span th:text="${staffList.fullname}">Staff Assigned</span>
+                        </div>
+                    </div>
+                </td>
+                <td th:text="${workProgressAndIssue.deadlineDate}">DeadLine Date</td>
             </tr>
             </tbody>
         </table>
