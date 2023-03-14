@@ -88,6 +88,8 @@
                 <th>Resident Name</th>
                 <th>Actions</th>
                 <th>Staff Assigned</th>
+                <th>Status</th>
+                <th>Completed Date</th>
                 <th>DeadLine Date</th>
             </tr>
             </thead>
@@ -111,6 +113,24 @@
                         <div >
                             <span th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.fullName}">Staff Assigned</span>
                         </div>
+                    </div>
+                </td>
+                <td>
+                    <div th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}">
+                        <div >
+                            <span th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.workStatus}">Status</span>
+
+                        </div>
+
+                    </div>
+                </td>
+                <td>
+                    <div th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}">
+                        <div >
+                            <span th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.completedDate}">Completed Date</span>
+
+                        </div>
+
                     </div>
                 </td>
                 <td>
