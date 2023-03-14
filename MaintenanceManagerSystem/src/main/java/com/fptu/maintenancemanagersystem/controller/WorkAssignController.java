@@ -2,6 +2,7 @@ package com.fptu.maintenancemanagersystem.controller;
 
 import com.fptu.maintenancemanagersystem.model.*;
 import com.fptu.maintenancemanagersystem.service.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,15 +29,18 @@ public class WorkAssignController {
     WorkProgressService workProgressService;
 
     @GetMapping("/workAssignList")
-    public String viewResidentReportedIssue(Model model) {
+    public String viewResidentReportedIssue(Model model, HttpSession session) {
         try {
             List<Room> rooms = roomService.getAllRooms();
-            List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
-            List<WorkProgressAndStaffNameRecord> workProgressAndStaffNameRecords = workProgressService.findAllWorkProgressAndStaffName();
 
-            model.addAttribute("workProgressAndStaffNameList", workProgressAndStaffNameRecords);
+            var assignedStaffId = (Staff) session.getAttribute("staff");
+
+            List<WorkProgressAndIssueByResidentReportedIssue> workProgressAndIssueByResidentReportedIssuesByStaffId = workProgressService.getWorkProgressAndStaffNameBySignedInStaff(assignedStaffId.getStaffId());
+
+
+            model.addAttribute("assignedTasks", workProgressAndIssueByResidentReportedIssuesByStaffId);
             model.addAttribute("rooms", rooms);
-            model.addAttribute("residentReportedIssueList", residentReportedIssues);
+            
             return "staffPages/workAssignList";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
@@ -45,7 +49,7 @@ public class WorkAssignController {
     }
 
     @GetMapping("/viewWork/{id}")
-    public String getReportedIssueByFaultedDeviceRecord (@PathVariable("id") int issueID, Model model) {
+    public String getReportedIssueByFaultedDeviceRecord(@PathVariable("id") int issueID, Model model) {
         try {
             ResidentReportedIssue residentReportedIssue = residentReportedIssueService.getResidentReportedIssueById(issueID);
             List<Equipment> equipmentsByIssueId = equipmentService.getEquipmentsByIssueId(issueID);
