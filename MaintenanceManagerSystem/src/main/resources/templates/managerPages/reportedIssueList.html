@@ -108,16 +108,18 @@
                 </td>
                 <td >
                     <div th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}">
-                        <div th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}">
-                            <span th:text="${workProgressAndStaffNames.fullName}">Staff Assigned</span>
+                        <div >
+                            <span th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.fullName}">Staff Assigned</span>
                         </div>
                     </div>
                 </td>
                 <td>
                     <div th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}">
-                        <div th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}">
-                            <span th:text="${workProgressAndStaffNames.deadlineDate}">DeadLine Date</span>
+                        <div >
+                            <span th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.deadlineDate}">DeadLine Date</span>
+
                         </div>
+
                     </div>
                 </td>
             </tr>

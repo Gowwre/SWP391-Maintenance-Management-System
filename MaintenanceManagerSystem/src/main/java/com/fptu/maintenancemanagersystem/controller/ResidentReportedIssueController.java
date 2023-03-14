@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -53,7 +54,9 @@ public class ResidentReportedIssueController {
             List<Equipment> equipmentsByIssueId = equipmentService.getEquipmentsByIssueId(issueID);
             List<Staff> workingStaffs = staffService.getWorkingStaff();
             FaultedDevice faultedDevice = new FaultedDevice();
+WorkProgressAndStaffNameRecord workProgressAndStaffNameRecord = workProgressService.findWorkProgressAndStaffNameByIssueId(issueID);
 
+model.addAttribute("workProgressAndStaffName", workProgressAndStaffNameRecord);
         model.addAttribute("faultedDevice",faultedDevice);
             model.addAttribute("rooms", roomService.getAllRooms());
             model.addAttribute("equipments", equipmentsByIssueId);
@@ -94,9 +97,10 @@ public class ResidentReportedIssueController {
     }
 
     @GetMapping("/updateAssignedStaff")
-    public String updateAssignStaff(@RequestParam("issueId") int issueId, @RequestParam("staffId") int assignStaffId,Model model) {
+    public String updateAssignStaff(@RequestParam("issueId") int issueId, @RequestParam("staffId") int assignStaffId, @RequestParam("deadline")LocalDate deadline, Model model) {
         try {
             faultedDeviceService.updateAssignStaffByIssueId(assignStaffId,issueId);
+            workProgressService.setDeadlineByIssueId(issueId,deadline);
             return viewResidentReportedIssue(model);
         } catch (Exception e) {
             return "error";

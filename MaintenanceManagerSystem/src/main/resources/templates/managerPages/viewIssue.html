@@ -122,18 +122,31 @@
     </table>
 
     <section>
-        <h5 class="font-weight-bold mb-4">Staffs to Assign</h5>
-        <br>
 
-
-        <form th:action="@{/updateAssignedStaff}">
+<th:block th:if="${workProgressAndStaffName == null}">
+        <form th:action="@{/updateAssignedStaff}" id="assignStaffForm">
             <input type="hidden" name="issueId" th:object="${availableIssue}" th:value="${availableIssue.issueId}">
-            <select class="form-select" name="staffId" aria-label="Choose a Staff to assign">
-                <option th:each="workingStaff : ${workingStaffs}" th:value="${workingStaff.staffId}" th:text="${workingStaff.fullname}">Staff Name</option>
-            </select>
+            <div class="mb-3">
+                <label for="staffId" class="form-label">Staff</label>
+                <select class="form-select" name="staffId" id="staffId" aria-label="Choose a Staff to assign">
+                    <option selected disabled>Choose a Staff</option>
+                    <option th:each="workingStaff : ${workingStaffs}" th:value="${workingStaff.staffId}"
+                            th:text="${workingStaff.fullname}">Staff Name
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="deadline" class="form-label">Deadline</label>
+                <input type="date" class="form-control" id="deadline" name="deadline">
+            </div>
             <button type="submit" class="btn btn-primary">Assign</button>
         </form>
-
+</th:block>
+        <th:block th:unless="${workProgressAndStaffName == null}">
+            <h5>Staff Name: <span th:text="${workProgressAndStaffName.fullName()}"></span></h5>
+            <br>
+            <h5>Deadline: <span th:text="${workProgressAndStaffName.deadlineDate()}"></span></h5>
+        </th:block>
     </section>
 </div>
 <div class="d-grid gap-3">
@@ -143,5 +156,20 @@
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>
 </body>
+<script>
+    let assignStaffForm = document.getElementById("assignStaffForm");
+    assignStaffForm.addEventListener("submit", function (e) {
+        let deadlineInput = document.getElementById("deadline");
+        let deadline = new Date(deadlineInput.value);
+        let currentDate = new Date();
 
+        if (deadline < currentDate) {
+            alert("Deadline must be in the future");
+            e.preventDefault();
+        }else if(deadlineInput.value === ""){
+            alert("Deadline cannot be empty");
+            e.preventDefault();
+        }
+    });
+</script>
 </html>
