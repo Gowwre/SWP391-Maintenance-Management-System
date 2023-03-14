@@ -26,9 +26,9 @@ public class WorkProgressRepository {
     public WorkProgress findById(int id) {
         String SQL = "SELECT * FROM WorkProgress WHERE work_progress_id = ?";
 
-        try{
-        return jdbcTemplate.queryForObject(SQL, new Object[]{id}, new BeanPropertyRowMapper<>(WorkProgress.class));}
-        catch(Exception e){
+        try {
+            return jdbcTemplate.queryForObject(SQL, new Object[]{id}, new BeanPropertyRowMapper<>(WorkProgress.class));
+        } catch (Exception e) {
             return null;
         }
     }
@@ -73,7 +73,6 @@ public class WorkProgressRepository {
                 update [FaultedDevice] set work_progress_id=:currentWorkProgressId where issue_id = :issueId""";
 
 
-
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("currentWorkProgressId", currentWorkProgressId)
                 .addValue("issueId", issueId);
@@ -102,6 +101,21 @@ public class WorkProgressRepository {
         try {
             return jdbcTemplate.queryForObject(SQL, new Object[]{issueID}, new WorkProgressAndStaffNameRecordRowMapper());
         } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List <WorkProgressAndIssueByResidentReportedIssue> getWorkProgressAndStaffNameBySignedInStaff(int signedInStaffId) {
+        String sql = """
+                 SELECT distinct  wp.*, rri.*, fd.assign_staff_id
+                                FROM WorkProgress wp
+                                INNER JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
+                                INNER JOIN ResidentReportedIssue rri ON fd.issue_id = rri.issue_id
+                				where assign_staff_id =  ?
+                				""";
+        try {
+            return jdbcTemplate.query(sql, new Object[]{signedInStaffId}, new WorkProgressAndIssueByResidentReportedIssueRowMapper());
+        }catch (Exception e){
             return null;
         }
     }

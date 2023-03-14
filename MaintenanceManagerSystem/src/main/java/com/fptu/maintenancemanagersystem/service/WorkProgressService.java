@@ -34,4 +34,8 @@ public class WorkProgressService {
     public WorkProgressAndStaffNameRecord findWorkProgressAndStaffNameByIssueId(int issueID) {
         return workProgressRepository.findWorkProgressAndStaffNameByIssueId(issueID);
     }
+
+    public List<WorkProgressAndIssueByResidentReportedIssue> getWorkProgressAndStaffNameBySignedInStaff(int signedInStaffId) {
+        return workProgressRepository.getWorkProgressAndStaffNameBySignedInStaff(signedInStaffId);
+    }
 }

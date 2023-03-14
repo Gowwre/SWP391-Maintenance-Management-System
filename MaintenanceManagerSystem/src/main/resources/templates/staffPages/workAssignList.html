@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Trang danh sách công việc được giao</title>
@@ -81,33 +81,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="residentReportedIssues : ${residentReportedIssueList}">
-                <td th:text="${residentReportedIssues.dateReported}">Date</td>
+            <tr th:each="assignedTask : ${assignedTasks}">
+                <td th:text="${assignedTask.dateReported}">Date</td>
                 <td>
                     <div th:each="room : ${rooms}">
-                        <div th:if="${residentReportedIssues.roomId == room.roomId}">
+                        <div th:if="${assignedTask.roomId == room.roomId}">
                             <span th:text="${room.roomNumber}">Room Num</span>
                         </div>
                     </div>
                 </td>
-                <td th:text="${residentReportedIssues.residentName}">Resident Name</td>
+                <td th:text="${assignedTask.residentName}">Resident Name</td>
                 <td>
-                    <a class="btn btn-primary" th:href="@{/viewIssue/{id}(id=${residentReportedIssues.issueId})}">View Details
+                    <a class="btn btn-primary" th:href="@{/viewWork/{id}(id=${assignedTask.issueId})}">View Details
                     </a>
                 </td>
-                <td >
-                    <div th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}">
-                        <div th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}">
-                            <span th:text="${workProgressAndStaffNames.workStatus}">Work Status</span>
-                        </div>
-                    </div>
+                <td th:text="${assignedTask.workStatus}">
+                    Work Status
                 </td>
-                <td>
-                    <div th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}">
-                        <div th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}">
-                            <span th:text="${workProgressAndStaffNames.completedDate}">DeadLine Date</span>
-                        </div>
-                    </div>
+                <td th:text="${assignedTask.completedDate}">
+                    Completed Date
                 </td>
             </tr>
             </tbody>
