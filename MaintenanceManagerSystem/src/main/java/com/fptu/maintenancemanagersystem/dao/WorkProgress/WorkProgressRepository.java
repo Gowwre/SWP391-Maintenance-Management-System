@@ -25,7 +25,12 @@ public class WorkProgressRepository {
 
     public WorkProgress findById(int id) {
         String SQL = "SELECT * FROM WorkProgress WHERE work_progress_id = ?";
-        return jdbcTemplate.queryForObject(SQL, new Object[]{id}, new BeanPropertyRowMapper<>(WorkProgress.class));
+
+        try{
+        return jdbcTemplate.queryForObject(SQL, new Object[]{id}, new BeanPropertyRowMapper<>(WorkProgress.class));}
+        catch(Exception e){
+            return null;
+        }
     }
 
     public List<WorkProgressAndIssueByResidentReportedIssue> findWorkProgressAndIssueByResidentReportedIssue() {
@@ -94,6 +99,10 @@ public class WorkProgressRepository {
                 JOIN ResidentReportedIssue r ON fd.issue_id = r.issue_id
                 JOIN Staff s ON fd.assign_staff_id = s.staff_id
                 WHERE r.issue_id = ?""";
-        return jdbcTemplate.queryForObject(SQL,new Object[]{issueID}, new WorkProgressAndStaffNameRecordRowMapper());
+        try {
+            return jdbcTemplate.queryForObject(SQL, new Object[]{issueID}, new WorkProgressAndStaffNameRecordRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

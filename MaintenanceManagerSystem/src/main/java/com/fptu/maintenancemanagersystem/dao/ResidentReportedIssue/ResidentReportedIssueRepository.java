@@ -65,7 +65,11 @@ public class ResidentReportedIssueRepository {
 
 
     private Integer getCurrentIssueId() {
-        return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);
+        try{
+        return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);}
+        catch (Exception e){
+            return -1;
+        }
     }
 
     public List<WorkProgressAndIssueByResidentReportedIssue> getReportedIssueByFaultedDevice(int issueId) {
@@ -78,6 +82,11 @@ public class ResidentReportedIssueRepository {
 
     public ResidentReportedIssue getResidentReportedIssueById(int issueId) {
         String SQL = "select* from ResidentReportedIssue where issue_id=?";
-        return jdbcTemplate.queryForObject(SQL, new Object[]{issueId}, new ResidentReportedIssueRowMapper());
+
+        try{
+        return jdbcTemplate.queryForObject(SQL, new Object[]{issueId}, new ResidentReportedIssueRowMapper());}
+        catch (Exception e){
+            return null;
+        }
     }
 }

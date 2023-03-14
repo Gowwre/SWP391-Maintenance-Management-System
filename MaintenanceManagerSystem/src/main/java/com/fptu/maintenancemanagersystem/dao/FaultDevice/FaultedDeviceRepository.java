@@ -31,7 +31,7 @@ public class FaultedDeviceRepository {
     }
 
     public FaultedDevice get() {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void updateAssignedStaff(int assignStaffId, int issueId) {
