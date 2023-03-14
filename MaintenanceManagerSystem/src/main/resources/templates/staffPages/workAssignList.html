@@ -78,6 +78,7 @@
                 <th>Actions</th>
                 <th>Work Status</th>
                 <th>Date Completed</th>
+                <th>Deadline Date</th>
             </tr>
             </thead>
             <tbody>
@@ -100,6 +101,9 @@
                 </td>
                 <td th:text="${assignedTask.completedDate}">
                     Completed Date
+                </td>
+                <td th:text="${assignedTask.deadlineDate}">
+                    Deadline Date
                 </td>
             </tr>
             </tbody>
