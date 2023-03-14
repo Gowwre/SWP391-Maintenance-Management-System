@@ -1,7 +1,6 @@
 package com.fptu.maintenancemanagersystem.controller;
 
 import com.fptu.maintenancemanagersystem.model.Manager;
-import com.fptu.maintenancemanagersystem.model.Staff;
 import com.fptu.maintenancemanagersystem.service.ManagerService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +16,21 @@ public class ManagerController {
     ManagerService managerService;
 
     @GetMapping("/managerLogin")
-    public String showManagerLoginForm(Model model) {
-        model.addAttribute("manager", new Manager());
-        return "loginPages/maintenanceManagerLogin";
+    public String showManagerLoginForm(Model model, HttpSession session) {
+        var loginManager = (Manager) session.getAttribute("manager");
+
+        if (loginManager == null) {
+            model.addAttribute("manager", new Manager());
+            return "loginPages/maintenanceManagerLogin";
+        } else {
+            return "redirect:/residentReportedIssues";
+        }
     }
 
     @PostMapping(value = {"/managerLogin"})
     public String managerLogin(@ModelAttribute("manager") Manager manager, HttpSession session, Model model) {
         Manager existedManager = managerService.findUserByLogin(manager.getEmail(), manager.getPassword());
-        if(existedManager==null) {
+        if (existedManager == null) {
             String errorMessage = "Sai thông tin đăng nhập. Vui lòng thử lại.";
             model.addAttribute("errorMessage", errorMessage);
             return "loginPages/maintenanceManagerLogin";
