@@ -88,7 +88,7 @@
                 <span th:text="${allRoom.roomNumber}"></span>
             </div>
         </div>
-        </p>
+
         <p class="mb-2"><i class="fas fa-exclamation-circle mr-2"></i> <span
                 th:text="${availableIssue.description}"></span></p>
     </div>
@@ -115,9 +115,21 @@
     </table>
 </div>
 
+<th:block th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('in progress')}">
 <div class="d-grid gap-3">
-    <a class="btn btn-success btn-block" >Work Done</a>
+    <a class="btn btn-success" th:href="@{/completeTask/{issueId}(issueId=${availableIssue.getIssueId()})}">Work Done</a>
 </div>
+</th:block>
+
+<th:block th:unless="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('in progress')}">
+    <div class="d-grid gap-3">
+        <a class="btn btn-secondary" disabled th:hidden="${daysBetweenCurrentDateAndDeadlineDate<0 ? 'hidden' : ''}">Work Done</a>
+    </div>
+</th:block>
+
+
+
+
 
 <div class="d-grid gap-3">
     <a class="btn btn-primary btn-block" th:href="@{/workAssignList}">Return to the list</a>
