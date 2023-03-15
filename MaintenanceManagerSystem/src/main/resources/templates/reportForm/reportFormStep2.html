@@ -51,7 +51,7 @@
         <input type="hidden" name="residentEmail" th:value="${residentReportedIssue.residentEmail}"
                th:field="*{residentEmail}">
         <div class="mb-3">
-            <label class="form-label">Device Type:</label>
+            <label class="form-label">Chọn loại thiết bị:</label>
             <div th:each="equipment : ${equipments}">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" th:value="${equipment.equipmentId}"
@@ -69,6 +69,7 @@
     </form>
 </div>
 
+</br></br></br>
 <footer class="text-center py-3 footer">
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>

@@ -44,71 +44,78 @@
 </nav>
 <br/>
 
-<div class="container my-5">
-    <h5 class="text-center mb-5">Issue Detail</h5>
-    <div class="row">
-        <div class="col-md-6">
-            <h5 class="font-weight-bold mb-4">Reported By</h5>
-            <p class="mb-2"><i class="fas fa-user me-2"></i> <span
-                    th:text="${availableIssue.residentName}"></span></p>
-            <p class="mb-2"><i class="fas fa-envelope me-2"></i> <span
-                    th:text="${availableIssue.residentEmail}"></span></p>
-            <p class="mb-2"><i class="fas fa-phone me-2"></i> <span
-                    th:text="${availableIssue.residentPhoneNumber}"></span></p>        </div>
-        <div class="col-md-6">
-            <h5 class="font-weight-bold mb-4">Issue Details</h5>
-            <p class="mb-2"><i class="fas fa-calendar-alt me-2"></i> <span
-                    th:text="${availableIssue.dateReported}"></span></p>
-            <p class="mb-2"><i class="fas fa-bed me-2"></i>
-            <div th:each="allRoom : ${rooms}">
-                <div th:if="${allRoom.roomId == availableIssue.roomId}">
-                    <span th:text="${allRoom.roomNumber}"></span>
-                </div>
+<h5 class="text-center">Chi tiết báo cáo</h5>
+<div class="row">
+    <div class="col-md-6">
+        <h5 class="font-weight-bold mb-4">Người tạo báo cáo</h5>
+        <p class="mb-2"><i class="fas fa-user mr-2"></i> <span
+                th:text="${availableIssue.residentName}"></span></p>
+        <p class="mb-2"><i class="fas fa-envelope mr-2"></i> <span
+                th:text="${availableIssue.residentEmail}"></span></p>
+        <p class="mb-2"><i class="fas fa-phone mr-2"></i> <span
+                th:text="${availableIssue.residentPhoneNumber}"></span></p>
+    </div>
+    <div class="col-md-6">
+        <h5 class="font-weight-bold mb-4">Chi tiết của báo cáo</h5>
+        <p class="mb-2"><i class="fas fa-calendar-alt mr-2"></i> <span
+                th:text="${availableIssue.dateReported}"></span></p>
+        <p class="mb-2"><i class="fas fa-bed mr-2"></i>
+        <div th:each="allRoom : ${rooms}">
+            <div th:if="${allRoom.roomId == availableIssue.roomId}">
+                <span th:text="${allRoom.roomNumber}"></span>
             </div>
             <p class="mb-2"><i class="fas fa-exclamation-circle me-2"></i> <span
                     th:text="${availableIssue.description}"></span></p>
         </div>
-    </div>
-
-    <div class="table-responsive mt-4">
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>Equipment Name</th>
-                <th>Brand</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="equipment : ${equipments}">
-                <td th:text="${equipment.equipmentName}">
-                    Equipment Name
-                </td>
-                <td th:text="${equipment.brand}">
-            </tr>
-
-            </tbody>
-        </table>
-    </div>
-
-    <th:block th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('in progress')}">
-        <div class="d-grid gap-3">
-            <a class="btn btn-success" th:href="@{/completeTask/{issueId}(issueId=${availableIssue.getIssueId()})}">Work Done</a>
-        </div>
-    </th:block>
-
-    <th:block th:unless="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('in progress')}">
-        <div class="d-grid gap-3">
-            <a class="btn btn-secondary" disabled th:hidden="${daysBetweenCurrentDateAndDeadlineDate<0 ? 'hidden' : ''}">Work Done</a>
-        </div>
-    </th:block>
-
-    <div class="d-grid gap-3 mt-3">
-        <a class="btn btn-primary btn-block" th:href="@{/workAssignList}">Return to the list</a>
+        <h5 class="font-weight-bold mb-4"> Mô tả vấn đề</h5>
+        <p class="mb-2"><i class="fas fa-exclamation-circle mr-2"></i> <span
+                th:text="${availableIssue.description}"></span></p>
     </div>
 </div>
 
-<footer class="text-center py-3 bg-dark text-white mt-auto">
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>Equipment Name</th>
+            <th>Brand</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="equipment : ${equipments}">
+            <td th:text="${equipment.equipmentName}">
+                Equipment Name
+            </td>
+            <td th:text="${equipment.brand}">
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<th:block th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('in progress')}">
+<div class="d-grid gap-3">
+    <a class="btn btn-success" th:href="@{/completeTask/{issueId}(issueId=${availableIssue.getIssueId()})}">Work Done</a>
+</div>
+</th:block>
+
+<th:block th:unless="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('in progress')}">
+    <div class="d-grid gap-3">
+        <a class="btn btn-secondary" disabled th:hidden="${daysBetweenCurrentDateAndDeadlineDate<0 ? 'hidden' : ''}">Work Done</a>
+    </div>
+</th:block>
+
+
+
+
+
+<div class="d-grid gap-3">
+    <a class="btn btn-primary btn-block" th:href="@{/workAssignList}">Return to the list</a>
+</div>
+
+</br></br></br>
+<footer class="text-center py-3 footer">
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>
 </body>
