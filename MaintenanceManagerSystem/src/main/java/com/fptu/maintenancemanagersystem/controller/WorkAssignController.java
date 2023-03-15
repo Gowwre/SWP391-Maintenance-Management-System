@@ -15,6 +15,8 @@ import java.util.List;
 
 @Controller
 public class WorkAssignController {
+    private static final String ERROR_VIEW = "error";
+
     @Autowired
     ResidentReportedIssueService residentReportedIssueService;
 
@@ -39,14 +41,13 @@ public class WorkAssignController {
 
             List<WorkProgressAndIssueByResidentReportedIssue> workProgressAndIssueByResidentReportedIssuesByStaffId = workProgressService.getWorkProgressAndStaffNameBySignedInStaff(assignedStaffId.getStaffId());
 
-
             model.addAttribute("assignedTasks", workProgressAndIssueByResidentReportedIssuesByStaffId);
             model.addAttribute("rooms", rooms);
-            
+
             return "staffPages/workAssignList";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
-            return "error";
+            return ERROR_VIEW;
         }
     }
 
@@ -66,7 +67,7 @@ public class WorkAssignController {
             return "staffPages/viewWorkAssign";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
-            return "error";
+            return ERROR_VIEW;
         }
     }
 }

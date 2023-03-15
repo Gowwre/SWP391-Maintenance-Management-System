@@ -55,16 +55,14 @@ public class WorkProgressRepository {
 
     private void insertWorkProgress(LocalDate deadline) {
         Date deadlineDate = Date.valueOf(deadline);
-        Date currentDate = Date.valueOf(LocalDate.now());
-        String workStatus = "In Progress";
 
         String sql = """
-                insert into [WorkProgress](deadline_date,created_date,work_status) values (:deadlineDate,:currentDate,:workStatus)
+                insert into [WorkProgress](deadline_date,created_date) values (:deadlineDate,CURRENT_TIMESTAMP)
                 """;
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("deadlineDate", deadlineDate)
-                .addValue("currentDate", currentDate)
-                .addValue("workStatus", workStatus);
+                ;
+
 
 
         namedParameterJdbcTemplate.update(sql, params);
