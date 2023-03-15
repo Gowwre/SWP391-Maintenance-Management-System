@@ -67,10 +67,10 @@
 </nav>
 <br/>
 
-<h5 class="text-center">Issue Detail</h5>
+<h5 class="text-center">Chi tiết báo cáo</h5>
 <div class="row">
     <div class="col-md-6">
-        <h5 class="font-weight-bold mb-4">Reported By</h5>
+        <h5 class="font-weight-bold mb-4">Người tạo báo cáo</h5>
         <p class="mb-2"><i class="fas fa-user mr-2"></i> <span
                 th:text="${availableIssue.residentName}"></span></p>
         <p class="mb-2"><i class="fas fa-envelope mr-2"></i> <span
@@ -79,7 +79,7 @@
                 th:text="${availableIssue.residentPhoneNumber}"></span></p>
     </div>
     <div class="col-md-6">
-        <h5 class="font-weight-bold mb-4">Issue Details</h5>
+        <h5 class="font-weight-bold mb-4">Chi tiết của báo cáo</h5>
         <p class="mb-2"><i class="fas fa-calendar-alt mr-2"></i> <span
                 th:text="${availableIssue.dateReported}"></span></p>
         <p class="mb-2"><i class="fas fa-bed mr-2"></i>
@@ -88,7 +88,7 @@
                 <span th:text="${allRoom.roomNumber}"></span>
             </div>
         </div>
-
+        <h5 class="font-weight-bold mb-4"> Mô tả vấn đề</h5>
         <p class="mb-2"><i class="fas fa-exclamation-circle mr-2"></i> <span
                 th:text="${availableIssue.description}"></span></p>
     </div>
@@ -135,6 +135,7 @@
     <a class="btn btn-primary btn-block" th:href="@{/workAssignList}">Return to the list</a>
 </div>
 
+</br></br></br>
 <footer class="text-center py-3 footer">
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>
