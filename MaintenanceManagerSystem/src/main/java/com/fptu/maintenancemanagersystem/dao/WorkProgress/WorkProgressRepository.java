@@ -119,4 +119,11 @@ public class WorkProgressRepository {
             return null;
         }
     }
+
+    public void markOverdueWork() {
+String sql = """
+    Update WorkProgress set work_status = 'Overdue' where work_status = 'In Progress' and deadline_date < CURRENT_TIMESTAMP
+    """;
+        jdbcTemplate.update(sql);
+    }
 }

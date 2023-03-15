@@ -33,6 +33,7 @@ public class ResidentReportedIssueController {
     @GetMapping("/residentReportedIssues")
     public String viewResidentReportedIssue(Model model) {
         try {
+            workProgressService.markOverdueWork();
             List<Room> rooms = roomService.getAllRooms();
             List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
             List<WorkProgressAndStaffNameRecord> workProgressAndStaffNameRecords = workProgressService.findAllWorkProgressAndStaffName();
