@@ -3,6 +3,7 @@ package com.fptu.maintenancemanagersystem.dao.WorkProgress;
 import com.fptu.maintenancemanagersystem.model.WorkProgress;
 import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
 import com.fptu.maintenancemanagersystem.model.WorkProgressAndStaffNameRecord;
+import com.fptu.maintenancemanagersystem.model.WorkStatusAndDeadlineDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -55,13 +56,16 @@ public class WorkProgressRepository {
     private void insertWorkProgress(LocalDate deadline) {
         Date deadlineDate = Date.valueOf(deadline);
         Date currentDate = Date.valueOf(LocalDate.now());
+        String workStatus = "In Progress";
 
         String sql = """
-                insert into [WorkProgress](deadline_date,created_date) values (:deadlineDate,:currentDate)
+                insert into [WorkProgress](deadline_date,created_date,work_status) values (:deadlineDate,:currentDate,:workStatus)
                 """;
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("deadlineDate", deadlineDate)
-                .addValue("currentDate", currentDate);
+                .addValue("currentDate", currentDate)
+                .addValue("workStatus", workStatus);
+
 
         namedParameterJdbcTemplate.update(sql, params);
     }
@@ -86,6 +90,26 @@ public class WorkProgressRepository {
         updateWorkProgressForFaultedDevice(issueId);
     }
 
+    public WorkStatusAndDeadlineDate getWorkStatusAndDeadlineForIssue(int issueId) {
+        String sql = """
+                select distinct deadline_date,work_status from
+                                     WorkProgress wp inner join FaultedDevice fd
+                                     on wp.work_progress_id = fd.work_progress_id
+                                     inner join ResidentReportedIssue rri
+                                     on rri.issue_id = fd.issue_id
+                                     where fd.issue_id=?
+                """;
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{issueId}, (rs, rowNum) -> new WorkStatusAndDeadlineDate(
+                    rs.getString("work_status"),
+                    rs.getDate("deadline_date").toLocalDate()
+
+            ));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     private Integer getCurrentWorkProgressId() {
         return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('WorkProgress')", Integer.class);
     }
@@ -105,17 +129,17 @@ public class WorkProgressRepository {
         }
     }
 
-    public List <WorkProgressAndIssueByResidentReportedIssue> getWorkProgressAndStaffNameBySignedInStaff(int signedInStaffId) {
+    public List<WorkProgressAndIssueByResidentReportedIssue> getAssignedWorkAndIssueByStaff(int signedInStaffId) {
         String sql = """
-                 SELECT distinct  wp.*, rri.*, fd.assign_staff_id
-                                FROM WorkProgress wp
-                                INNER JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
-                                INNER JOIN ResidentReportedIssue rri ON fd.issue_id = rri.issue_id
-                				where assign_staff_id =  ?
-                				""";
+                SELECT distinct  wp.*, rri.*, fd.assign_staff_id
+                               FROM WorkProgress wp
+                               INNER JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
+                               INNER JOIN ResidentReportedIssue rri ON fd.issue_id = rri.issue_id
+                			where assign_staff_id =  ?
+                			""";
         try {
             return jdbcTemplate.query(sql, new Object[]{signedInStaffId}, new WorkProgressAndIssueByResidentReportedIssueRowMapper());
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

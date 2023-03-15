@@ -30,4 +30,8 @@ public class StaffService {
     public Staff getStaffById(int staffId) {
         return staffRepository.findStaffById(staffId);
     }
+
+    public void markWorkProgressAsComplete(int issueId) {
+        staffRepository.markWorkProgressAsComplete(issueId);
+    }
 }

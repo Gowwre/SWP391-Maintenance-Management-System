@@ -21,8 +21,7 @@ public class ManagerRepository {
     public Manager findUserByLogin(String email, String password) {
         String SQL = "Select * From [Manager] Where email=? and password=?";
         try {
-            Manager manager = jdbcTemplate.queryForObject(SQL, new Object[]{email, password}, new BeanPropertyRowMapper<>(Manager.class));
-            return manager;
+            return jdbcTemplate.queryForObject(SQL, new Object[]{email, password}, new BeanPropertyRowMapper<>(Manager.class));
         } catch (DataAccessException e) {
             return null;
         }

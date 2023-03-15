@@ -111,4 +111,24 @@ public class StaffRepository {
             return null;
         }
     }
+
+    public void markWorkProgressAsComplete(int issueId) {
+
+        Integer workProgressId = getWorkProgressIdByIssueId(issueId);
+
+        String sql = """
+                Update [WorkProgress] set work_status=:workStatus, completed_date=:completeDate where work_progress_id=:workProgressId
+                """;
+        MapSqlParameterSource parameters = new MapSqlParameterSource()
+                .addValue("workStatus", "Completed")
+                .addValue("completeDate", java.sql.Date.valueOf(java.time.LocalDate.now()))
+                .addValue("workProgressId", workProgressId);
+
+        namedParameterJdbcTemplate.update(sql, parameters);
+
+    }
+
+    private Integer getWorkProgressIdByIssueId(int issueId) {
+        return jdbcTemplate.queryForObject("SELECT DISTINCT work_progress_id FROM [FaultedDevice] WHERE issue_id=?", new Object[]{issueId}, Integer.class);
+    }
 }

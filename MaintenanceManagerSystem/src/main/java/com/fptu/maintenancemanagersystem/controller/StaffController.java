@@ -91,7 +91,7 @@ public class StaffController {
 
     @GetMapping("/completeTask/{issueId}")
     public String completeTask(@PathVariable("issueId") int issueId, Model model, HttpSession session) {
-        staffService.completeTask(issueId);
+        staffService.markWorkProgressAsComplete(issueId);
 
         return workAssignController.viewResidentReportedIssue(model, session);
     }

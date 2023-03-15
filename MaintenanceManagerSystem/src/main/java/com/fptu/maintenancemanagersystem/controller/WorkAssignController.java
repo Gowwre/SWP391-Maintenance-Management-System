@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
@@ -53,7 +55,11 @@ public class WorkAssignController {
         try {
             ResidentReportedIssue residentReportedIssue = residentReportedIssueService.getResidentReportedIssueById(issueID);
             List<Equipment> equipmentsByIssueId = equipmentService.getEquipmentsByIssueId(issueID);
+            var workProgressStatusAndCompletedDate= workProgressService.getWorkStatusAndDeadlineForIssue(issueID);
+            var daysBetweenCurrentDateAndDeadlineDate = ChronoUnit.DAYS.between(LocalDate.now(),workProgressStatusAndCompletedDate.deadlineDate());
 
+            model.addAttribute("daysBetweenCurrentDateAndDeadlineDate", daysBetweenCurrentDateAndDeadlineDate);
+            model.addAttribute("workStatusAndCompletedDate", workProgressStatusAndCompletedDate);
             model.addAttribute("rooms", roomService.getAllRooms());
             model.addAttribute("equipments", equipmentsByIssueId);
             model.addAttribute("availableIssue", residentReportedIssue);

@@ -4,6 +4,7 @@ import com.fptu.maintenancemanagersystem.dao.WorkProgress.WorkProgressRepository
 import com.fptu.maintenancemanagersystem.model.WorkProgress;
 import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
 import com.fptu.maintenancemanagersystem.model.WorkProgressAndStaffNameRecord;
+import com.fptu.maintenancemanagersystem.model.WorkStatusAndDeadlineDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,15 @@ public class WorkProgressService {
         return workProgressRepository.findWorkProgressAndStaffNameByIssueId(issueID);
     }
 
+    public WorkStatusAndDeadlineDate getWorkStatusAndDeadlineForIssue(int issueID) {
+        return workProgressRepository.getWorkStatusAndDeadlineForIssue(issueID);
+    }
+
     public List<WorkProgressAndIssueByResidentReportedIssue> getWorkProgressAndStaffNameBySignedInStaff(int signedInStaffId) {
-        return workProgressRepository.getWorkProgressAndStaffNameBySignedInStaff(signedInStaffId);
+        return workProgressRepository.getAssignedWorkAndIssueByStaff(signedInStaffId);
+    }
+
+    public void markOverdueWork() {
+        workProgressRepository.markOverdueWork();
     }
 }
