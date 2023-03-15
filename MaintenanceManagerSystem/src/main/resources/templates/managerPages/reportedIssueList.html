@@ -1,5 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Trang quản lý báo cáo thiết bị lỗi</title>
@@ -8,35 +8,9 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .navbar-custom {
-            background-color: #ffc107 !important;
-        }
-
-        .navbar-custom .navbar-brand {
-            height: 50px;
-            width: auto;
-            margin-right: 10px;
-            color: black;
-        }
-
-        .nav-item .nav-link.active {
-            color: black;
-        }
-
-        .footer {
-            background-color: black;
-            color: white;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">
             <h1> Maintenance System </h1>
@@ -46,30 +20,30 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ms-auto ">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-dark active" aria-current="page" href="#">Trang chủ</a>
+                    <a class="nav-link mx-2 active" aria-current="page" href="#">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/staffList}">Quản lý nhân viên</a>
+                    <a class="nav-link mx-2" href="#" th:href="@{/staffList}">Quản lý nhân viên</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở
+                    <a class="nav-link mx-2" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở
                         chung
                         cư</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink"
+                    <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                        role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item text-dark" href="#">Tài khoản</a></li>
-                        <li><a class="dropdown-item text-dark" th:href="@{/homePages/managerHomePage/changePassword}">Đổi
+                        <li><a class="dropdown-item" href="#">Tài khoản</a></li>
+                        <li><a class="dropdown-item" th:href="@{/homePages/managerHomePage/changePassword}">Đổi
                             mật
                             khẩu</a></li>
-                        <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/logout}">Đăng xuất</a></li>
                     </ul>
                 </li>
             </ul>
@@ -90,6 +64,7 @@
                 <th>Nhân viên làm công việc</th>
                 <th>Trạng thái công việc</th>
                 <th>Ngày hoàn thành</th>
+
                 <th>Ngày hạn công việc phải hoàn thành</th>
             </tr>
             </thead>
@@ -108,38 +83,32 @@
                     <a class="btn btn-primary" th:href="@{/viewIssue/{id}(id=${residentReportedIssues.issueId})}">Xem chi tiết
                     </a>
                 </td>
-                <td >
+                <td>
                     <div th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}">
-                        <div >
+                        <div>
                             <span th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.fullName}">Staff Assigned</span>
                         </div>
                     </div>
                 </td>
                 <td>
                     <div th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}">
-                        <div >
+                        <div>
                             <span th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.workStatus}">Status</span>
-
                         </div>
-
                     </div>
                 </td>
                 <td>
                     <div th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}">
-                        <div >
+                        <div>
                             <span th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.completedDate}">Completed Date</span>
-
                         </div>
-
                     </div>
                 </td>
                 <td>
                     <div th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}">
-                        <div >
+                        <div>
                             <span th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.deadlineDate}">DeadLine Date</span>
-
                         </div>
-
                     </div>
                 </td>
             </tr>
@@ -147,9 +116,8 @@
         </table>
     </div>
 </div>
-
-</br></br></br>
-<footer class="text-center py-3 footer">
+<div class="mt-5"></div>
+<footer class="text-center py-3 fixed-bottom bg-dark text-white">
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>
 </body>
