@@ -60,11 +60,11 @@
                 <tr th:each="assignedTask : ${assignedTasks}">
                     <td th:text="${assignedTask.dateReported}">Ngày</td>
                     <td>
-                        <div th:each="room : ${rooms}">
-                            <div th:if="${assignedTask.roomId == room.roomId}">
+
+                            <div th:each="room : ${rooms}" th:if="${assignedTask.roomId == room.roomId}">
                                 <span th:text="${room.roomNumber}">Room Num</span>
                             </div>
-                        </div>
+
                     </td>
                     <td th:text="${assignedTask.residentName}">Resident Name</td>
                     <td>

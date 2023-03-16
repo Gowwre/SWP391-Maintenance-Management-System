@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Trang quản lý nhân viên</title>
@@ -107,11 +107,11 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Quản lý tầng</h5>
-          <div th:each="floors : ${floorList}">
-            <div th:if="${staff.floorId == floors.floorId}">
+
+            <div th:each="floors : ${floorList}" th:if="${staff.floorId == floors.floorId}">
               <p th:text="${floors.name}">Floor Manage</p>
             </div>
-          </div>
+
         </div>
       </div>
     </div>
@@ -122,7 +122,7 @@
   <a class="btn btn-primary btn-sm-block" th:href="@{/staffList}">Return to the list</a>
 </div>
 
-</br></br></br>
+
 <footer class="text-center py-3 footer">
   &copy; 2023 Maintainance System. All rights reserved.
 </footer>
