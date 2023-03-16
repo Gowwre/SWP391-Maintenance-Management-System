@@ -60,8 +60,8 @@ public class ResidentController {
     }
 
     @PostMapping("/resident/confirmWorkCompletion")
-    public String confirmWorkCompletion(@RequestParam("issueId") int issueId, @RequestParam("residentPhoneNumber") String residentPhoneNumber) {
+    public String confirmWorkCompletion(@RequestParam("issueId") int issueId, @RequestParam("residentPhoneNumber") String residentPhoneNumber, Model model) {
         residentReportedIssueService.confirmWorkCompletion(issueId, residentPhoneNumber);
-        return "redirect:/";
+        return viewIssueDetail(issueId, model);
     }
 }

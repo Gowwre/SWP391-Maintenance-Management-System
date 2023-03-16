@@ -93,6 +93,6 @@ public class StaffController {
     public String completeTask(@PathVariable("issueId") int issueId, Model model, HttpSession session) {
         staffService.markWorkProgressAsComplete(issueId);
 
-        return workAssignController.viewResidentReportedIssue(model, session);
+        return workAssignController.getReportedIssueByFaultedDeviceRecord(issueId, model);
     }
 }

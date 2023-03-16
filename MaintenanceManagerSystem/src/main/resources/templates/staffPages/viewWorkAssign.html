@@ -97,15 +97,34 @@
     <th:block
             th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('đang sửa chữa') && availableIssue.residentCompletionConfirmation == true}">
         <div class="d-grid gap-3">
+
             <a class="btn btn-success" th:href="@{/completeTask/{issueId}(issueId=${availableIssue.getIssueId()})}">Hoàn
                 thành công việc</a>
         </div>
     </th:block>
 
-    <th:block th:unless="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('đang sửa chữa')}">
+    <th:block th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('đã hoàn thành')}">
         <div class="d-grid gap-3">
-            <a class="btn btn-secondary" disabled
-               th:hidden="${daysBetweenCurrentDateAndDeadlineDate<0 ? 'hidden' : ''}">Hoàn thành công việc</a>
+            <a class="btn btn-secondary" disabled>Đã hoàn thành công việc</a>
+        </div>
+    </th:block>
+
+    <th:block
+            th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('đang sửa chữa') && availableIssue.residentCompletionConfirmation==false}">
+        <div class="d-grid gap-3">
+            <label for="pendingResidentConfirmation" class="text-danger">*Nút bấm sẽ được kích hoạt khi có sự xác nhận
+                của cư dân</label>
+            <a id="pendingResidentConfirmation" class="btn btn-secondary" disabled
+            >Hoàn thành công việc</a>
+        </div>
+    </th:block>
+
+    <th:block th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('đã quá hạn')}">
+        <div class="d-grid gap-3">
+            <label for="workCompleteOverdue" class="text-danger">*Đã quá hạn sửa chữa, vui lòng liên hệ với quản
+                lý</label>
+            <a id="workCompleteOverdue" class="btn btn-danger" disabled
+            >Quá Hạn</a>
         </div>
     </th:block>
 
