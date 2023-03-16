@@ -36,7 +36,7 @@ public class WorkProgressRepository {
 
     public List<WorkProgressAndIssueByResidentReportedIssue> findWorkProgressAndIssueByResidentReportedIssue() {
         String SQL = """
-                SELECT wp.*, rri.*, fd.assign_staff_id
+                SELECT  wp.*, rri.*, fd.assign_staff_id
                 FROM WorkProgress wp
                 INNER JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
                 INNER JOIN ResidentReportedIssue rri ON fd.issue_id = rri.issue_id""";
@@ -144,7 +144,7 @@ public class WorkProgressRepository {
 
     public void markOverdueWork() {
 String sql = """
-    Update WorkProgress set work_status = 'Overdue' where work_status = 'In Progress' and deadline_date < CURRENT_TIMESTAMP
+    Update WorkProgress set work_status = 'Qúa hạn thời gian đã được giao' where work_status = 'Đang trong quá trình làm' and deadline_date < CURRENT_TIMESTAMP
     """;
         jdbcTemplate.update(sql);
     }

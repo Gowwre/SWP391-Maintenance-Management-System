@@ -5,8 +5,8 @@ import java.time.LocalDate;
 
 public record WorkProgressAndIssueByResidentReportedIssue(int workProgressId, LocalDate deadlineDate, LocalDate createdDate, String workStatus, LocalDate completedDate,
                                                           int issueId, int roomId, String residentName, String residentEmail,
-                                                          String residentPhoneNumber, String description, LocalDate dateReported, int assignStaffId) {
-    public WorkProgressAndIssueByResidentReportedIssue(int workProgressId, LocalDate deadlineDate, LocalDate createdDate, String workStatus, LocalDate completedDate, int issueId, int roomId, String residentName, String residentEmail, String residentPhoneNumber, String description, LocalDate dateReported, int assignStaffId) {
+                                                          String residentPhoneNumber, String description, LocalDate dateReported, String residentCompletionConfirmation, int assignStaffId) {
+    public WorkProgressAndIssueByResidentReportedIssue(int workProgressId, LocalDate deadlineDate, LocalDate createdDate, String workStatus, LocalDate completedDate, int issueId, int roomId, String residentName, String residentEmail, String residentPhoneNumber, String description, LocalDate dateReported, String residentCompletionConfirmation, int assignStaffId) {
         this.workProgressId = workProgressId;
         this.deadlineDate = deadlineDate;
         this.createdDate = createdDate;
@@ -19,6 +19,7 @@ public record WorkProgressAndIssueByResidentReportedIssue(int workProgressId, Lo
         this.residentPhoneNumber = residentPhoneNumber;
         this.description = description;
         this.dateReported = dateReported;
+        this.residentCompletionConfirmation = residentCompletionConfirmation;
         this.assignStaffId = assignStaffId;
     }
 }

@@ -1,6 +1,7 @@
 package com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue;
 
 import com.fptu.maintenancemanagersystem.dao.WorkProgress.WorkProgressAndIssueByResidentReportedIssueRowMapper;
+import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgressByPhoneNum;
 import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
 import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +66,9 @@ public class ResidentReportedIssueRepository {
 
 
     private Integer getCurrentIssueId() {
-        try{
-        return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);}
-        catch (Exception e){
+        try {
+            return jdbcTemplate.queryForObject("SELECT IDENT_CURRENT('ResidentReportedIssue')", Integer.class);
+        } catch (Exception e) {
             return -1;
         }
     }
@@ -83,10 +84,34 @@ public class ResidentReportedIssueRepository {
     public ResidentReportedIssue getResidentReportedIssueById(int issueId) {
         String SQL = "select* from ResidentReportedIssue where issue_id=?";
 
-        try{
-        return jdbcTemplate.queryForObject(SQL, new Object[]{issueId}, new ResidentReportedIssueRowMapper());}
-        catch (Exception e){
+        try {
+            return jdbcTemplate.queryForObject(SQL, new Object[]{issueId}, new ResidentReportedIssueRowMapper());
+        } catch (Exception e) {
             return null;
         }
+    }
+
+    public List<ResidentIssueReportedAndWorkProgressByPhoneNum> getResidentIssueReportedAndWorkProgressByPhoneNum(String residentPhoneNumber) {
+        String SQL = """
+                SELECT DISTINCT wp.*, r.*, s.fullname
+                FROM WorkProgress wp
+                JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
+                JOIN ResidentReportedIssue r ON fd.issue_id = r.issue_id
+                JOIN Staff s ON fd.assign_staff_id = s.staff_id
+                Where r.resident_phone_number = ?
+                """;
+        return jdbcTemplate.query(SQL, new Object[]{residentPhoneNumber}, new ResidentIssueReportedAndWorkProgressByPhoneNumRowMapper());
+    }
+
+    public ResidentIssueReportedAndWorkProgressByPhoneNum getResidentIssueReportedAndWorkProgressByIssueId(int issueId) {
+        String SQL = """
+                SELECT DISTINCT wp.*, r.*, s.fullname
+                                FROM WorkProgress wp
+                                JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
+                                JOIN ResidentReportedIssue r ON fd.issue_id = r.issue_id
+                                JOIN Staff s ON fd.assign_staff_id = s.staff_id
+                                Where r.issue_id = ?
+                """;
+        return jdbcTemplate.queryForObject(SQL, new Object[]{issueId}, new ResidentIssueReportedAndWorkProgressByPhoneNumRowMapper());
     }
 }

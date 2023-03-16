@@ -1,16 +1,16 @@
-package com.fptu.maintenancemanagersystem.dao.WorkProgress;
+package com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue;
 
-import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
+
+import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgressByPhoneNum;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class WorkProgressAndIssueByResidentReportedIssueRowMapper implements RowMapper<WorkProgressAndIssueByResidentReportedIssue> {
-
+public class ResidentIssueReportedAndWorkProgressByPhoneNumRowMapper implements RowMapper<ResidentIssueReportedAndWorkProgressByPhoneNum> {
     @Override
-    public WorkProgressAndIssueByResidentReportedIssue mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public ResidentIssueReportedAndWorkProgressByPhoneNum mapRow(ResultSet rs, int rowNum) throws SQLException {
         int workProgressId = rs.getInt("work_progress_id");
         LocalDate deadlineDate = rs.getDate("deadline_date").toLocalDate();
         LocalDate createdDate = rs.getDate("created_date").toLocalDate();
@@ -28,10 +28,10 @@ public class WorkProgressAndIssueByResidentReportedIssueRowMapper implements Row
         LocalDate dateReported = rs.getDate("date_reported").toLocalDate();
         Boolean isResidentCompletionConfirmation = rs.getBoolean("resident_completion_confirmation");
         String residentCompletionConfirmation = isResidentCompletionConfirmation ? "Chấp nhận" : "Không chấp nhận";
-        int assignStaffId = rs.getInt("assign_staff_id");
-        return new WorkProgressAndIssueByResidentReportedIssue(
+        String staffFullName = rs.getString("fullname");
+        return new ResidentIssueReportedAndWorkProgressByPhoneNum(
                 workProgressId, deadlineDate, createdDate, workStatus, completedDate,
                 residentReportedIssueId, roomId, residentName, residentEmail, residentPhoneNumber, description,
-                dateReported, residentCompletionConfirmation, assignStaffId);
+                dateReported, residentCompletionConfirmation, staffFullName);
     }
 }
