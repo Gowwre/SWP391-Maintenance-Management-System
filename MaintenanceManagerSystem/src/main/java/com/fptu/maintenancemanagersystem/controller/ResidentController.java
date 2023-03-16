@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class ResidentController {
     @Autowired
     EquipmentService equipmentService;
 
-    @GetMapping("/residentIssueListbyPhoneNumber")
+    @GetMapping("/residentIssueListByPhoneNumber")
     public String viewResidentReportedIssue(@RequestParam("phoneNumber") String phoneNumber, Model model) {
         try {
             List<ResidentIssueReportedAndWorkProgressByPhoneNum> residentIssueReportedAndWorkProgressByPhoneNumList = residentReportedIssueService.getAllReportedIssueByFaultedDeviceRecordsByPhoneNum(phoneNumber);
@@ -56,5 +57,11 @@ public class ResidentController {
             model.addAttribute("error", e.getMessage());
             return "error";
         }
+    }
+
+    @PostMapping("/resident/confirmWorkCompletion")
+    public String confirmWorkCompletion(@RequestParam("issueId") int issueId, @RequestParam("residentPhoneNumber") String residentPhoneNumber) {
+        residentReportedIssueService.confirmWorkCompletion(issueId, residentPhoneNumber);
+        return "redirect:/";
     }
 }

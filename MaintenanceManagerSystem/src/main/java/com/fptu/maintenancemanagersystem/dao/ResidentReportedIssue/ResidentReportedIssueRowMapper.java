@@ -17,6 +17,7 @@ public class ResidentReportedIssueRowMapper implements RowMapper<ResidentReporte
         residentReportedIssue.setResidentPhoneNumber(rs.getString("resident_phone_number"));
         residentReportedIssue.setDescription(rs.getString("description"));
         residentReportedIssue.setDateReported(rs.getDate("date_reported").toLocalDate());
+        residentReportedIssue.setResidentCompletionConfirmation(rs.getBoolean("resident_completion_confirmation"));
         return residentReportedIssue;
     }
 }

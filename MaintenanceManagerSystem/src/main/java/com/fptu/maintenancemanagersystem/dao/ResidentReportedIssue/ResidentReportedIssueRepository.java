@@ -2,8 +2,8 @@ package com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue;
 
 import com.fptu.maintenancemanagersystem.dao.WorkProgress.WorkProgressAndIssueByResidentReportedIssueRowMapper;
 import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgressByPhoneNum;
-import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
 import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
+import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,13 +22,14 @@ public class ResidentReportedIssueRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     public List<ResidentReportedIssue> getAll() throws Exception {
         String SQL = "SELECT * FROM [ResidentReportedIssue]";
         return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(ResidentReportedIssue.class));
     }
 
-    @Autowired
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Transactional
     public void insertReportForm(ResidentReportedIssue residentReportedIssue, List<Integer> equipmentIds) {
@@ -113,5 +114,15 @@ public class ResidentReportedIssueRepository {
                                 Where r.issue_id = ?
                 """;
         return jdbcTemplate.queryForObject(SQL, new Object[]{issueId}, new ResidentIssueReportedAndWorkProgressByPhoneNumRowMapper());
+    }
+
+    public void confirmWorkCompletion(int issueId, String residentPhoneNumber) {
+        String sql = "Update [ResidentReportedIssue] set resident_completion_confirmation = 1 where issue_id = :issueId and resident_phone_number = :residentPhoneNumber";
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource()
+                .addValue("issueId", issueId)
+                .addValue("residentPhoneNumber", residentPhoneNumber);
+
+        namedParameterJdbcTemplate.update(sql, parameters);
     }
 }

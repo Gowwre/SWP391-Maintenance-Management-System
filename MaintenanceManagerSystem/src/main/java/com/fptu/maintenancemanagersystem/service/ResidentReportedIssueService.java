@@ -37,4 +37,8 @@ public class ResidentReportedIssueService {
     public ResidentIssueReportedAndWorkProgressByPhoneNum getResidentIssueReportedAndWorkProgressByIssueId (int issueId) throws Exception {
         return residentReportedIssueRepository.getResidentIssueReportedAndWorkProgressByIssueId(issueId);
     }
+
+    public void confirmWorkCompletion(int issueId, String residentPhoneNumber) {
+        residentReportedIssueRepository.confirmWorkCompletion(issueId, residentPhoneNumber);
+    }
 }

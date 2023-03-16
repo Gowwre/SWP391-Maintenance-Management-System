@@ -17,4 +17,5 @@ public class ResidentReportedIssue implements Serializable {
     private String description;
     private LocalDate dateReported;
 
+    private boolean residentCompletionConfirmation;
 }
