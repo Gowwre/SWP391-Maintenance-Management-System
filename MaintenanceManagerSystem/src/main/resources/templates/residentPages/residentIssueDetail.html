@@ -97,13 +97,17 @@
         </div>
     </div>
 
-
+<th:block th:if="${residentIssueReportedAndWorkProgressByIssueId.residentCompletionConfirmation() == false}">
     <form th:action="@{/resident/confirmWorkCompletion}" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xác nhận nhân viên đã hoàn thành công việc không?')">
         <input type="hidden" name="issueId" th:value="${residentIssueReportedAndWorkProgressByIssueId.issueId}">
         <input type="hidden" name="residentPhoneNumber" th:value="${residentIssueReportedAndWorkProgressByIssueId.residentPhoneNumber()}">
         <input type="submit" class="btn btn-success btn-sm-block" value="Xác nhận nhân viên đã hoàn thành công việc">
     </form>
+</th:block>
 
+    <p>
+        <a th:href="@{/}" class="btn btn-sm-block btn-primary">Quay về trang chủ</a>
+    </p>
 </div>
 
 <footer class="text-center py-3 footer">
