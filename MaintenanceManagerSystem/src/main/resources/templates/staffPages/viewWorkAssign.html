@@ -18,27 +18,30 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a class="nav-link mx-2 text-dark active" aria-current="page" th:href="@{/}">Trang chủ</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mx-2 text-dark" href="#" th:href="@{/workAssignList}">Công việc được giao</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button"
-                   data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item text-dark" href="#">Tài khoản</a></li>
-                    <li><a class="dropdown-item text-dark" th:href="@{/homePages/maintenanceStaffHomePage/changePassword}">Đổi
-                        mật khẩu</a></li>
-                    <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link mx-2 text-dark active" aria-current="page" th:href="@{/}">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/workAssignList}">Công việc được giao</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink"
+                       role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item text-dark" href="#">Tài khoản</a></li>
+                        <li><a class="dropdown-item text-dark"
+                               th:href="@{/homePages/maintenanceStaffHomePage/changePassword}">Đổi
+                            mật khẩu</a></li>
+                        <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 <div class="container my-5">
@@ -60,18 +63,18 @@
             </p>
             <p class="mb-2"><i class="fas fa-bed mr-2"></i>
 
-                <span th:each="allRoom : ${rooms}" th:if="${allRoom.roomId == availableIssue.roomId}" th:text="${allRoom.roomNumber}"></span>
+                <span th:each="allRoom : ${rooms}" th:if="${allRoom.roomId == availableIssue.roomId}"
+                      th:text="${allRoom.roomNumber}"></span>
             </p>
             <h5 class="font-weight-bold mb-4"> Mô tả vấn đề</h5>
             <p class="mb-2"><i class="fas fa-exclamation-circle mr-2"></i> <span
                     th:text="${availableIssue.description}"></span></p>
         </div>
-    </div><div class="table-responsive">
-    <!-- Rest of the code -->
-</div>
+    </div>
+
 
     <div class="d-grid gap-3 mt-4">
-        <table class="table table-striped table-bordered">
+        <table class="table table-responsive table-striped table-bordered">
             <thead>
             <tr>
                 <th>Equipment Name</th>
@@ -91,20 +94,24 @@
         </table>
     </div>
 
-    <th:block th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('in progress')}">
+    <th:block
+            th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('đang sửa chữa') && availableIssue.residentCompletionConfirmation == true}">
         <div class="d-grid gap-3">
-            <a class="btn btn-success" th:href="@{/completeTask/{issueId}(issueId=${availableIssue.getIssueId()})}">Work Done</a>
+            <a class="btn btn-success" th:href="@{/completeTask/{issueId}(issueId=${availableIssue.getIssueId()})}">Hoàn
+                thành công việc</a>
         </div>
     </th:block>
 
-    <th:block th:unless="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('in progress')}">
+    <th:block th:unless="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('đang sửa chữa')}">
         <div class="d-grid gap-3">
-            <a class="btn btn-secondary" disabled th:hidden="${daysBetweenCurrentDateAndDeadlineDate<0 ? 'hidden' : ''}">Work Done</a>
+            <a class="btn btn-secondary" disabled
+               th:hidden="${daysBetweenCurrentDateAndDeadlineDate<0 ? 'hidden' : ''}">Hoàn thành công việc</a>
         </div>
     </th:block>
+
 
     <p class="d-grid gap-3 mt-4">
-        <a class="btn btn-primary btn-block" th:href="@{/workAssignList}">Return to the list</a>
+        <a class="btn btn-primary btn-sm-block" th:href="@{/workAssignList}">Return to the list</a>
     </p>
 </div>
 <footer class="text-center py-3 fixed-bottom bg-dark text-white">
