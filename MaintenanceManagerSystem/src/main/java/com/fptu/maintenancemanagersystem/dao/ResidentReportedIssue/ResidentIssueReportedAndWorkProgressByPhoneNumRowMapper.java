@@ -26,12 +26,11 @@ public class ResidentIssueReportedAndWorkProgressByPhoneNumRowMapper implements 
         String residentPhoneNumber = rs.getString("resident_phone_number");
         String description = rs.getString("description");
         LocalDate dateReported = rs.getDate("date_reported").toLocalDate();
-        Boolean isResidentCompletionConfirmation = rs.getBoolean("resident_completion_confirmation");
-        String residentCompletionConfirmation = isResidentCompletionConfirmation ? "Chấp nhận" : "Không chấp nhận";
+        boolean isResidentCompletionConfirmation = rs.getBoolean("resident_completion_confirmation");
         String staffFullName = rs.getString("fullname");
         return new ResidentIssueReportedAndWorkProgressByPhoneNum(
                 workProgressId, deadlineDate, createdDate, workStatus, completedDate,
                 residentReportedIssueId, roomId, residentName, residentEmail, residentPhoneNumber, description,
-                dateReported, residentCompletionConfirmation, staffFullName);
+                dateReported, isResidentCompletionConfirmation, staffFullName);
     }
 }

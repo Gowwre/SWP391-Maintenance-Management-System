@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 public record ResidentIssueReportedAndWorkProgressByPhoneNum(int workProgressId, LocalDate deadlineDate, LocalDate createdDate, String workStatus, LocalDate completedDate,
                                                              int issueId, int roomId, String residentName, String residentEmail,
-                                                             String residentPhoneNumber, String description, LocalDate dateReported, String residentCompletionConfirmation,
+                                                             String residentPhoneNumber, String description, LocalDate dateReported, boolean residentCompletionConfirmation,
                                                              String staffFullName) {
-    public ResidentIssueReportedAndWorkProgressByPhoneNum(int workProgressId, LocalDate deadlineDate, LocalDate createdDate, String workStatus, LocalDate completedDate, int issueId, int roomId, String residentName, String residentEmail, String residentPhoneNumber, String description, LocalDate dateReported, String residentCompletionConfirmation, String staffFullName) {
+    public ResidentIssueReportedAndWorkProgressByPhoneNum(int workProgressId, LocalDate deadlineDate, LocalDate createdDate, String workStatus, LocalDate completedDate, int issueId, int roomId, String residentName, String residentEmail, String residentPhoneNumber, String description, LocalDate dateReported, boolean residentCompletionConfirmation, String staffFullName) {
         this.workProgressId = workProgressId;
         this.deadlineDate = deadlineDate;
         this.createdDate = createdDate;
