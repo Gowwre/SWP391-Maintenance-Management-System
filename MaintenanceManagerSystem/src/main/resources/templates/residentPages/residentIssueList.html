@@ -39,6 +39,7 @@
     </div>
 </nav>
 <div class="container my-4">
+    <th:block th:if="${!residentIssueReportedAndWorkProgressByPhoneNumList.isEmpty()}">
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
             <thead>
@@ -69,7 +70,19 @@
                 <td th:text="${residentIssues.staffFullName}"></td>
                 <td th:text="${residentIssues.deadlineDate}"></td>
             </tr>
-
+            </tbody>
+        </table>
+    </div>
+    </th:block>
+    <th:block th:if="${residentIssueReportedAndWorkProgressByPhoneNumList.isEmpty()}">
+        <div class="alert alert-danger" role="alert">
+            Không có báo cáo của người ở chung cư
+        </div>
+    </th:block>
+    <div>
+        <a th:href="@{/}" class="btn btn-primary btn-sm-block">Quay lại trang chủ</a>
+    </div>
+</div>
 <footer class="text-center py-3 footer">
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>
