@@ -1,7 +1,7 @@
 package com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue;
 
 import com.fptu.maintenancemanagersystem.dao.WorkProgress.WorkProgressAndIssueByResidentReportedIssueRowMapper;
-import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgressByPhoneNum;
+import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgress;
 import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
 import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,19 +92,19 @@ public class ResidentReportedIssueRepository {
         }
     }
 
-    public List<ResidentIssueReportedAndWorkProgressByPhoneNum> getResidentIssueReportedAndWorkProgressByPhoneNum(String residentPhoneNumber) {
+    public List<ResidentIssueReportedAndWorkProgress> getResidentIssueReportedAndWorkProgressByEmail(String residentEmail) {
         String SQL = """
                 SELECT DISTINCT wp.*, r.*, s.fullname
                 FROM WorkProgress wp
                 JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
                 JOIN ResidentReportedIssue r ON fd.issue_id = r.issue_id
                 JOIN Staff s ON fd.assign_staff_id = s.staff_id
-                Where r.resident_phone_number = ?
+                Where r.resident_email = ?
                 """;
-        return jdbcTemplate.query(SQL, new Object[]{residentPhoneNumber}, new ResidentIssueReportedAndWorkProgressByPhoneNumRowMapper());
+        return jdbcTemplate.query(SQL, new Object[]{residentEmail}, new ResidentIssueReportedAndWorkProgressRowMapper());
     }
 
-    public ResidentIssueReportedAndWorkProgressByPhoneNum getResidentIssueReportedAndWorkProgressByIssueId(int issueId) {
+    public ResidentIssueReportedAndWorkProgress getResidentIssueReportedAndWorkProgressByIssueId(int issueId) {
         String SQL = """
                 SELECT DISTINCT wp.*, r.*, s.fullname
                                 FROM WorkProgress wp
@@ -113,7 +113,7 @@ public class ResidentReportedIssueRepository {
                                 JOIN Staff s ON fd.assign_staff_id = s.staff_id
                                 Where r.issue_id = ?
                 """;
-        return jdbcTemplate.queryForObject(SQL, new Object[]{issueId}, new ResidentIssueReportedAndWorkProgressByPhoneNumRowMapper());
+        return jdbcTemplate.queryForObject(SQL, new Object[]{issueId}, new ResidentIssueReportedAndWorkProgressRowMapper());
     }
 
     public void confirmWorkCompletion(int issueId, String residentPhoneNumber) {

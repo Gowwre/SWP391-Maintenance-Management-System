@@ -1,16 +1,16 @@
 package com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue;
 
 
-import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgressByPhoneNum;
+import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgress;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class ResidentIssueReportedAndWorkProgressByPhoneNumRowMapper implements RowMapper<ResidentIssueReportedAndWorkProgressByPhoneNum> {
+public class ResidentIssueReportedAndWorkProgressRowMapper implements RowMapper<ResidentIssueReportedAndWorkProgress> {
     @Override
-    public ResidentIssueReportedAndWorkProgressByPhoneNum mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public ResidentIssueReportedAndWorkProgress mapRow(ResultSet rs, int rowNum) throws SQLException {
         int workProgressId = rs.getInt("work_progress_id");
         LocalDate deadlineDate = rs.getDate("deadline_date").toLocalDate();
         LocalDate createdDate = rs.getDate("created_date").toLocalDate();
@@ -28,7 +28,7 @@ public class ResidentIssueReportedAndWorkProgressByPhoneNumRowMapper implements 
         LocalDate dateReported = rs.getDate("date_reported").toLocalDate();
         boolean isResidentCompletionConfirmation = rs.getBoolean("resident_completion_confirmation");
         String staffFullName = rs.getString("fullname");
-        return new ResidentIssueReportedAndWorkProgressByPhoneNum(
+        return new ResidentIssueReportedAndWorkProgress(
                 workProgressId, deadlineDate, createdDate, workStatus, completedDate,
                 residentReportedIssueId, roomId, residentName, residentEmail, residentPhoneNumber, description,
                 dateReported, isResidentCompletionConfirmation, staffFullName);

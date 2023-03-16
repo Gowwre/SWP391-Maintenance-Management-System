@@ -46,9 +46,9 @@
                     <br/>
                     <div class="d-grid">
                         <p><a class="btn btn-primary btn-block" style="width: 300px" href="#" th:href="@{/createReport}">Tạo báo cáo thiết bị lỗi</a></p>
-                        <form action="#" th:action="@{/residentIssueListByPhoneNumber}" method="get">
-                            <label for="phoneNumber">Nhập số điện thoại vào đây:
-                                <input type="text" id="phoneNumber" name="phoneNumber" required/>
+                        <form action="#" th:action="@{/residentIssueListByEmail}" method="get">
+                            <label for="email">Nhập email vào đây:
+                                <input type="email" id="email" name="email" required/>
                             </label>
                             <button type="submit" class="btn btn-primary btn-block">Tìm kiếm</button>
                         </form>

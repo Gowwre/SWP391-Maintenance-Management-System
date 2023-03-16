@@ -1,7 +1,7 @@
 package com.fptu.maintenancemanagersystem.service;
 
 import com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue.ResidentReportedIssueRepository;
-import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgressByPhoneNum;
+import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgress;
 import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
 import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +30,11 @@ public class ResidentReportedIssueService {
         return residentReportedIssueRepository.getResidentReportedIssueById(issueId);
     }
 
-    public List<ResidentIssueReportedAndWorkProgressByPhoneNum> getAllReportedIssueByFaultedDeviceRecordsByPhoneNum (String phoneNumber) throws Exception {
-        return residentReportedIssueRepository.getResidentIssueReportedAndWorkProgressByPhoneNum(phoneNumber);
+    public List<ResidentIssueReportedAndWorkProgress> getAllReportedIssueByFaultedDeviceRecordsByEmail(String email) throws Exception {
+        return residentReportedIssueRepository.getResidentIssueReportedAndWorkProgressByEmail(email);
     }
 
-    public ResidentIssueReportedAndWorkProgressByPhoneNum getResidentIssueReportedAndWorkProgressByIssueId (int issueId) throws Exception {
+    public ResidentIssueReportedAndWorkProgress getResidentIssueReportedAndWorkProgressByIssueId (int issueId) throws Exception {
         return residentReportedIssueRepository.getResidentIssueReportedAndWorkProgressByIssueId(issueId);
     }
 
