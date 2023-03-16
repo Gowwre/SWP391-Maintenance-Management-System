@@ -144,7 +144,7 @@ public class WorkProgressRepository {
 
     public void markOverdueWork() {
 String sql = """
-    Update WorkProgress set work_status = 'Qúa hạn thời gian đã được giao' where work_status = 'Đang trong quá trình làm' and deadline_date < CURRENT_TIMESTAMP
+    Update WorkProgress set work_status = N'Quá Thời Hạn' where work_status = N'Đang Sửa Chữa' and deadline_date < CURRENT_TIMESTAMP
     """;
         jdbcTemplate.update(sql);
     }

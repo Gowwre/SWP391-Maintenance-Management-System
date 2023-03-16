@@ -117,10 +117,10 @@ public class StaffRepository {
         Integer workProgressId = getWorkProgressIdByIssueId(issueId);
 
         String sql = """
-                Update [WorkProgress] set work_status=:workStatus, completed_date=:completeDate where work_progress_id=:workProgressId
+                Update [WorkProgress] set work_status=N'Đã Hoàn Thành', completed_date=:completeDate where work_progress_id=:workProgressId
                 """;
         MapSqlParameterSource parameters = new MapSqlParameterSource()
-                .addValue("workStatus", "Completed")
+
                 .addValue("completeDate", java.sql.Date.valueOf(java.time.LocalDate.now()))
                 .addValue("workProgressId", workProgressId);
 
