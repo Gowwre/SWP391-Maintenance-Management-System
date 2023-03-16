@@ -50,6 +50,7 @@
                 <th>Các chức năng</th>
                 <th>Nhân viên làm công việc</th>
                 <th>Ngày hạn công việc phải hoàn thành</th>
+                <th>Trạng thái đơn</th>
             </tr>
             </thead>
             <tbody>
@@ -69,6 +70,14 @@
                 </td>
                 <td th:text="${residentIssues.staffFullName}"></td>
                 <td th:text="${residentIssues.deadlineDate}"></td>
+                <td>
+                    <th:block th:if="${residentIssues.residentCompletionConfirmation == true}">
+                        <span class="badge bg-success">Đã hoàn thành</span>
+                    </th:block>
+                    <th:block th:if="${residentIssues.residentCompletionConfirmation == false}">
+                        <span class="badge bg-danger">Chưa hoàn thành</span>
+                    </th:block>
+                </td>
             </tr>
             </tbody>
         </table>
