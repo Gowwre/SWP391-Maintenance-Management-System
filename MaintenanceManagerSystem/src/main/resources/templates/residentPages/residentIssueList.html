@@ -7,81 +7,57 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .navbar-custom {
-            background-color: #ffc107 !important;
-        }
-
-        .navbar-custom .navbar-brand {
-            height: 50px;
-            width: auto;
-            margin-right: 10px;
-            color: black;
-        }
-
-        .footer {
-            background-color: black;
-            color: white;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-        }
-    </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+<body class="d-flex flex-column min-vh-100 bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}">
+        <a class="navbar-brand text-dark" th:href="@{/}">
             <h1> Maintenance System </h1>
         </a>
     </div>
 </nav>
 <div class="container my-4">
     <th:block th:if="${!residentIssueReportedAndWorkProgressByEmail.isEmpty()}">
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>Ngày</th>
-                <th>Phòng</th>
-                <th>Họ và tên người ở</th>
-                <th>Các chức năng</th>
-                <th>Nhân viên làm công việc</th>
-                <th>Ngày hạn công việc phải hoàn thành</th>
-                <th>Trạng thái đơn</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="residentIssues : ${residentIssueReportedAndWorkProgressByEmail}">
-                <td th:text="${residentIssues.createdDate}"></td>
-                <td>
-
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Ngày</th>
+                    <th>Phòng</th>
+                    <th>Họ và tên người ở</th>
+                    <th>Các chức năng</th>
+                    <th>Nhân viên làm công việc</th>
+                    <th>Ngày hạn công việc phải hoàn thành</th>
+                    <th>Trạng thái đơn</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="residentIssues : ${residentIssueReportedAndWorkProgressByEmail}">
+                    <td th:text="${residentIssues.createdDate}"></td>
+                    <td>
                         <div th:each="room : ${rooms}" th:if="${residentIssues.roomId == room.roomId}">
                             <span th:text="${room.roomNumber}">Room Num</span>
                         </div>
-
-                </td>
-                <td th:text="${residentIssues.residentName()}"></td>
-                <td>
-                    <a class="btn btn-primary" th:href="@{/viewResidentIssue/{id}(id=${residentIssues.issueId})}">Xem chi tiết
-                    </a>
-                </td>
-                <td th:text="${residentIssues.staffFullName}"></td>
-                <td th:text="${residentIssues.deadlineDate}"></td>
-                <td>
-                    <th:block th:if="${residentIssues.residentCompletionConfirmation == true}">
-                        <span class="badge bg-success">Đã hoàn thành</span>
-                    </th:block>
-                    <th:block th:if="${residentIssues.residentCompletionConfirmation == false}">
-                        <span class="badge bg-danger">Chưa hoàn thành</span>
-                    </th:block>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                    </td>
+                    <td th:text="${residentIssues.residentName()}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/viewResidentIssue/{id}(id=${residentIssues.issueId})}">Xem chi tiết
+                        </a>
+                    </td>
+                    <td th:text="${residentIssues.staffFullName}"></td>
+                    <td th:text="${residentIssues.deadlineDate}"></td>
+                    <td>
+                        <th:block th:if="${residentIssues.residentCompletionConfirmation == true}">
+                            <span class="badge bg-success">Đã hoàn thành</span>
+                        </th:block>
+                        <th:block th:if="${residentIssues.residentCompletionConfirmation == false}">
+                            <span class="badge bg-danger">Chưa hoàn thành</span>
+                        </th:block>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </th:block>
     <th:block th:if="${residentIssueReportedAndWorkProgressByEmail.isEmpty()}">
         <div class="alert alert-danger" role="alert">
@@ -89,10 +65,11 @@
         </div>
     </th:block>
     <div>
-        <a th:href="@{/}" class="btn btn-primary btn-sm-block">Quay lại trang chủ</a>
+        <a th:href="@{/}" class="btn btn-primary btn-sm-block">Quay lại trang chủ
+        </a>
     </div>
 </div>
-<footer class="text-center py-3 footer">
+<footer class="text-center py-3 bg-dark text-white mt-auto">
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>
 </body>
