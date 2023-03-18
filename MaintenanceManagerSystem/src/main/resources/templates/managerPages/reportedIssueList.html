@@ -88,7 +88,10 @@
                 </td>
                 <td>
 
-                            <span th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}" th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.workStatus}">Status</span>
+                    <th:block th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}" th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}">
+                        <span th:text="${workProgressAndStaffNames.workStatus}" th:classappend="${workProgressAndStaffNames.workStatus().equalsIgnoreCase('Đã hoàn thành') ? 'badge bg-success' : (workProgressAndStaffNames.workStatus().equalsIgnoreCase( 'Đang Sửa Chữa') ? 'badge bg-warning' : 'badge bg-danger') }"></span>
+                    </th:block>
+
 
                 </td>
                 <td>

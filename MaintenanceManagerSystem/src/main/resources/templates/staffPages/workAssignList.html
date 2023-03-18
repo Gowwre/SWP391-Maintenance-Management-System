@@ -69,8 +69,8 @@
                         <a class="btn btn-primary" th:href="@{/viewWork/{id}(id=${assignedTask.issueId})}">Xem chi tiết
                         </a>
                     </td>
-                    <td th:text="${assignedTask.workStatus}">
-                        Work Status
+                    <td>
+                        <span th:classappend="${assignedTask.workStatus().equalsIgnoreCase('quá thời hạn')? 'badge bg-danger' : (assignedTask.workStatus().equalsIgnoreCase('đang sửa chữa')? 'badge bg-warning':'badge bg-success')}" th:text="${assignedTask.workStatus()}"></span>
                     </td>
                     <td th:text="${assignedTask.completedDate}">
                         Completed Date
