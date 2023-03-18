@@ -102,7 +102,7 @@ model.addAttribute("workProgressAndStaffName", workProgressAndStaffNameRecord);
         try {
             faultedDeviceService.updateAssignStaffByIssueId(assignStaffId,issueId);
             workProgressService.setDeadlineByIssueId(issueId,deadline);
-            return viewResidentReportedIssue(model);
+            return "redirect:/residentReportedIssues";
         } catch (Exception e) {
             return "error";
         }
