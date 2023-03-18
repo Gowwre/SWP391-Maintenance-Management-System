@@ -116,7 +116,7 @@
         </div>
     </th:block>
 
-    <th:block th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('đã quá hạn')}">
+    <th:block th:if="${workStatusAndCompletedDate.workStatus().equalsIgnoreCase('quá thời hạn')}">
         <div class="d-grid gap-3">
             <label for="workCompleteOverdue" class="text-danger">*Đã quá hạn sửa chữa, vui lòng liên hệ với quản
                 lý</label>
