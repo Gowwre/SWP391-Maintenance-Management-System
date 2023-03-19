@@ -74,7 +74,7 @@
 
 <div class="container">
     <h1>Tạo nhân viên mới</h1>
-    <form th:object="${newStaff}" method="post">
+    <form th:action="/createStaff" th:object="${newStaff}" method="post">
         <div class="mb-3">
             <label for="staffName">Họ và tên: </label>
             <input type="text" th:field="*{fullname}" class="form-control"
