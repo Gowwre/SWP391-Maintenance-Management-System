@@ -49,16 +49,19 @@
                     <a class="nav-link mx-2 text-dark" href="#" th:href="@{/staffList}">Quản lý nhân viên</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở chung
+                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở
+                        chung
                         cư</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button"
+                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink"
+                       role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item text-dark" href="#">Tài khoản</a></li>
-                        <li><a class="dropdown-item text-dark" th:href="@{/homePages/managerHomePage/changePassword}">Đổi mật
+                        <li><a class="dropdown-item text-dark" th:href="@{/homePages/managerHomePage/changePassword}">Đổi
+                            mật
                             khẩu</a></li>
                         <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
                     </ul>
@@ -69,49 +72,40 @@
 </nav>
 <br/>
 
-<a class="btn btn-primary" th:href="@{/getForCreateStaff}">Tạo nhân viên mới</a>
-<div class="container my-4">
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>Tên nhân viên</th>
-                <th>Email của nhân viên</th>
-                <th>Tầng quản lý</th>
-                <th>Còn làm hay không?</th>
-                <th>Các chức năng</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="staffs : ${staffList}">
-                <td th:text="${staffs.fullname}">Staff Name</td>
-                <td th:text="${staffs.email}">Staff Email</td>
-                <td>
-                    <div th:each="floors : ${floorList}">
-                        <div th:if="${staffs.floorId == floors.floorId}">
-                            <span th:text="${floors.name}">Floor Manage</span>
-                        </div>
-                    </div>
-                </td>
-                    <td>
-                        <div th:if="${staffs.isWorking}">
-                            <span class="text-success" th:text="'Đang làm việc'">Status</span>
-                        </div>
-                        <div th:unless="${staffs.isWorking}">
-                            <span class="text-danger" th:text="'Không làm việc'">Status</span>
-                        </div>
-                    </td>
-                <td>
-                    <a class="btn btn-primary" th:href="@{/viewStaff/{staffId}(staffId=${staffs.staffId})}">Xem chi tiết
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="container">
+    <h1>Tạo nhân viên mới</h1>
+    <form th:object="${newStaff}" method="post">
+        <div class="mb-3">
+            <label for="staffName">Họ và tên: </label>
+            <input type="text" th:field="*{fullname}" class="form-control"
+                   id="staffName" name="staffName">
+        </div>
+        <div class="mb-3">
+            <label for="dateOfBirth">Ngày sinh: </label>
+            <input type="date" id="dateOfBirth"
+                   name="dateOfBirth" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="staffEmail">Email: </label>
+            <input type="text" id="staffEmail" name="staffName"
+                   th:field="*{email}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="staffPhoneNum">Số điện thoại: </label>
+            <input type="text" th:field="*{phoneNumber}" class="form-control"
+                   id="staffPhoneNum" name="staffPhoneNum">
+        </div>
+        <div class="mb-3">
+            <label for="floor">Tầng để quản lý: </label>
+            <select id="floor" name="floor" class="form-select" th:field="">
+                <option value="0" selected disabled>Chọn số tầng</option>
+                <option th:each="floor : ${floors}" th:value="${floor.floorId}" th:text="${floor.floorName}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn-primary">Tạo nhân viên</button>
+    </form>
 </div>
 
-</br></br></br>
 <footer class="text-center py-3 footer">
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>

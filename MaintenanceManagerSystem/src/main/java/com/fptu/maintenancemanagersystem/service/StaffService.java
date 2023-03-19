@@ -38,4 +38,8 @@ public class StaffService {
     public void updateStaff(Staff staff) {
         staffRepository.updateStaff(staff);
     }
+
+    public void createStaff(Staff staff) {
+        staffRepository.createStaff(staff);
+    }
 }

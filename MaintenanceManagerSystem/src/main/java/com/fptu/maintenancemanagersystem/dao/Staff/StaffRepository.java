@@ -10,8 +10,10 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -147,6 +149,23 @@ public class StaffRepository {
                 .addValue("working", staff.isWorking())
                 .addValue("floorId", staff.getFloorId());
 
+        namedParameterJdbcTemplate.update(sql, parameters);
+    }
+
+    public void createStaff(Staff staff) {
+        String sql = """
+                INSERT INTO [Staff] (fullname, date_of_birth, email, phone_number, password, begin_work_date, is_working, floor_id)
+                VALUES (:fullname, :dateOfBirth, :email, :phoneNumber, :password, :beginWorkDate, :working, :floorId)
+                """;
+        MapSqlParameterSource parameters = new MapSqlParameterSource()
+                .addValue("fullname", staff.getFullname())
+                .addValue("dateOfBirth", staff.getDateOfBirth())
+                .addValue("email", staff.getEmail())
+                .addValue("phoneNumber", staff.getPhoneNumber())
+                .addValue("password", 12345678)
+                .addValue("beginWorkDate", Date.valueOf(LocalDate.now()))
+                .addValue("working", true)
+                .addValue("floorId", staff.getFloorId());
         namedParameterJdbcTemplate.update(sql, parameters);
     }
 }
