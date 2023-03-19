@@ -70,11 +70,11 @@
             <tr th:each="residentReportedIssues : ${residentReportedIssueList}">
                 <td th:text="${residentReportedIssues.dateReported}">Date</td>
                 <td>
-                    <div th:each="room : ${rooms}">
-                        <div th:if="${residentReportedIssues.roomId == room.roomId}">
+
+                        <th:block  th:each="room : ${rooms}" th:if="${residentReportedIssues.roomId == room.roomId}">
                             <span th:text="${room.roomNumber}">Room Num</span>
-                        </div>
-                    </div>
+                        </th:block>
+
                 </td>
                 <td th:text="${residentReportedIssues.residentName}">Resident Name</td>
                 <td>
