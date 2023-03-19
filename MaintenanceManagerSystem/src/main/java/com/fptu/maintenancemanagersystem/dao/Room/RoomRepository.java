@@ -15,7 +15,7 @@ public class RoomRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<Room> getAllRooms() throws Exception {
+    public List<Room> getAllRooms() {
         String SQL = "SELECT * FROM [Room]";
             return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(Room.class));
     }

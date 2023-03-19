@@ -20,7 +20,7 @@ public class FaultedDeviceService {
     @Autowired
     FaultedDeviceRepository faultDeviceRepository;
 
-    public List<FaultedDevice> getAllFaultedDevices() throws Exception {
+    public List<FaultedDevice> getAllFaultedDevices() {
         return faultDeviceRepository.getAll();
     }
 

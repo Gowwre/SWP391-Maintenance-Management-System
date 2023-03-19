@@ -32,7 +32,7 @@ public class ResidentReportedIssueController {
 
     @GetMapping("/residentReportedIssues")
     public String viewResidentReportedIssue(Model model) {
-        try {
+
             workProgressService.markOverdueWork();
             List<Room> rooms = roomService.getAllRooms();
             List<ResidentReportedIssue> residentReportedIssues = residentReportedIssueService.getAllResidentReportedIssue();
@@ -42,15 +42,12 @@ public class ResidentReportedIssueController {
             model.addAttribute("rooms", rooms);
             model.addAttribute("residentReportedIssueList", residentReportedIssues);
             return "managerPages/reportedIssueList";
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
+
     }
 
     @GetMapping("/viewIssue/{id}")
     public String getReportedIssueByFaultedDeviceRecord(@PathVariable("id") int issueID, Model model) {
-        try {
+
             ResidentReportedIssue residentReportedIssue = residentReportedIssueService.getResidentReportedIssueById(issueID);
             List<Equipment> equipmentsByIssueId = equipmentService.getEquipmentsByIssueId(issueID);
             List<Staff> workingStaffs = staffService.getWorkingStaff();
@@ -64,23 +61,19 @@ model.addAttribute("workProgressAndStaffName", workProgressAndStaffNameRecord);
             model.addAttribute("availableIssue", residentReportedIssue);
             model.addAttribute("workingStaffs", workingStaffs);
             return "managerPages/viewIssue";
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
+
+
+
     }
 
     @GetMapping("/createReport")
     public String showCreateNewReportForm(Model model) {
         model.addAttribute("residentReportedIssue", new ResidentReportedIssue());
-        try {
+
             List<Room> rooms = roomService.getAllRooms();
             model.addAttribute("rooms", rooms);
             return "reportForm/reportFormStep1";
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
+
     }
 
     @PostMapping("/createReport/step2")
@@ -99,13 +92,11 @@ model.addAttribute("workProgressAndStaffName", workProgressAndStaffNameRecord);
 
     @GetMapping("/updateAssignedStaff")
     public String updateAssignStaff(@RequestParam("issueId") int issueId, @RequestParam("staffId") int assignStaffId, @RequestParam("deadline")LocalDate deadline, Model model) {
-        try {
+
             faultedDeviceService.updateAssignStaffByIssueId(assignStaffId,issueId);
             workProgressService.setDeadlineByIssueId(issueId,deadline);
             return "redirect:/residentReportedIssues";
-        } catch (Exception e) {
-            return "error";
-        }
+
     }
 
 }

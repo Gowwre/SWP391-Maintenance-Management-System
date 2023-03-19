@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 public class WorkAssignController {
-    private static final String ERROR_VIEW = "error";
+
 
     @Autowired
     ResidentReportedIssueService residentReportedIssueService;
@@ -34,7 +34,7 @@ public class WorkAssignController {
 
     @GetMapping("/workAssignList")
     public String viewResidentReportedIssue(Model model, HttpSession session) {
-        try {
+
             List<Room> rooms = roomService.getAllRooms();
 
             var assignedStaffId = (Staff) session.getAttribute("staff");
@@ -45,15 +45,12 @@ public class WorkAssignController {
             model.addAttribute("rooms", rooms);
 
             return "staffPages/workAssignList";
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return ERROR_VIEW;
-        }
+
     }
 
     @GetMapping("/viewWork/{id}")
     public String getReportedIssueByFaultedDeviceRecord(@PathVariable("id") int issueID, Model model) {
-        try {
+
             ResidentReportedIssue residentReportedIssue = residentReportedIssueService.getResidentReportedIssueById(issueID);
             List<Equipment> equipmentsByIssueId = equipmentService.getEquipmentsByIssueId(issueID);
             var workProgressStatusAndCompletedDate= workProgressService.getWorkStatusAndDeadlineForIssue(issueID);
@@ -65,9 +62,6 @@ public class WorkAssignController {
             model.addAttribute("equipments", equipmentsByIssueId);
             model.addAttribute("availableIssue", residentReportedIssue);
             return "staffPages/viewWorkAssign";
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return ERROR_VIEW;
-        }
+
     }
 }

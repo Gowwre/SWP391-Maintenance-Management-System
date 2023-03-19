@@ -14,7 +14,7 @@ public class ResidentReportedIssueService {
     @Autowired
     private ResidentReportedIssueRepository residentReportedIssueRepository;
 
-    public List<ResidentReportedIssue> getAllResidentReportedIssue() throws Exception{
+    public List<ResidentReportedIssue> getAllResidentReportedIssue(){
         return residentReportedIssueRepository.getAll();
     }
     
@@ -22,19 +22,19 @@ public class ResidentReportedIssueService {
         residentReportedIssueRepository.insertReportForm(residentReportedIssue, equipmentIds);
     }
 
-    public List<WorkProgressAndIssueByResidentReportedIssue> getAllReportedIssueByFaultedDeviceRecords (int issueId) throws Exception {
+    public List<WorkProgressAndIssueByResidentReportedIssue> getAllReportedIssueByFaultedDeviceRecords (int issueId) {
         return residentReportedIssueRepository.getReportedIssueByFaultedDevice(issueId);
     }
 
-    public ResidentReportedIssue getResidentReportedIssueById(int issueId) throws Exception {
+    public ResidentReportedIssue getResidentReportedIssueById(int issueId){
         return residentReportedIssueRepository.getResidentReportedIssueById(issueId);
     }
 
-    public List<ResidentIssueReportedAndWorkProgress> getAllReportedIssueByFaultedDeviceRecordsByEmail(String email) throws Exception {
+    public List<ResidentIssueReportedAndWorkProgress> getAllReportedIssueByFaultedDeviceRecordsByEmail(String email){
         return residentReportedIssueRepository.getResidentIssueReportedAndWorkProgressByEmail(email);
     }
 
-    public ResidentIssueReportedAndWorkProgress getResidentIssueReportedAndWorkProgressByIssueId (int issueId) throws Exception {
+    public ResidentIssueReportedAndWorkProgress getResidentIssueReportedAndWorkProgressByIssueId (int issueId){
         return residentReportedIssueRepository.getResidentIssueReportedAndWorkProgressByIssueId(issueId);
     }
 

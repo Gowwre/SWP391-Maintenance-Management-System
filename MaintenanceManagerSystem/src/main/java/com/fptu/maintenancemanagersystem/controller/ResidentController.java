@@ -29,22 +29,19 @@ public class ResidentController {
 
     @GetMapping("/residentIssueListByEmail")
     public String viewResidentReportedIssue(@RequestParam("email") String email, Model model) {
-        try {
+
             List<ResidentIssueReportedAndWorkProgress> residentIssueReportedAndWorkProgressByEmail = residentReportedIssueService.getAllReportedIssueByFaultedDeviceRecordsByEmail(email);
             List<Room> roomList = roomService.getAllRooms();
 
             model.addAttribute("rooms", roomList);
             model.addAttribute("residentIssueReportedAndWorkProgressByEmail", residentIssueReportedAndWorkProgressByEmail);
             return "residentPages/residentIssueList";
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
+
     }
 
     @GetMapping("/viewResidentIssue/{id}")
     public String viewIssueDetail(@PathVariable("id") int issueID, Model model) {
-        try {
+
             ResidentIssueReportedAndWorkProgress residentIssueReportedAndWorkProgressByIssueId = residentReportedIssueService.getResidentIssueReportedAndWorkProgressByIssueId(issueID);
             List<Room> roomList = roomService.getAllRooms();
             List<Equipment> equipmentsByIssueId = equipmentService.getEquipmentsByIssueId(issueID);
@@ -53,10 +50,7 @@ public class ResidentController {
             model.addAttribute("equipmentsByIssueId", equipmentsByIssueId);
             model.addAttribute("residentIssueReportedAndWorkProgressByIssueId", residentIssueReportedAndWorkProgressByIssueId);
             return "residentPages/residentIssueDetail";
-        }catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
+
     }
 
     @PostMapping("/resident/confirmWorkCompletion")

@@ -25,7 +25,7 @@ public class ResidentReportedIssueRepository {
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public List<ResidentReportedIssue> getAll() throws Exception {
+    public List<ResidentReportedIssue> getAll(){
         String SQL = "SELECT * FROM [ResidentReportedIssue]";
         return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(ResidentReportedIssue.class));
     }
