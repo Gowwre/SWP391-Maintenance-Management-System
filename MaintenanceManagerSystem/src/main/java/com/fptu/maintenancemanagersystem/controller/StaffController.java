@@ -80,14 +80,7 @@ public class StaffController {
         return "managerPages/staffManagementList";
     }
 
-    @GetMapping("/viewStaff/{staffId}")
-    public String viewStaff(@PathVariable("staffId") int staffId, Model model) {
-        Staff staff = staffService.getStaffById(staffId);
-        List<Floor> floorList = floorService.getAll();
-        model.addAttribute("staff", staff);
-        model.addAttribute("floorList", floorList);
-        return "managerPages/viewStaff";
-    }
+
 
     @GetMapping("/completeTask/{issueId}")
     public String completeTask(@PathVariable("issueId") int issueId, Model model, HttpSession session) {
