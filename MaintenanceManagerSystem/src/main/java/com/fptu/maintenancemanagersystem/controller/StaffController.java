@@ -88,19 +88,4 @@ public class StaffController {
 
         return workAssignController.getReportedIssueByFaultedDeviceRecord(issueId, model);
     }
-
-    @GetMapping("/getForCreateStaff")
-    public String getForCreateStaff(Model model) {
-        List<Floor> floorList = floorService.getAll();
-
-        model.addAttribute("floorList", floorList);
-        model.addAttribute("newStaff", new Staff());
-        return "managerPages/createStaff";
-    }
-
-    @PostMapping("/createStaff")
-    public String createStaff(@ModelAttribute("newStaff") Staff staff, Model model) {
-        staffService.createStaff(staff);
-        return "redirect:/staffList";
-    }
 }

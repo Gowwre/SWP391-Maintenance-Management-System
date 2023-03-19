@@ -74,32 +74,32 @@
 
 <div class="container">
     <h1>Tạo nhân viên mới</h1>
-    <form th:action="/createStaff" th:object="${newStaff}" method="post">
+    <form th:action="@{/manager/createStaff/createNewStaff}" th:object="${newStaff}" method="post">
         <div class="mb-3">
             <label for="staffName">Họ và tên: </label>
             <input type="text" th:field="*{fullname}" class="form-control"
-                   id="staffName" name="staffName">
+                   id="staffName" name="staffName" required>
         </div>
         <div class="mb-3">
             <label for="dateOfBirth">Ngày sinh: </label>
             <input type="date" id="dateOfBirth"
-                   name="dateOfBirth" class="form-control">
+                   name="dateOfBirth" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="staffEmail">Email: </label>
             <input type="text" id="staffEmail" name="staffName"
-                   th:field="*{email}" class="form-control">
+                   th:field="*{email}" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="staffPhoneNum">Số điện thoại: </label>
             <input type="text" th:field="*{phoneNumber}" class="form-control"
-                   id="staffPhoneNum" name="staffPhoneNum">
+                   id="staffPhoneNum" name="staffPhoneNum" required>
         </div>
         <div class="mb-3">
             <label for="floor">Tầng để quản lý: </label>
-            <select id="floor" name="floor" class="form-select" th:field="">
+            <select id="floor" name="floor" class="form-select" th:field="*{floorId}" required>
                 <option value="0" selected disabled>Chọn số tầng</option>
-                <option th:each="floor : ${floors}" th:value="${floor.floorId}" th:text="${floor.floorName}"></option>
+                <option th:each="floor : ${floorList}" th:value="${floor.floorId}" th:text="${floor.name}"></option>
             </select>
         </div>
         <button type="submit" class="btn-primary">Tạo nhân viên</button>

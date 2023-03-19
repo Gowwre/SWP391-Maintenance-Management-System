@@ -95,4 +95,19 @@ staffService.updateStaff(staff);
         model.addAttribute("floorList", floorList);
         return "managerPages/viewStaff";
     }
+
+    @GetMapping("/getForCreateStaff")
+    public String getForCreateStaff(Model model) {
+        List<Floor> floorList = floorService.getAll();
+
+        model.addAttribute("floorList", floorList);
+        model.addAttribute("newStaff", new Staff());
+        return "managerPages/staffCreator";
+    }
+
+    @PostMapping("/manager/createStaff/createNewStaff")
+    public String createStaff(@ModelAttribute("newStaff") Staff staff, Model model) {
+        staffService.createStaff(staff);
+        return "redirect:/staffList";
+    }
 }
