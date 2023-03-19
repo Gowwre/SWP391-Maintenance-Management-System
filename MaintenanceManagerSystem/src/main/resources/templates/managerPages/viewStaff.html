@@ -93,6 +93,11 @@
             </div>
         </div>
     </div>
+
+    <div class="d-grid gap-3 mt-4">
+        <a class="btn btn-primary" th:href="@{/manager/staffEditor/{id}(id=${staff.getStaffId()})}">Chỉnh sửa thông tin nhân viên</a>
+    </div>
+
     <div class="d-grid gap-3 mt-4">
         <a class="btn btn-primary btn-sm-block" th:href="@{/staffList}">Trở về danh sách nhân viên</a>
     </div>

@@ -59,4 +59,9 @@ public class ManagerController {
         return "passwordProblemPages/changePassword";
     }
 
+    @PostMapping("/manager/staffEditor/updateStaff")
+    public String updateStaff(@ModelAttribute("currentStaffInfo") Staff staff, Model model) {
+staffService.updateStaff(staff);
+        return "redirect:/viewStaff/" + staff.getStaffId();
+    }
 }

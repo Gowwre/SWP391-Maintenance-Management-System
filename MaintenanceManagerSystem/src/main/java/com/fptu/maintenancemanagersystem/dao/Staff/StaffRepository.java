@@ -75,7 +75,7 @@ public class StaffRepository {
 
     }
 
-    public void setNewPassword(String email ,String currentPassword, String newPassword) {
+    public void setNewPassword(String email, String currentPassword, String newPassword) {
         String SQL = "Update [Staff] set password=:newPassword where email=:email and password=:currentPassword";
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -130,5 +130,23 @@ public class StaffRepository {
 
     private Integer getWorkProgressIdByIssueId(int issueId) {
         return jdbcTemplate.queryForObject("SELECT DISTINCT work_progress_id FROM [FaultedDevice] WHERE issue_id=?", new Object[]{issueId}, Integer.class);
+    }
+
+    public void updateStaff(Staff staff) {
+        String sql = """
+                UPDATE [Staff] SET fullname=:fullname, date_of_birth=:dateOfBirth, phone_number=:phoneNumber, begin_work_date=:beginWorkDate, is_working=:working, floor_id=:floorId
+                WHERE staff_id=:staffId
+                """;
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource()
+                .addValue("staffId", staff.getStaffId())
+                .addValue("fullname", staff.getFullname())
+                .addValue("dateOfBirth", staff.getDateOfBirth())
+                .addValue("phoneNumber", staff.getPhoneNumber())
+                .addValue("beginWorkDate", staff.getBeginWorkDate())
+                .addValue("working", staff.isWorking())
+                .addValue("floorId", staff.getFloorId());
+
+        namedParameterJdbcTemplate.update(sql, parameters);
     }
 }

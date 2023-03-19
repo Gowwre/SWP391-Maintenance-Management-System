@@ -34,4 +34,8 @@ public class StaffService {
     public void markWorkProgressAsComplete(int issueId) {
         staffRepository.markWorkProgressAsComplete(issueId);
     }
+
+    public void updateStaff(Staff staff) {
+        staffRepository.updateStaff(staff);
+    }
 }
