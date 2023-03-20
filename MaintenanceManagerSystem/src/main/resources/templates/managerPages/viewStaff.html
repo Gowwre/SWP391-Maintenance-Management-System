@@ -74,10 +74,10 @@
                     <p class="card-text" th:text="${staff.beginWorkDate}"></p>
                     <h5 class="card-title">Trạng thái làm việc</h5>
                     <div th:if="${staff.isWorking}">
-                        <p class="text-success" th:text="'Đang làm việc'">Status</p>
+                        <p class="badge bg-success" th:text="'Đang làm việc'">Status</p>
                     </div>
                     <div th:unless="${staff.isWorking}">
-                        <p class="text-danger" th:text="'Không làm việc'">Status</p>
+                        <p class="badge bg-danger" th:text="'Không làm việc'">Status</p>
                     </div>
                 </div>
             </div>
