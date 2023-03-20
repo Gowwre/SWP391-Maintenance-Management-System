@@ -74,7 +74,7 @@
             <h1 class="card-title">Trang chỉnh sửa thông tin nhân viên</h1>
         </header>
         <div class="card-body">
-            <form th:action="@{/manager/staffEditor/updateStaff}" method="post" th:object="${currentStaffInfo}"
+            <form id="staffEditor" th:action="@{/manager/staffEditor/updateStaff}" method="post" th:object="${currentStaffInfo}"
                   class="row g-3">
                 <input type="hidden" th:value="${currentStaffInfo.getStaffId()}" th:field="*{staffId}">
                 <div class="col-md-6">
