@@ -30,7 +30,7 @@ public class ResidentReportedIssueController {
     @Autowired
     WorkProgressService workProgressService;
 
-    @GetMapping("/residentReportedIssues")
+    @GetMapping("manager/residentReportedIssues")
     public String viewResidentReportedIssue(Model model) {
 
             workProgressService.markOverdueWork();
@@ -45,7 +45,7 @@ public class ResidentReportedIssueController {
 
     }
 
-    @GetMapping("/viewIssue/{id}")
+    @GetMapping("manager/viewIssue/{id}")
     public String getReportedIssueByFaultedDeviceRecord(@PathVariable("id") int issueID, Model model) {
 
             ResidentReportedIssue residentReportedIssue = residentReportedIssueService.getResidentReportedIssueById(issueID);
@@ -90,12 +90,12 @@ model.addAttribute("workProgressAndStaffName", workProgressAndStaffNameRecord);
         return "redirect:/";
     }
 
-    @GetMapping("/updateAssignedStaff")
+    @GetMapping("/manager/updateAssignedStaff")
     public String updateAssignStaff(@RequestParam("issueId") int issueId, @RequestParam("staffId") int assignStaffId, @RequestParam("deadline")LocalDate deadline, Model model) {
 
             faultedDeviceService.updateAssignStaffByIssueId(assignStaffId,issueId);
             workProgressService.setDeadlineByIssueId(issueId,deadline);
-            return "redirect:/residentReportedIssues";
+            return "redirect:/manager/residentReportedIssues";
 
     }
 

@@ -38,7 +38,7 @@ public class ManagerController {
             model.addAttribute("manager", new Manager());
             return "loginPages/maintenanceManagerLogin";
         } else {
-            return "redirect:/residentReportedIssues";
+            return "redirect:/manager/residentReportedIssues";
         }
     }
 
@@ -52,19 +52,10 @@ public class ManagerController {
         }
 
         session.setAttribute("manager", existedManager);
-        return "redirect:/residentReportedIssues";
+        return "redirect:/manager/residentReportedIssues";
     }
 
-    @GetMapping("homePages/managerHomePage")
-    public String showManagerHomePage(HttpSession session, Model model) {
-        Manager manager = (Manager) session.getAttribute("manager");
-        if (manager == null)
-            return "redirect:/";
-
-        return "redirect:/residentReportedIssues";
-    }
-
-    @GetMapping("/homePages/managerHomePage/changePassword")
+    @GetMapping("/manager/changePassword")
     public String showChangePassword(HttpSession session) {
         Manager existedManager = (Manager) session.getAttribute("manager");
 
@@ -72,6 +63,16 @@ public class ManagerController {
 
 
         return "passwordProblemPages/changePassword";
+    }
+
+    @GetMapping("manager/staffList")
+    public String showStaffList(Model model) {
+        List<Staff> staffList = staffService.getAllStaff();
+        List<Floor> floorList = floorService.getAll();
+
+        model.addAttribute("floorList", floorList);
+        model.addAttribute("staffList", staffList);
+        return "managerPages/staffManagementList";
     }
 
     @GetMapping("/manager/staffEditor/{id}")
@@ -84,10 +85,10 @@ public class ManagerController {
     @PostMapping("/manager/staffEditor/updateStaff")
     public String updateStaff(@ModelAttribute("currentStaffInfo") Staff staff, Model model) {
 staffService.updateStaff(staff);
-        return "redirect:/viewStaff/" + staff.getStaffId();
+        return "redirect:/manager/viewStaff/" + staff.getStaffId();
     }
 
-    @GetMapping("/viewStaff/{staffId}")
+    @GetMapping("/manager/viewStaff/{staffId}")
     public String viewStaff(@PathVariable("staffId") int staffId, Model model) {
         Staff staff = staffService.getStaffById(staffId);
         List<Floor> floorList = floorService.getAll();
@@ -96,7 +97,7 @@ staffService.updateStaff(staff);
         return "managerPages/viewStaff";
     }
 
-    @GetMapping("/getForCreateStaff")
+    @GetMapping("/manager/getForCreateStaff")
     public String getForCreateStaff(Model model) {
         List<Floor> floorList = floorService.getAll();
 
@@ -108,6 +109,6 @@ staffService.updateStaff(staff);
     @PostMapping("/manager/createStaff/createNewStaff")
     public String createStaff(@ModelAttribute("newStaff") Staff staff, Model model) {
         staffService.createStaff(staff);
-        return "redirect:/staffList";
+        return "redirect:/manager/staffList";
     }
 }

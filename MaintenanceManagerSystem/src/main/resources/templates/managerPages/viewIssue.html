@@ -8,11 +8,33 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        .navbar-custom {
+            background-color: #ffc107 !important;
+        }
+
+        .navbar-custom .navbar-brand {
+            height: 50px;
+            width: auto;
+            margin-right: 10px;
+            color: black;
+        }
+
+        .footer {
+            background-color: black;
+            color: white;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}">
+        <a class="navbar-brand" th:href="@{/manager/residentReportedIssues}">
             <h1> Maintenance System </h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -23,10 +45,10 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/staffList}">Quản lý nhân viên</a>
+                    <a class="nav-link mx-2" href="#" th:href="@{/manager/staffList}">Quản lý nhân viên</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-dark" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở
+                    <a class="nav-link mx-2" href="#" th:href="@{/manager/residentReportedIssues}">Báo cáo của người ở
                         chung
                         cư</a>
                 </li>
@@ -36,10 +58,7 @@
                        data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item text-dark" href="#">Tài khoản</a></li>
-                        <li><a class="dropdown-item text-dark" th:href="@{/homePages/managerHomePage/changePassword}">Đổi
-                            mật
-                            khẩu</a></li>
+                        <li><a class="dropdown-item text-dark" th:href="@{/manager/changePassword}">Đổi mật khẩu</a></li>
                         <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
                     </ul>
                 </li>
@@ -95,7 +114,7 @@
     </div>
     <section>
         <th:block th:if="${workProgressAndStaffName == null}">
-            <form th:action="@{/updateAssignedStaff}" id="assignStaffForm" class="mt-4">
+            <form th:action="@{/manager/updateAssignedStaff}" id="assignStaffForm" class="mt-4">
                 <input type="hidden" name="issueId" th:object="${availableIssue}" th:value="${availableIssue.issueId}">
                 <div class="mb-3">
                     <label for="staffId" class="form-label">Staff</label>
@@ -121,7 +140,7 @@
     </section>
 
     <p class="d-grid gap-3 mt-4">
-        <a class="btn btn-primary btn-sm-block" th:href="@{/residentReportedIssues}">Trở về danh sách</a>
+        <a class="btn btn-primary btn-sm-block" th:href="@{/manager/residentReportedIssues}">Trở về danh sách</a>
     </p>
 </div>
 

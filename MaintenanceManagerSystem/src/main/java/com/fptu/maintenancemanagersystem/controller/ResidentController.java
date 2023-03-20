@@ -27,7 +27,7 @@ public class ResidentController {
     @Autowired
     EquipmentService equipmentService;
 
-    @GetMapping("/residentIssueListByEmail")
+    @GetMapping("resident/residentIssueListByEmail")
     public String viewResidentReportedIssue(@RequestParam("email") String email, Model model) {
 
             List<ResidentIssueReportedAndWorkProgress> residentIssueReportedAndWorkProgressByEmail = residentReportedIssueService.getAllReportedIssueByFaultedDeviceRecordsByEmail(email);
@@ -39,7 +39,7 @@ public class ResidentController {
 
     }
 
-    @GetMapping("/viewResidentIssue/{id}")
+    @GetMapping("resident/viewResidentIssue/{id}")
     public String viewIssueDetail(@PathVariable("id") int issueID, Model model) {
 
             ResidentIssueReportedAndWorkProgress residentIssueReportedAndWorkProgressByIssueId = residentReportedIssueService.getResidentIssueReportedAndWorkProgressByIssueId(issueID);
@@ -56,6 +56,6 @@ public class ResidentController {
     @PostMapping("/resident/confirmWorkCompletion")
     public String confirmWorkCompletion(@RequestParam("issueId") int issueId, @RequestParam("residentPhoneNumber") String residentPhoneNumber, Model model) {
         residentReportedIssueService.confirmWorkCompletion(issueId, residentPhoneNumber);
-        return "redirect:/viewResidentIssue/" + issueId;
+        return "redirect:/resident/viewResidentIssue/" + issueId;
     }
 }

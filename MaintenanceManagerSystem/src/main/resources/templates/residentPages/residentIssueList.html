@@ -42,7 +42,7 @@
                     </td>
                     <td th:text="${residentIssues.residentName()}"></td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{/viewResidentIssue/{id}(id=${residentIssues.issueId})}">Xem chi tiết
+                        <a class="btn btn-primary" th:href="@{/resident/viewResidentIssue/{id}(id=${residentIssues.issueId})}">Xem chi tiết
                         </a>
                     </td>
                     <td th:text="${residentIssues.staffFullName}"></td>
@@ -62,7 +62,7 @@
     </th:block>
     <th:block th:if="${residentIssueReportedAndWorkProgressByEmail.isEmpty()}">
         <div class="alert alert-danger" role="alert">
-            Không có báo cáo của người ở chung cư
+            Không có báo cáo của người ở chung cư hoặc báo cáo chưa được giao cho nhân viên để kiểm tra
         </div>
     </th:block>
     <div>

@@ -12,7 +12,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">
+        <a class="navbar-brand" th:href="@{/manager/residentReportedIssues}">
             <h1> Maintenance System </h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -24,10 +24,10 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#" th:href="@{/staffList}">Quản lý nhân viên</a>
+                    <a class="nav-link mx-2" href="#" th:href="@{/manager/staffList}">Quản lý nhân viên</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#" th:href="@{/residentReportedIssues}">Báo cáo của người ở
+                    <a class="nav-link mx-2" href="#" th:href="@{/manager/residentReportedIssues}">Báo cáo của người ở
                         chung
                         cư</a>
                 </li>
@@ -37,8 +37,7 @@
                        data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Tài khoản</a></li>
-                        <li><a class="dropdown-item" th:href="@{/homePages/managerHomePage/changePassword}">Đổi
+                        <li><a class="dropdown-item" th:href="@{/manager/changePassword}">Đổi
                             mật
                             khẩu</a></li>
                         <li><a class="dropdown-item" href="#" th:href="@{/logout}">Đăng xuất</a></li>
@@ -72,38 +71,38 @@
                 <td th:text="${residentReportedIssues.dateReported}">Date</td>
                 <td>
 
-                        <th:block  th:each="room : ${rooms}" th:if="${residentReportedIssues.roomId == room.roomId}">
-                            <span th:text="${room.roomNumber}">Room Num</span>
-                        </th:block>
+                    <th:block th:each="room : ${rooms}" th:if="${residentReportedIssues.roomId == room.roomId}">
+                        <span th:text="${room.roomNumber}">Room Num</span>
+                    </th:block>
 
                 </td>
                 <td th:text="${residentReportedIssues.residentName}">Resident Name</td>
                 <td>
-                    <a class="btn btn-primary" th:href="@{/viewIssue/{id}(id=${residentReportedIssues.issueId})}">Xem chi tiết
+                    <a class="btn btn-primary"
+                       th:href="@{/manager/viewIssue/{id}(id=${residentReportedIssues.issueId})}">Xem chi tiết
                     </a>
                 </td>
                 <td>
-
-                            <span th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}" th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.fullName}">Staff Assigned</span>
-
+                    <span th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}"
+                          th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}"
+                          th:text="${workProgressAndStaffNames.fullName}">Staff Assigned</span>
                 </td>
                 <td>
-
-                    <th:block th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}" th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}">
-                        <span th:text="${workProgressAndStaffNames.workStatus}" th:classappend="${workProgressAndStaffNames.workStatus().equalsIgnoreCase('Đã hoàn thành') ? 'badge bg-success' : (workProgressAndStaffNames.workStatus().equalsIgnoreCase( 'Đang Sửa Chữa') ? 'badge bg-warning' : 'badge bg-danger') }"></span>
+                    <th:block th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}"
+                              th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}">
+                        <span th:text="${workProgressAndStaffNames.workStatus}"
+                              th:classappend="${workProgressAndStaffNames.workStatus().equalsIgnoreCase('Đã hoàn thành') ? 'badge bg-success' : (workProgressAndStaffNames.workStatus().equalsIgnoreCase( 'Đang Sửa Chữa') ? 'badge bg-warning' : 'badge bg-danger') }"></span>
                     </th:block>
-
-
                 </td>
                 <td>
-
-                            <span th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}" th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.completedDate}">Completed Date</span>
-
+                    <span th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}"
+                          th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}"
+                          th:text="${workProgressAndStaffNames.completedDate}">Completed Date</span>
                 </td>
                 <td>
-
-                            <span th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}" th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}" th:text="${workProgressAndStaffNames.deadlineDate}">DeadLine Date</span>
-
+                    <span th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}"
+                          th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}"
+                          th:text="${workProgressAndStaffNames.deadlineDate}">DeadLine Date</span>
                 </td>
             </tr>
             </tbody>

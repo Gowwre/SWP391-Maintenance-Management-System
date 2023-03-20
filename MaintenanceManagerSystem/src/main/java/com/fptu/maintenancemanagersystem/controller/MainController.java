@@ -15,29 +15,11 @@ public class MainController {
     public String index(){
         return "index";
     }
-
-    @RequestMapping(value = {"/viewAllRooms"},method = RequestMethod.GET)
-    public String viewAllRooms(){
-        return "viewRooms/viewAllRooms";
-    }
-
-
-
-
-
-    @RequestMapping(value = {"/forgotPassword"},method = RequestMethod.GET)
-    public String forgotPassword(){
-        return "passwordProblemPages/forgotPassword";
-    }
-
-
     
     @RequestMapping(value = {"/createNewPassword"},method = RequestMethod.GET)
     public String createNewPassword(){
         return "passwordProblemPages/createNewPassword";
     }
-
-
 
     @GetMapping("/logout")
     public String logout(HttpSession session){

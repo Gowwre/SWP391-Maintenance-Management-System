@@ -32,7 +32,7 @@ public class WorkAssignController {
     @Autowired
     WorkProgressService workProgressService;
 
-    @GetMapping("/workAssignList")
+    @GetMapping("/staff/workAssignList")
     public String viewResidentReportedIssue(Model model, HttpSession session) {
 
             List<Room> rooms = roomService.getAllRooms();
@@ -48,7 +48,7 @@ public class WorkAssignController {
 
     }
 
-    @GetMapping("/viewWork/{id}")
+    @GetMapping("/staff/viewWork/{id}")
     public String getReportedIssueByFaultedDeviceRecord(@PathVariable("id") int issueID, Model model) {
 
             ResidentReportedIssue residentReportedIssue = residentReportedIssueService.getResidentReportedIssueById(issueID);
