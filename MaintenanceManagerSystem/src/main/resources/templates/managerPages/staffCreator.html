@@ -111,7 +111,7 @@
     let staffCreateForm = document.getElementById("staffCreator");
     staffCreateForm.addEventListener("submit", function (e) {
         let vietnamesePhoneRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-        let phoneNumber = document.getElementById("residentPhone").value;
+        let phoneNumber = document.getElementById("staffPhoneNum").value;
 
         if (vietnamesePhoneRegex.test(phoneNumber) === false){
             alert("Số điện thoại không hợp lệ");
