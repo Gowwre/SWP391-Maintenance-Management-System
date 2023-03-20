@@ -74,7 +74,7 @@
 
 <div class="container">
     <h1>Tạo nhân viên mới</h1>
-    <form th:action="@{/manager/createStaff/createNewStaff}" th:object="${newStaff}" method="post">
+    <form id="staffCreator" th:action="@{/manager/createStaff/createNewStaff}" th:object="${newStaff}" method="post">
         <div class="mb-3">
             <label for="staffName">Họ và tên: </label>
             <input type="text" th:field="*{fullname}" class="form-control"
@@ -110,4 +110,16 @@
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>
 </body>
+<script>
+    let staffCreateForm = document.getElementById("staffCreator");
+    staffCreateForm.addEventListener("submit", function (e) {
+        let vietnamesePhoneRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        let phoneNumber = document.getElementById("residentPhone").value;
+
+        if (vietnamesePhoneRegex.test(phoneNumber) === false){
+            alert("Số điện thoại không hợp lệ");
+            e.preventDefault();
+        }
+    });
+</script>
 </html>

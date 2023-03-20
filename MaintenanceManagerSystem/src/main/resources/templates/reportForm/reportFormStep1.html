@@ -62,7 +62,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="form-container">
                 <h1 class="text-center mb-5">Đơn báo cáo thiết bị hư hỏng</h1>
-                <form th:action="@{/createReport/step2}" method="post" th:object="${residentReportedIssue}">
+                <form id="reportFormStep1" th:action="@{/createReport/step2}" method="post" th:object="${residentReportedIssue}">
                     <div class="mb-3">
                         <label for="roomNumber" class="form-label">Số Phòng</label>
                         <select name="roomNumber" id="roomNumber" class="form-select" th:field="*{roomId}">
@@ -99,4 +99,16 @@
     &copy; 2023 Maintenance System. All rights reserved.
 </footer>
 </body>
+<script>
+    let reportFormStep1 = document.getElementById("reportFormStep1");
+    reportFormStep1.addEventListener("submit", function (e) {
+       let vietnamesePhoneRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+       let phoneNumber = document.getElementById("residentPhone").value;
+
+       if (vietnamesePhoneRegex.test(phoneNumber) === false){
+           alert("Số điện thoại không hợp lệ");
+           e.preventDefault();
+       }
+    });
+</script>
 </html>
