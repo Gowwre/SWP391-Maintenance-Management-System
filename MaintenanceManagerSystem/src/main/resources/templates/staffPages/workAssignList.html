@@ -11,7 +11,7 @@
 <body class="d-flex flex-column min-vh-100 bg-light">
 <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">
+        <a class="navbar-brand" th:href="@{/staff/workAssignList}">
             <h1 class="mb-0">Maintenance System</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -21,16 +21,14 @@
         <ul class="navbar-nav ms-auto">
 
             <li class="nav-item">
-                <a class="nav-link mx-2 text-dark" href="#" th:href="@{/workAssignList}">Công việc được giao</a>
+                <a class="nav-link mx-2 text-dark" href="#" th:href="@{/staff/workAssignList}">Công việc được giao</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button"
                    data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item text-dark" href="#">Tài khoản</a></li>
-                    <li><a class="dropdown-item text-dark" th:href="@{/homePages/maintenanceStaffHomePage/changePassword}">Đổi
-                        mật khẩu</a></li>
+                    <li><a class="dropdown-item text-dark" th:href="@{/staff/changePassword}">Đổi mật khẩu</a></li>
                     <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
                 </ul>
             </li>
@@ -66,7 +64,7 @@
                     </td>
                     <td th:text="${assignedTask.residentName}">Resident Name</td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{/viewWork/{id}(id=${assignedTask.issueId})}">Xem chi tiết
+                        <a class="btn btn-primary" th:href="@{/staff/viewWork/{id}(id=${assignedTask.issueId})}">Xem chi tiết
                         </a>
                     </td>
                     <td>

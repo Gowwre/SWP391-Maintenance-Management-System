@@ -33,7 +33,7 @@ public class StaffController {
             model.addAttribute("staff", new Staff());
             return "loginPages/maintenanceStaffLogin";
         } else {
-            return "redirect:/workAssignList";
+            return "redirect:/staff/workAssignList";
         }
     }
 
@@ -49,18 +49,10 @@ public class StaffController {
         }
 
         session.setAttribute("staff", existedStaff);
-        return "redirect:/workAssignList";
+        return "redirect:/staff/workAssignList";
     }
 
-    @GetMapping("/homePages/maintenanceStaffHomePage")
-    public String showStaffHomePage(HttpSession session) {
-        Staff staff = (Staff) session.getAttribute("staff");
-        if (staff == null) return "redirect:/";
-
-        return "redirect:/workAssignList";
-    }
-
-    @GetMapping("/homePages/maintenanceStaffHomePage/changePassword")
+    @GetMapping("/staff/changePassword")
     public String showChangePassword(HttpSession session) {
         Staff existedStaff = (Staff) session.getAttribute("staff");
 
@@ -70,19 +62,7 @@ public class StaffController {
         return "passwordProblemPages/changePassword";
     }
 
-    @GetMapping("/staffList")
-    public String showStaffList(Model model) {
-        List<Staff> staffList = staffService.getAllStaff();
-        List<Floor> floorList = floorService.getAll();
-
-        model.addAttribute("floorList", floorList);
-        model.addAttribute("staffList", staffList);
-        return "managerPages/staffManagementList";
-    }
-
-
-
-    @GetMapping("/completeTask/{issueId}")
+    @GetMapping("/staff/completeTask/{issueId}")
     public String completeTask(@PathVariable("issueId") int issueId, Model model, HttpSession session) {
         staffService.markWorkProgressAsComplete(issueId);
 

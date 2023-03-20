@@ -7,62 +7,128 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Trang chỉnh sửa thông tin nhân viên</title>
-</head>
-<body class="d-flex align-items-center justify-content-center min-vh-100">
-<main class="card">
-    <header class="card-header">
-        <h1 class="card-title">Trang chỉnh sửa thông tin nhân viên</h1>
-    </header>
-    <div class="card-body">
-        <form th:action="@{/manager/staffEditor/updateStaff}" method="post" th:object="${currentStaffInfo}"
-              class="row g-3">
-            <input type="hidden" th:value="${currentStaffInfo.getStaffId()}" th:field="*{staffId}">
-            <div class="col-md-6">
-                <label for="fullName" class="form-label">Họ và Tên</label>
-                <input type="text" name="fullName" id="fullName" th:value="${currentStaffInfo.fullname}"
-                       th:field="*{fullname}" class="form-control" style="width: 100%;">
-            </div>
-            <div class="col-md-6">
-                <label for="phoneNumber" class="form-label">Số điện thoại</label>
-                <input type="text" name="phoneNumber" id="phoneNumber" th:value="${currentStaffInfo.phoneNumber}"
-                       th:field="*{phoneNumber}" class="form-control" style="width: 100%;">
-            </div>
-            <div class="col-md-6">
-                <label for="dateOfBirth" class="form-label">Ngày sinh</label>
-                <input type="date" name="dateOfBirth" id="dateOfBirth" th:value="${currentStaffInfo.dateOfBirth}"
-                       th:field="*{dateOfBirth}" class="form-control" style="width: 100%;">
-            </div>
-            <div class="col-md-6">
-                <label for="beginWorkDate">Ngày Bắt Đầu Làm Việc</label>
-                <input type="date" name="beginWorkDate" id="beginWorkDate" th:value="${currentStaffInfo.beginWorkDate}"
-                       th:field="*{beginWorkDate}" class="form-control" style="width: 100%;">
-            </div>
-            <div class="col-md-6">
-                <label for="isWorking" class="form-label">Trạng thái làm việc</label>
-                <select name="isWorking" id="isWorking" th:value="${currentStaffInfo.working}" th:field="*{working}"
-                        class="form-select" style="width: 100%;">
-                    <option th:value="true">Đang làm việc</option>
-                    <option th:value="false">Không làm việc</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="floorManaging" class="form-label">Tầng Quản Lý</label>
-                <select name="floorManaging" id="floorManaging" th:value="${currentStaffInfo.floorId}"
-                        th:field="*{floorId}" class="form-select" style="width: 100%;">
-                    <option th:value="1">Tầng 1</option>
-                    <option th:value="2">Tầng 2</option>
-                    <option th:value="3">Tầng 3</option>
-                </select>
-            </div>
-            <div class="card-footer">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Cập nhật</button>
-                </div>
-            </div>
+    <style>
+        .navbar-custom {
+            background-color: #ffc107 !important;
+        }
 
-        </form>
+        .navbar-custom .navbar-brand {
+            height: 50px;
+            width: auto;
+            margin-right: 10px;
+            color: black;
+        }
+
+        .footer {
+            background-color: black;
+            color: white;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/manager/residentReportedIssues}">
+            <h1> Maintenance System </h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto ">
+
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="#" th:href="@{/manager/staffList}">Quản lý nhân viên</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="#" th:href="@{/manager/residentReportedIssues}">Báo cáo của người ở
+                        chung
+                        cư</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink"
+                       role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item text-dark" th:href="@{/manager/changePassword}">Đổi mật khẩu</a>
+                        </li>
+                        <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-</main>
+</nav>
+<br/>
+<div class="d-flex justify-content-center min-vh-100">
+    <main class="card">
+        <header class="card-header">
+            <h1 class="card-title">Trang chỉnh sửa thông tin nhân viên</h1>
+        </header>
+        <div class="card-body">
+            <form th:action="@{/manager/staffEditor/updateStaff}" method="post" th:object="${currentStaffInfo}"
+                  class="row g-3">
+                <input type="hidden" th:value="${currentStaffInfo.getStaffId()}" th:field="*{staffId}">
+                <div class="col-md-6">
+                    <label for="fullName" class="form-label">Họ và Tên</label>
+                    <input type="text" name="fullName" id="fullName" th:value="${currentStaffInfo.fullname}"
+                           th:field="*{fullname}" class="form-control" style="width: 100%;">
+                </div>
+                <div class="col-md-6">
+                    <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                    <input type="text" name="phoneNumber" id="phoneNumber" th:value="${currentStaffInfo.phoneNumber}"
+                           th:field="*{phoneNumber}" class="form-control" style="width: 100%;">
+                </div>
+                <div class="col-md-6">
+                    <label for="dateOfBirth" class="form-label">Ngày sinh</label>
+                    <input type="date" name="dateOfBirth" id="dateOfBirth" th:value="${currentStaffInfo.dateOfBirth}"
+                           th:field="*{dateOfBirth}" class="form-control" style="width: 100%;">
+                </div>
+                <div class="col-md-6">
+                    <label for="beginWorkDate">Ngày Bắt Đầu Làm Việc</label>
+                    <input type="date" name="beginWorkDate" id="beginWorkDate"
+                           th:value="${currentStaffInfo.beginWorkDate}"
+                           th:field="*{beginWorkDate}" class="form-control" style="width: 100%;">
+                </div>
+                <div class="col-md-6">
+                    <label for="isWorking" class="form-label">Trạng thái làm việc</label>
+                    <select name="isWorking" id="isWorking" th:value="${currentStaffInfo.working}" th:field="*{working}"
+                            class="form-select" style="width: 100%;">
+                        <option th:value="true">Đang làm việc</option>
+                        <option th:value="false">Không làm việc</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="floorManaging" class="form-label">Tầng Quản Lý</label>
+                    <select name="floorManaging" id="floorManaging" th:value="${currentStaffInfo.floorId}"
+                            th:field="*{floorId}" class="form-select" style="width: 100%;">
+                        <option th:value="1">Tầng 1</option>
+                        <option th:value="2">Tầng 2</option>
+                        <option th:value="3">Tầng 3</option>
+                    </select>
+                </div>
+                <div class="card-footer">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </main>
+</div>
+
+<footer class="text-center py-3 footer">
+    &copy; 2023 Maintainance System. All rights reserved.
+</footer>
 </body>
 
 </html>
