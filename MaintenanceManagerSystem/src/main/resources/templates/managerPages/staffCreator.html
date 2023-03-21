@@ -118,5 +118,19 @@
             e.preventDefault();
         }
     });
+
+    
+    staffCreateForm.addEventListener("submit", function (e) {
+        let dateOfBirthInput = document.getElementById("deadline");
+        let dateOfBirth = new Date(dateOfBirthInput.value);
+        let currentDate = new Date();
+        if (dateOfBirth > currentDate) {
+            alert("Không được nhập ngày sinh sau ngày hiện tại");
+            e.preventDefault();
+        } else if (dateOfBirthInput.value === "") {
+            alert("Ngày sinh không được để trống");
+            e.preventDefault();
+        }
+    });
 </script>
 </html>

@@ -80,27 +80,27 @@
                 <div class="col-md-6">
                     <label for="fullName" class="form-label">Họ và Tên</label>
                     <input type="text" name="fullName" id="fullName" th:value="${currentStaffInfo.fullname}"
-                           th:field="*{fullname}" class="form-control" style="width: 100%;">
+                           th:field="*{fullname}" class="form-control" required style="width: 100%;">
                 </div>
                 <div class="col-md-6">
                     <label for="phoneNumber" class="form-label">Số điện thoại</label>
                     <input type="text" name="phoneNumber" id="phoneNumber" th:value="${currentStaffInfo.phoneNumber}"
-                           th:field="*{phoneNumber}" class="form-control" style="width: 100%;">
+                           th:field="*{phoneNumber}" class="form-control" required style="width: 100%;">
                 </div>
                 <div class="col-md-6">
                     <label for="dateOfBirth" class="form-label">Ngày sinh</label>
                     <input type="date" name="dateOfBirth" id="dateOfBirth" th:value="${currentStaffInfo.dateOfBirth}"
-                           th:field="*{dateOfBirth}" class="form-control" style="width: 100%;">
+                           th:field="*{dateOfBirth}" class="form-control" required style="width: 100%;">
                 </div>
                 <div class="col-md-6">
                     <label for="beginWorkDate">Ngày Bắt Đầu Làm Việc</label>
                     <input type="date" name="beginWorkDate" id="beginWorkDate"
                            th:value="${currentStaffInfo.beginWorkDate}"
-                           th:field="*{beginWorkDate}" class="form-control" style="width: 100%;">
+                           th:field="*{beginWorkDate}" class="form-control" required style="width: 100%;">
                 </div>
                 <div class="col-md-6">
                     <label for="isWorking" class="form-label">Trạng thái làm việc</label>
-                    <select name="isWorking" id="isWorking" th:value="${currentStaffInfo.working}" th:field="*{working}"
+                    <select name="isWorking" id="isWorking" required th:value="${currentStaffInfo.working}" th:field="*{working}"
                             class="form-select" style="width: 100%;">
                         <option th:value="true">Đang làm việc</option>
                         <option th:value="false">Không làm việc</option>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="floorManaging" class="form-label">Tầng Quản Lý</label>
-                    <select name="floorManaging" id="floorManaging" th:value="${currentStaffInfo.floorId}"
+                    <select name="floorManaging" id="floorManaging" required th:value="${currentStaffInfo.floorId}"
                             th:field="*{floorId}" class="form-select" style="width: 100%;">
                         <option th:value="1">Tầng 1</option>
                         <option th:value="2">Tầng 2</option>
@@ -141,5 +141,18 @@
             e.preventDefault();
         }
     });
+
+    staffEditForm.addEventListener("submit", function (e) {
+        let dateOfBirthInput = document.getElementById("dateOfBirth");
+        let currentDate = new Date();
+        let dateOfBirth = dateOfBirthInput.value;
+
+        if (dateOfBirth > currentDate){
+            alert("Ngày sinh không hợp lệ");
+            e.preventDefault();
+        }
+    });
+
+    
 </script>
 </html>
