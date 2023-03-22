@@ -119,7 +119,7 @@
                 <div class="mb-3">
                     <label for="staffId" class="form-label">Staff</label>
                     <select class="form-select" name="staffId" id="staffId" aria-label="Chọn nhân viên để sửa chữa:">
-                        <option selected disabled>Chọn nhân viên</option>
+                        <option value="0" selected disabled>Chọn nhân viên</option>
                         <option th:each="workingStaff : ${workingStaffs}" th:value="${workingStaff.staffId}"
                                 th:text="${workingStaff.fullname}">Tên nhân viên
                         </option>
@@ -156,12 +156,27 @@
         let deadline = new Date(deadlineInput.value);
         let currentDate = new Date();
         if (deadline < currentDate) {
-            alert("Không được chọn ngày trước ngày hạn công việc được giao");
-            e.preventDefault();
-        } else if (deadlineInput.value === "") {
-            alert("Hạn công việc không được để trống");
+            alert("Không được chọn hạn công việc trước ngày hiện tại");
             e.preventDefault();
         }
     });
+
+    assignStaffForm.addEventListener("submit", function (e) {
+        let staffId = document.getElementById("staffId").value;
+
+        if (staffId == 0) {
+            alert("Vui lòng chọn nhân viên để sửa chữa");
+            e.preventDefault();
+        }
+    });
+
+    assignStaffForm.addEventListener("submit", function (e) {
+        let deadlineDate = document.getElementById("deadline").value;
+        if (deadlineDate === "") {
+            alert("Vui lòng chọn hạn công việc được giao");
+            e.preventDefault();
+        }
+    })
+
 </script>
 </html>

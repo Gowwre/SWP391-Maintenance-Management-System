@@ -96,7 +96,9 @@
             <label for="floor">Tầng để quản lý: </label>
             <select id="floor" name="floor" class="form-select" th:field="*{floorId}" required>
                 <option value="0" selected disabled>Chọn số tầng</option>
-                <option th:each="floor : ${floorList}" th:value="${floor.floorId}" th:text="${floor.name}"></option>
+                <option th:each="floor : ${floorList}"
+                        th:value="${floor.floorId}"
+                        th:text="${floor.name}"></option>
             </select>
         </div>
         <button type="submit" class="btn-primary">Tạo nhân viên</button>
@@ -119,18 +121,15 @@
         }
     });
 
-    
-    staffCreateForm.addEventListener("submit", function (e) {
-        let dateOfBirthInput = document.getElementById("deadline");
-        let dateOfBirth = new Date(dateOfBirthInput.value);
+    staffCreateForm.addEventListener("submit",function(e){
+        let dateOfBirth = document.getElementById("dateOfBirth").value;
         let currentDate = new Date();
-        if (dateOfBirth > currentDate) {
-            alert("Không được nhập ngày sinh sau ngày hiện tại");
-            e.preventDefault();
-        } else if (dateOfBirthInput.value === "") {
-            alert("Ngày sinh không được để trống");
+        if (dateOfBirth > currentDate){
+            alert("Ngày sinh không hợp lệ");
             e.preventDefault();
         }
-    });
+
+    } );
+
 </script>
 </html>
