@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Đơn báo cáo</title>
@@ -77,20 +77,22 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <labelfor="issueDescription" class="form-label">Mô tả vấn đề</label>
+                        <label for="issueDescription" class="form-label">Mô tả vấn đề</label>
                         <textarea name="issueDescription" id="issueDescription" class="form-control" required
                                   th:field="*{description}"></textarea>
                     </div>
                     <button id="submitBtn" type="submit" class="btn btn-primary">Gửi</button>
                 </form>
+                <a th:href="@{/}" class="btn btn-primary mt-4">Quay lại trang chủ</a>
+                <a th:href="@{/createReport}" class="btn btn-primary mt-4">Quay lại bước 1</a>
             </div>
         </div>
     </div>
 
 </div>
-</br></br></br>
 
-<footer class="text-center py-3 footer">
+
+<footer class="text-center py-3 footer mt-4">
     &copy; 2023 Maintainance System. All rights reserved.
 </footer>
 </body>

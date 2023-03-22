@@ -74,13 +74,21 @@
             <h1 class="card-title">Trang chỉnh sửa thông tin nhân viên</h1>
         </header>
         <div class="card-body">
-            <form id="staffEditor" th:action="@{/manager/staffEditor/updateStaff}" method="post" th:object="${currentStaffInfo}"
+            <form id="staffEditor"
+                  th:action="@{/manager/staffEditor/updateStaff}"
+                  method="post"
+                  th:object="${currentStaffInfo}"
                   class="row g-3">
-                <input type="hidden" th:value="${currentStaffInfo.getStaffId()}" th:field="*{staffId}">
+                <input type="hidden"
+                       th:value="${currentStaffInfo.getStaffId()}"
+                       th:field="*{staffId}">
                 <div class="col-md-6">
                     <label for="fullName" class="form-label">Họ và Tên</label>
-                    <input type="text" name="fullName" id="fullName" th:value="${currentStaffInfo.fullname}"
-                           th:field="*{fullname}" class="form-control" required style="width: 100%;">
+                    <input type="text" name="fullName" id="fullName"
+                           th:value="${currentStaffInfo.fullname}"
+                           th:field="*{fullname}"
+                           class="form-control"
+                           required style="width: 100%;">
                 </div>
                 <div class="col-md-6">
                     <label for="phoneNumber" class="form-label">Số điện thoại</label>
@@ -116,8 +124,11 @@
                     </select>
                 </div>
                 <div class="card-footer">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-primary mt-4">Cập Nhật</button>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-primary mt-4" th:href="@{/manager/viewStaff/{staffId}(staffId = ${currentStaffInfo.getStaffId()})}">Quay Lại</a>
                     </div>
                 </div>
 
@@ -135,8 +146,9 @@
     staffEditForm.addEventListener("submit", function (e) {
         let vietnamesePhoneRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
         let phoneNumber = document.getElementById("phoneNumber").value;
+        let isValidPhoneNumber = vietnamesePhoneRegex.test(phoneNumber);
 
-        if (vietnamesePhoneRegex.test(phoneNumber) === false){
+        if (isValidPhoneNumber === false){
             alert("Số điện thoại không hợp lệ");
             e.preventDefault();
         }
@@ -152,6 +164,19 @@
             e.preventDefault();
         }
     });
+
+    staffEditForm.addEventListener("submit", function (e) {
+        let dateOfBirth = new Date ( document.getElementById("dateOfBirth").value);
+        let beginWorkDate = new Date ( document.getElementById("beginWorkDate").value);
+        let yearDiff = beginWorkDate.getFullYear() - dateOfBirth.getFullYear();
+        let isStaff18AndAbove = yearDiff >= 18;
+
+        if (isStaff18AndAbove === false){
+            alert("Ngày bắt đầu làm việc không hợp lệ");
+            e.preventDefault();
+        }
+    });
+
 
     
 </script>

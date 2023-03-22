@@ -86,8 +86,9 @@
                         <input type="email" name="residentEmail" id="residentEmail" class="form-control" required
                                th:field="*{residentEmail}">
                     </div>
-                    <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                    <button type="submit" class="btn btn-primary mt-4">Tiếp tục</button>
                 </form>
+                <a th:href="@{/}" class="btn btn-primary mt-4">Quay lại</a>
             </div>
         </div>
     </div>
@@ -104,11 +105,22 @@
     reportFormStep1.addEventListener("submit", function (e) {
        let vietnamesePhoneRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
        let phoneNumber = document.getElementById("residentPhone").value;
+        let isValidPhoneNumber = vietnamesePhoneRegex.test(phoneNumber);
 
-       if (vietnamesePhoneRegex.test(phoneNumber) === false){
+        if (isValidPhoneNumber === false){
            alert("Số điện thoại không hợp lệ");
            e.preventDefault();
        }
     });
+
+    reportFormStep1.addEventListener("submit", function (e) {
+        let roomNumber = document.getElementById("roomNumber").value;
+
+        if (roomNumber === "0"){
+            alert("Vui lòng chọn số phòng");
+            e.preventDefault();
+        }
+    });
+
 </script>
 </html>

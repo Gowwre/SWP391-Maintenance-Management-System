@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -95,7 +95,9 @@
                                 th:text="${errorMessage}"
                                 style="color: red"
                         ></p>
+                        <a th:href="@{/}" class="btn btn-primary">Quay Lại</a>
                     </form>
+
                 </section>
             </section>
         </article>
