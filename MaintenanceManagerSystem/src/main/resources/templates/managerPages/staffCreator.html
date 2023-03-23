@@ -132,5 +132,13 @@
             e.preventDefault();
         }
     });
+    staffCreateForm.addEventListener("submit",function(e){
+        let floorId = document.getElementById("floor").value;
+
+        if (floorId === "0"){
+            alert("Vui lòng chọn tầng");
+            e.preventDefault();
+        }
+    })  ;
 </script>
 </html>
