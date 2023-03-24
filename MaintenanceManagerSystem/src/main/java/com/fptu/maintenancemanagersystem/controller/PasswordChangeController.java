@@ -52,15 +52,15 @@ public class PasswordChangeController {
     }
 
     private String validatePasswordChange(Staff currentLoggedInStaff, Manager currentLoggedInManager, String currentPassword, String newPassword, String confirmPassword) {
-        boolean isNewPasswordConfirmed = !newPassword.equals(confirmPassword);
-        boolean isCurrentPasswordValid = (currentLoggedInStaff != null && !currentPassword.equals(currentLoggedInStaff.getPassword())) ||
+        boolean isNewPasswordNotConfirmed = !newPassword.equals(confirmPassword);
+        boolean isCurrentPasswordInvalid = (currentLoggedInStaff != null && !currentPassword.equals(currentLoggedInStaff.getPassword())) ||
                 (currentLoggedInManager != null && !currentPassword.equals(currentLoggedInManager.getPassword()));
 
 
-        if (isNewPasswordConfirmed) {
+        if (isNewPasswordNotConfirmed) {
             return "Mật khẩu xác nhận không trùng khớp. Vui lòng thử lại.";
         }
-        if (isCurrentPasswordValid) {
+        if (isCurrentPasswordInvalid) {
             return "Mật khẩu hiện tại không đúng. Vui lòng thử lại.";
         }
 
