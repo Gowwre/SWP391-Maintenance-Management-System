@@ -49,6 +49,14 @@
 </nav>
 <br/>
 
+<div>
+    <select id="dropdown">
+        <option value="https://example.com"><a href="https://example.com">Example</a></option>
+        <option value="https://google.com"><a href="https://google.com">Google</a></option>
+        <option value="https://stackoverflow.com"><a href="https://stackoverflow.com">Stack Overflow</a></option>
+    </select>
+</div>
+
 <div class="container my-4">
     <h1>Danh sách báo cáo của người ở chung cư</h1>
     <div class="table-responsive">
@@ -114,4 +122,10 @@
     &copy; 2023 Maintenance System. All rights reserved.
 </footer>
 </body>
+<script >
+    document.getElementById("dropdown").addEventListener("change", function() {
+        window.location.href = this.value;
+    });
+
+</script>
 </html>
