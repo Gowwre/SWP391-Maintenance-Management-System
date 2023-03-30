@@ -38,7 +38,7 @@
                     <a
                             class="nav-link mx-2 text-dark"
                             href="#"
-                            th:href="@{/staff/workAssignList}"
+                            th:href="@{/staffFilter(workStatus='default')}"
                     >Công việc được giao</a
                     >
                 </li>
@@ -77,6 +77,9 @@
         </div>
     </div>
 </nav>
+
+
+
 <div class="container my-5">
     <h2 class="text-center mb-4">Chi tiết báo cáo</h2>
     <div class="row">
@@ -181,7 +184,7 @@
     <p class="d-grid gap-3 mt-4">
         <a
                 class="btn btn-primary btn-sm-block"
-                th:href="@{/staff/workAssignList}"
+                th:href="@{/staffFilter(workStatus='default')}"
         >Quay trở lại danh sách</a
         >
     </p>

@@ -26,11 +26,6 @@
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="#" th:href="@{/manager/staffList}">Quản lý nhân viên</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2" href="#" th:href="@{/manager/residentReportedIssues}">Báo cáo của người ở
-                        chung
-                        cư</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                        role="button"
@@ -49,12 +44,12 @@
 </nav>
 <br/>
 
-<div>
-    <select id="dropdown">
-        <option value="https://example.com"><a href="https://example.com">Example</a></option>
-        <option value="https://google.com"><a href="https://google.com">Google</a></option>
-        <option value="https://stackoverflow.com"><a href="https://stackoverflow.com">Stack Overflow</a></option>
-    </select>
+<div class="d-flex justify-content-center">
+Lọc theo:
+    <a href="/filter?workStatus=default" id="filterButton" class="btn btn-primary" onclick="removePathFromUrlAndSubmit()">Tất cả</a>
+    <a href="/filter?workStatus=Đang Sửa Chữa" class="btn btn-primary">Đang Sửa Chữa</a>
+    <a href="/filter?workStatus=Đã hoàn thành" class="btn btn-primary">Đã hoàn thành</a>
+    <a href="/filter?workStatus=Quá thời hạn" class="btn btn-primary">Quá Thời Hạn</a>
 </div>
 
 <div class="container my-4">
@@ -75,44 +70,72 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="residentReportedIssues : ${residentReportedIssueList}">
-                <td th:text="${residentReportedIssues.dateReported}">Date</td>
-                <td>
+            <th:block th:unless="${filtered == true}">
+                <tr th:each="reportedIssue : ${residentReportedIssueList}">
+                    <td>
+                        <span  th:text="${reportedIssue.dateReported}"></span>
+                    </td>
+                    <td>
 
-                    <th:block th:each="room : ${rooms}" th:if="${residentReportedIssues.roomId == room.roomId}">
-                        <span th:text="${room.roomNumber}">Room Num</span>
-                    </th:block>
+                        <span th:text="${reportedIssue.roomNumber}"></span>
 
-                </td>
-                <td th:text="${residentReportedIssues.residentName}">Resident Name</td>
-                <td>
-                    <a class="btn btn-primary"
-                       th:href="@{/manager/viewIssue/{id}(id=${residentReportedIssues.issueId})}">Xem chi tiết
-                    </a>
-                </td>
-                <td>
-                    <span th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}"
-                          th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}"
-                          th:text="${workProgressAndStaffNames.fullName}">Staff Assigned</span>
-                </td>
-                <td>
-                    <th:block th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}"
-                              th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}">
-                        <span th:text="${workProgressAndStaffNames.workStatus}"
-                              th:classappend="${workProgressAndStaffNames.workStatus().equalsIgnoreCase('Đã hoàn thành') ? 'badge bg-success' : (workProgressAndStaffNames.workStatus().equalsIgnoreCase( 'Đang Sửa Chữa') ? 'badge bg-warning' : 'badge bg-danger') }"></span>
-                    </th:block>
-                </td>
-                <td>
-                    <span th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}"
-                          th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}"
-                          th:text="${workProgressAndStaffNames.completedDate}">Completed Date</span>
-                </td>
-                <td>
-                    <span th:each="workProgressAndStaffNames : ${workProgressAndStaffNameList}"
-                          th:if="${residentReportedIssues.issueId == workProgressAndStaffNames.issueId}"
-                          th:text="${workProgressAndStaffNames.deadlineDate}">DeadLine Date</span>
-                </td>
-            </tr>
+                    </td>
+                    <td ><span th:text="${reportedIssue.residentFullName()}"></span></td>
+                    <td>
+                        <a class="btn btn-primary"
+                           th:href="@{/manager/viewIssue/{id}(id=${reportedIssue.issueId()})}">Xem chi tiết
+                        </a>
+                    </td>
+                    <td>
+                    <span
+                          th:text="${reportedIssue.staffFullName()}">Staff Assigned</span>
+                    </td>
+                    <td>
+                        <th:block th:if="${reportedIssue.workStatus()!=null}">
+                        <span th:text="${reportedIssue.workStatus()}"
+                              th:classappend="${reportedIssue.workStatus().equalsIgnoreCase('Đã hoàn thành') ? 'badge bg-success' : (reportedIssue.workStatus.equalsIgnoreCase('Đang Sửa Chữa') ? 'badge bg-warning' : 'badge bg-danger') }"></span>
+                        </th:block>
+
+                        <th:block th:if="${reportedIssue.workStatus()==null}">
+                        <span></span>
+                        </th:block>
+                    </td>
+                    <td>
+                    <span
+                          th:text="${reportedIssue.completedDate()}">Completed Date</span>
+                    </td>
+                    <td>
+                    <span
+                          th:text="${reportedIssue.deadlineDate()}">DeadLine Date</span>
+                    </td>
+                </tr>
+            </th:block>
+            <th:block th:if="${filtered==true}">
+                <tr th:each="reportedIssue :${filteredReportedIssues}">
+                    <td >
+                        <span th:text="${reportedIssue.dateReported}"></span>
+                    </td>
+                    <td><span  th:text="${reportedIssue.roomNumber}"></span></td>
+                    <td>
+                        <span  th:text="${reportedIssue.residentFullName}"></span>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary"
+                           th:href="@{/manager/viewIssue/{id}(id=${reportedIssue.issueId})}">Xem chi tiết
+                        </a>
+                    </td>
+                    <td th:text="${reportedIssue.staffFullName}">Staff Assigned</td>
+                    <td >
+                        <span th:text="${reportedIssue.workStatus}"
+                               th:classappend="${reportedIssue.workStatus().equalsIgnoreCase('đã hoàn thành')? 'badge bg-success': (reportedIssue.workStatus().equalsIgnoreCase('đang sửa chữa')? 'badge bg-warning' : 'badge bg-danger')}" ></span>
+                    </td>
+                    <td
+                            ><span th:text="${reportedIssue.completedDate}"></span></td>
+                    <td >
+                        <span th:text="${reportedIssue.deadlineDate}"></span>
+                    </td>
+                </tr>
+            </th:block>
             </tbody>
         </table>
     </div>
@@ -123,9 +146,6 @@
 </footer>
 </body>
 <script >
-    document.getElementById("dropdown").addEventListener("change", function() {
-        window.location.href = this.value;
-    });
 
 </script>
 </html>

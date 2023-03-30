@@ -1,8 +1,9 @@
 package com.fptu.maintenancemanagersystem.controller;
 
-import com.fptu.maintenancemanagersystem.model.Equipment;
-import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgress;
-import com.fptu.maintenancemanagersystem.model.Room;
+import com.fptu.maintenancemanagersystem.model.dto.SubmittedReportedIssuesDTO;
+import com.fptu.maintenancemanagersystem.model.entities.Equipment;
+import com.fptu.maintenancemanagersystem.model.dto.ResidentIssueReportedAndWorkProgress;
+import com.fptu.maintenancemanagersystem.model.entities.Room;
 import com.fptu.maintenancemanagersystem.service.EquipmentService;
 import com.fptu.maintenancemanagersystem.service.ResidentReportedIssueService;
 import com.fptu.maintenancemanagersystem.service.RoomService;
@@ -30,16 +31,34 @@ public class ResidentController {
     @GetMapping("resident/residentIssueListByEmail")
     public String viewResidentReportedIssue(@RequestParam("email") String email, Model model) {
 
-            List<ResidentIssueReportedAndWorkProgress> residentIssueReportedAndWorkProgressByEmail = residentReportedIssueService.getAllReportedIssueByFaultedDeviceRecordsByEmail(email);
-            List<Room> roomList = roomService.getAllRooms();
+           List<SubmittedReportedIssuesDTO> submittedIssues = residentReportedIssueService.getSubmittedReportedIssuesByEmail(email);
 
-            model.addAttribute("rooms", roomList);
-            model.addAttribute("residentIssueReportedAndWorkProgressByEmail", residentIssueReportedAndWorkProgressByEmail);
+
+            model.addAttribute("residentIssueReportedAndWorkProgressByEmail", submittedIssues);
+            model.addAttribute("email", email);
             return "residentPages/residentIssueList";
 
     }
 
-    @GetMapping("resident/viewResidentIssue/{id}")
+    @GetMapping("/residentFilter")
+    public String viewFilteredResidentReportedIssue(@RequestParam("email") String email, @RequestParam("residentConfirmation") String residentConfirmation, Model model){
+        List<SubmittedReportedIssuesDTO> submittedIssues = residentReportedIssueService.getSubmittedReportedIssuesByEmail(email);
+        if (residentConfirmation.isEmpty()){
+            model.addAttribute("residentIssueReportedAndWorkProgressByEmail", submittedIssues);
+        } else {
+
+            var filteredSubmittedIssues = submittedIssues.stream()
+                    .filter(submittedIssue -> submittedIssue.residentCompletionConfirmation()== Boolean.parseBoolean(residentConfirmation))
+                    .toList();
+
+            model.addAttribute("residentIssueReportedAndWorkProgressByEmailFiltered", filteredSubmittedIssues);
+            model.addAttribute("filtered",true);
+        }
+        model.addAttribute("email", email);
+        return "residentPages/residentIssueList";
+    }
+
+    @GetMapping("/viewResidentIssue/{id}")
     public String viewIssueDetail(@PathVariable("id") int issueID, Model model) {
 
             ResidentIssueReportedAndWorkProgress residentIssueReportedAndWorkProgressByIssueId = residentReportedIssueService.getResidentIssueReportedAndWorkProgressByIssueId(issueID);
@@ -56,6 +75,6 @@ public class ResidentController {
     @PostMapping("/resident/confirmWorkCompletion")
     public String confirmWorkCompletion(@RequestParam("issueId") int issueId, @RequestParam("residentPhoneNumber") String residentPhoneNumber, Model model) {
         residentReportedIssueService.confirmWorkCompletion(issueId, residentPhoneNumber);
-        return "redirect:/resident/viewResidentIssue/" + issueId;
+        return "redirect:/viewResidentIssue/" + issueId;
     }
 }

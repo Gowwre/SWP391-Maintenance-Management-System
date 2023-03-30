@@ -30,14 +30,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a
-                            class="nav-link mx-2 text-dark"
-                            href="#"
-                            th:href="@{/staff/workAssignList}"
-                    >Công việc được giao</a
-                    >
-                </li>
                 <li class="nav-item dropdown">
                     <a
                             class="nav-link mx-2 dropdown-toggle text-dark"
@@ -73,6 +65,13 @@
         </div>
     </div>
 </nav>
+
+<div class="d-flex justify-content-center">
+    <a href="/staffFilter?workStatus=default" class="btn btn-primary">Tất cả</a>
+    <a href="/staffFilter?workStatus=đang sửa chữa" class="btn btn-primary">Đang sửa chữa</a>
+    <a href="/staffFilter?workStatus=đã hoàn thành" class="btn btn-primary">Đã hoàn thành</a>
+    <a href="/staffFilter?workStatus=quá thời hạn" class="btn btn-primary">Quá thời hạn</a>
+</div>
 <div class="container my-5">
     <h2 class="text-center mb-4">Danh sách công việc được giao</h2>
     <div class="shadow p-3 mb-5 bg-body rounded">
@@ -90,33 +89,56 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="assignedTask : ${assignedTasks}">
-                    <td th:text="${assignedTask.dateReported}">Ngày</td>
-                    <td>
-                        <div
-                                th:each="room : ${rooms}"
-                                th:if="${assignedTask.roomId == room.roomId}"
-                        >
-                            <span th:text="${room.roomNumber}">Room Num</span>
-                        </div>
+                <th:block th:unless="${filtered == true}">
+                    <tr th:each="assignedTask : ${assignedWorkList}">
+                        <td >
+                            <span th:text="${assignedTask.dateReported()}"></span>
+                        </td>
+                        <td >
+                            <span th:text="${assignedTask.roomNumber()}"></span>
+                        </td>
+                        <td th:text="${assignedTask.residentFullName()}"></td>
+                        <td>
+                            <a th:href="@{/staff/viewWork/{id}(id=${assignedTask.issueId()})}" class="btn btn-primary">Xem Chi Tiết</a>
+                        </td>
+                        <td>
+                            <span  th:classappend="${assignedTask.workStatus().equalsIgnoreCase('quá thời hạn')? 'badge bg-danger' : (assignedTask.workStatus().equalsIgnoreCase('đang sửa chữa')? 'badge bg-warning':'badge bg-success')}"
+                                   th:text="${assignedTask.workStatus()}"></span>
+                            </td>
+                        <td >
+                            <span th:text="${assignedTask.completedDate()}"></span>
+                        </td>
+                        <td >
+                            <span th:text="${assignedTask.deadlineDate()}"></span>
+                        </td>
+                    </tr>
+                </th:block>
+                <th:block th:if="${filtered == true}">
+                    <tr th:each="assignedTask : ${filteredAssignedWorkList}">
+                        <td >
+                            <span th:text="${assignedTask.dateReported()}"></span>
+                        </td>
+                        <td >
+                            <span th:text="${assignedTask.roomNumber()}"></span>
+                        </td>
+                        <td >
+                            <span th:text="${assignedTask.residentFullName()}"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{/staff/viewWork/{id}(id=${assignedTask.issueId()})}" class="btn btn-primary">Xem Chi Tiết</a>
+                        </td>
+                   <td >
+                       <span  th:classappend="${assignedTask.workStatus().equalsIgnoreCase('quá thời hạn')? 'badge bg-danger' : (assignedTask.workStatus().equalsIgnoreCase('đang sửa chữa')? 'badge bg-warning':'badge bg-success')}"
+                              th:text="${assignedTask.workStatus()}"></span>
                     </td>
-                    <td th:text="${assignedTask.residentName}">Resident Name</td>
-                    <td>
-                        <a
-                                class="btn btn-primary"
-                                th:href="@{/staff/viewWork/{id}(id=${assignedTask.issueId})}"
-                        >Xem chi tiết
-                        </a>
-                    </td>
-                    <td>
-                  <span
-                          th:classappend="${assignedTask.workStatus().equalsIgnoreCase('quá thời hạn')? 'badge bg-danger' : (assignedTask.workStatus().equalsIgnoreCase('đang sửa chữa')? 'badge bg-warning':'badge bg-success')}"
-                          th:text="${assignedTask.workStatus()}"
-                  ></span>
-                    </td>
-                    <td th:text="${assignedTask.completedDate}">Completed Date</td>
-                    <td th:text="${assignedTask.deadlineDate}">Deadline Date</td>
-                </tr>
+                        <td >
+                            <span th:text="${assignedTask.completedDate()}"></span>
+                        </td>
+                        <td>
+                            <span  th:text="${assignedTask.deadlineDate()}"></span>
+                        </td>
+                    </tr>
+                </th:block>
                 </tbody>
             </table>
         </div>
