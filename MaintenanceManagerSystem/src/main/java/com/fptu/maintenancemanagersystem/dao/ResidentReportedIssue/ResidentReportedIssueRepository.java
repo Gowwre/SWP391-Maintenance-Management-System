@@ -25,8 +25,11 @@ public class ResidentReportedIssueRepository {
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public List<ResidentReportedIssue> getAll(){
-        String SQL = "SELECT * FROM [ResidentReportedIssue]";
+    public List<ResidentReportedIssue> getAll() {
+        String SQL = """
+                SELECT * FROM [ResidentReportedIssue]
+                Order By [ResidentReportedIssue].[issue_id] DESC 
+                """;
         return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(ResidentReportedIssue.class));
     }
 
@@ -100,6 +103,7 @@ public class ResidentReportedIssueRepository {
                 JOIN ResidentReportedIssue r ON fd.issue_id = r.issue_id
                 JOIN Staff s ON fd.assign_staff_id = s.staff_id
                 Where r.resident_email = ?
+                ORDER BY r.issue_id DESC
                 """;
         return jdbcTemplate.query(SQL, new Object[]{residentEmail}, new ResidentIssueReportedAndWorkProgressRowMapper());
     }

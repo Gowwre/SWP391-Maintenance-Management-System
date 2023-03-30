@@ -25,7 +25,7 @@ public class StaffRepository {
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public List<Staff> getAllStaff() {
-        String SQL = "SELECT * FROM [Staff]";
+        String SQL = "SELECT * FROM [Staff]" + " ORDER BY fullname ASC ";
         return jdbcTemplate.query(SQL, new RowMapper<Staff>() {
             @Override
             public Staff mapRow(ResultSet rs, int rowNum) throws SQLException {
