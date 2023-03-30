@@ -1,7 +1,7 @@
 package com.fptu.maintenancemanagersystem.controller;
 
-import com.fptu.maintenancemanagersystem.model.Manager;
-import com.fptu.maintenancemanagersystem.model.Staff;
+import com.fptu.maintenancemanagersystem.model.entities.Manager;
+import com.fptu.maintenancemanagersystem.model.entities.Staff;
 import com.fptu.maintenancemanagersystem.service.ManagerService;
 import com.fptu.maintenancemanagersystem.service.StaffService;
 import jakarta.servlet.http.HttpSession;
