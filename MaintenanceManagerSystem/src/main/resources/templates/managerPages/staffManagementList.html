@@ -8,33 +8,11 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .navbar-custom {
-            background-color: #ffc107 !important;
-        }
-
-        .navbar-custom .navbar-brand {
-            height: 50px;
-            width: auto;
-            margin-right: 10px;
-            color: black;
-        }
-
-        .footer {
-            background-color: black;
-            color: white;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/manager/residentReportedIssues}">
+        <a class="navbar-brand" style="color: black;" th:href="@{/manager/residentReportedIssues}">
             <h1> Maintenance System </h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -42,26 +20,27 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ms-auto ">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#" th:href="@{/manager/staffList}">Quản lý nhân viên</a>
+                    <a class="nav-link mx-2" style="color: black;" href="#" th:href="@{/manager/staffList}">Quản lý nhân viên</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#" th:href="@{/manager/residentReportedIssues}">Báo cáo của người ở
+                    <a class="nav-link mx-2" style="color: black;" href="#" th:href="@{/manager/residentReportedIssues}">Báo cáo của người ở
                         chung
                         cư</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link mx-2 dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button"
+                <li class="nav-item dropdown" >
+                    <a class="nav-link mx-2 dropdown-toggle" style="color: black;" href="#"
+                       id="navbarDropdownMenuLink" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item text-dark" href="#">Tài khoản</a></li>
-                        <li><a class="dropdown-item text-dark" th:href="@{/manager/changePassword}">Đổi mật
+                        <li><a class="dropdown-item" style="color: black;" th:href="@{/manager/changePassword}">Đổi
+                            mật
                             khẩu</a></li>
-                        <li><a class="dropdown-item text-dark" href="#" th:href="@{/logout}">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" style="color: black;" href="#" th:href="@{/logout}">Đăng xuất</a></li>
                     </ul>
                 </li>
             </ul>
@@ -69,7 +48,6 @@
     </div>
 </nav>
 <br/>
-
 
 <div class="container my-4">
     <h2>Danh sách nhân viên</h2>
@@ -97,10 +75,10 @@
                 </td>
                     <td>
                         <div th:if="${staffs.isWorking}">
-                            <span class="text-success" th:text="'Đang làm việc'">Status</span>
+                            <span class="badge bg-success" th:text="'Đang làm việc'">Status</span>
                         </div>
                         <div th:unless="${staffs.isWorking}">
-                            <span class="text-danger" th:text="'Không làm việc'">Status</span>
+                            <span class="badge bg-danger" th:text="'Không làm việc'">Status</span>
                         </div>
                     </td>
                 <td>
@@ -117,7 +95,7 @@
 </div>
 
 </br></br></br>
-<footer class="text-center py-3 footer">
+<footer class="text-center py-3 bg-dark text-white fixed-bottom">
     &copy; 2023 Maintenance System. All rights reserved.
 </footer>
 </body>
