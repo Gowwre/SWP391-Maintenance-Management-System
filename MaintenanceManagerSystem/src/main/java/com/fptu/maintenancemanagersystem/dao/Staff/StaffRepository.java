@@ -1,6 +1,6 @@
 package com.fptu.maintenancemanagersystem.dao.Staff;
 
-import com.fptu.maintenancemanagersystem.model.Staff;
+import com.fptu.maintenancemanagersystem.model.entities.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

@@ -4,7 +4,7 @@
  */
 package com.fptu.maintenancemanagersystem.dao.FaultDevice;
 
-import com.fptu.maintenancemanagersystem.model.FaultedDevice;
+import com.fptu.maintenancemanagersystem.model.entities.FaultedDevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

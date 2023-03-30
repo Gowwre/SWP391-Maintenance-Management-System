@@ -1,7 +1,7 @@
 package com.fptu.maintenancemanagersystem.service;
 
 import com.fptu.maintenancemanagersystem.dao.Manager.ManagerRepository;
-import com.fptu.maintenancemanagersystem.model.Manager;
+import com.fptu.maintenancemanagersystem.model.entities.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

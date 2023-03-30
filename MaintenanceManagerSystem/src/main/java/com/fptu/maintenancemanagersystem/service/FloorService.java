@@ -5,7 +5,7 @@
 package com.fptu.maintenancemanagersystem.service;
 
 import com.fptu.maintenancemanagersystem.dao.Floor.FloorRepository;
-import com.fptu.maintenancemanagersystem.model.Floor;
+import com.fptu.maintenancemanagersystem.model.entities.Floor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,13 @@
 package com.fptu.maintenancemanagersystem.service;
 
 import com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue.ResidentReportedIssueRepository;
-import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgress;
-import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
-import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
+import com.fptu.maintenancemanagersystem.model.dto.ResidentIssueReportedAndWorkProgress;
+import com.fptu.maintenancemanagersystem.model.dto.SubmittedReportedIssuesDTO;
+import com.fptu.maintenancemanagersystem.model.dto.WorkProgressAndIssueByResidentReportedIssue;
+
+import com.fptu.maintenancemanagersystem.model.dto.ResidentReportedIssueFaultedDeviceWorkProgressStaffRoomDTO;
+
+import com.fptu.maintenancemanagersystem.model.entities.ResidentReportedIssue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +34,12 @@ public class ResidentReportedIssueService {
         return residentReportedIssueRepository.getResidentReportedIssueById(issueId);
     }
 
-    public List<ResidentIssueReportedAndWorkProgress> getAllReportedIssueByFaultedDeviceRecordsByEmail(String email){
-        return residentReportedIssueRepository.getResidentIssueReportedAndWorkProgressByEmail(email);
+    public List<SubmittedReportedIssuesDTO> getSubmittedReportedIssuesByEmail(String email) {
+        return residentReportedIssueRepository.getSubmittedReportedIssuesByResidentEmail(email);
+    }
+
+    public List<ResidentReportedIssueFaultedDeviceWorkProgressStaffRoomDTO> getAllReportedIssue(){
+        return residentReportedIssueRepository.getAllResidentReportedIssueFaultedDeviceWorkProgressStaffRoom();
     }
 
     public ResidentIssueReportedAndWorkProgress getResidentIssueReportedAndWorkProgressByIssueId (int issueId){
@@ -40,5 +48,9 @@ public class ResidentReportedIssueService {
 
     public void confirmWorkCompletion(int issueId, String residentPhoneNumber) {
         residentReportedIssueRepository.confirmWorkCompletion(issueId, residentPhoneNumber);
+    }
+
+    public List<ResidentReportedIssueFaultedDeviceWorkProgressStaffRoomDTO> getAllResidentReportedIssueByStaffId(int assignedStaffId) {
+        return residentReportedIssueRepository.getAllResidentReportedIssueByStaffId(assignedStaffId);
     }
 }

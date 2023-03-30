@@ -1,9 +1,11 @@
 package com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue;
 
 import com.fptu.maintenancemanagersystem.dao.WorkProgress.WorkProgressAndIssueByResidentReportedIssueRowMapper;
-import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgress;
-import com.fptu.maintenancemanagersystem.model.ResidentReportedIssue;
-import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
+import com.fptu.maintenancemanagersystem.model.dto.ResidentIssueReportedAndWorkProgress;
+import com.fptu.maintenancemanagersystem.model.dto.ResidentReportedIssueFaultedDeviceWorkProgressStaffRoomDTO;
+import com.fptu.maintenancemanagersystem.model.dto.SubmittedReportedIssuesDTO;
+import com.fptu.maintenancemanagersystem.model.dto.WorkProgressAndIssueByResidentReportedIssue;
+import com.fptu.maintenancemanagersystem.model.entities.ResidentReportedIssue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,8 +27,11 @@ public class ResidentReportedIssueRepository {
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public List<ResidentReportedIssue> getAll(){
-        String SQL = "SELECT * FROM [ResidentReportedIssue]";
+    public List<ResidentReportedIssue> getAll() {
+        String SQL = """
+                SELECT * FROM [ResidentReportedIssue]
+                                order by date_reported desc
+                """;
         return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(ResidentReportedIssue.class));
     }
 
@@ -92,17 +97,28 @@ public class ResidentReportedIssueRepository {
         }
     }
 
-    public List<ResidentIssueReportedAndWorkProgress> getResidentIssueReportedAndWorkProgressByEmail(String residentEmail) {
-        String SQL = """
-                SELECT DISTINCT wp.*, r.*, s.fullname
-                FROM WorkProgress wp
-                JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
-                JOIN ResidentReportedIssue r ON fd.issue_id = r.issue_id
-                JOIN Staff s ON fd.assign_staff_id = s.staff_id
-                Where r.resident_email = ?
+    public List<SubmittedReportedIssuesDTO> getSubmittedReportedIssuesByResidentEmail(String residentEmail) {
+        String sql = """
+                SELECT DISTINCT  date_reported,room_number,resident_name,r.issue_id,s.fullname,deadline_date,resident_completion_confirmation
+                                                          FROM WorkProgress wp
+                                                          JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
+                                                          JOIN ResidentReportedIssue r ON fd.issue_id = r.issue_id
+                                                          JOIN Staff s ON fd.assign_staff_id = s.staff_id
+                                          join Room room on r.room_id = room.room_id
+                                                            Where r.resident_email = ?
+                                          order by date_reported desc
                 """;
-        return jdbcTemplate.query(SQL, new Object[]{residentEmail}, new ResidentIssueReportedAndWorkProgressRowMapper());
+        return jdbcTemplate.query(sql, new Object[]{residentEmail}, (rs, rowNum) -> new SubmittedReportedIssuesDTO(
+                rs.getDate("date_reported").toLocalDate(),
+                rs.getString("room_number"),
+                rs.getString("resident_name"),
+                rs.getInt("issue_id"),
+                rs.getString("fullname"),
+                rs.getDate("deadline_date").toLocalDate(),
+                rs.getBoolean("resident_completion_confirmation")));
     }
+
+
 
     public ResidentIssueReportedAndWorkProgress getResidentIssueReportedAndWorkProgressByIssueId(int issueId) {
         String SQL = """
@@ -124,5 +140,71 @@ public class ResidentReportedIssueRepository {
                 .addValue("residentPhoneNumber", residentPhoneNumber);
 
         namedParameterJdbcTemplate.update(sql, parameters);
+    }
+
+    public List<ResidentReportedIssueFaultedDeviceWorkProgressStaffRoomDTO> getAllResidentReportedIssueFaultedDeviceWorkProgressStaffRoom() {
+        String sql = """
+                select distinct date_reported,room_number,
+                                                           resident_name,
+                                                           ResidentReportedIssue.issue_id,
+                                                           fullname,
+                                                           work_status,
+                                                           completed_date,
+                                                           deadline_date
+                                           from ResidentReportedIssue
+                                                    full join FaultedDevice FD on ResidentReportedIssue.issue_id = FD.issue_id
+                                                    full join Staff on Staff.staff_id = FD.assign_staff_id
+                                                    full join WorkProgress WP on FD.work_progress_id = WP.work_progress_id
+                                                    full join Room R2 on ResidentReportedIssue.room_id = R2.room_id
+                                           where ResidentReportedIssue.issue_id is not null
+                                           order by work_status
+                """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new ResidentReportedIssueFaultedDeviceWorkProgressStaffRoomDTO(
+                rs.getDate("date_reported").toLocalDate(),
+                rs.getString("room_number"),
+                rs.getString("resident_name"),
+                rs.getInt("issue_id"),
+                rs.getString("work_status"),
+                rs.getString("fullname"),
+                rs.getDate("completed_date") == null ? null : rs.getDate("completed_date").toLocalDate(),
+                rs.getDate("deadline_date") == null ? null : rs.getDate("deadline_date").toLocalDate()
+        ));
+    }
+
+    public List<ResidentReportedIssueFaultedDeviceWorkProgressStaffRoomDTO> getAllResidentReportedIssueByStaffId(int assignedStaffId) {
+        String sql = """
+                select distinct date_reported,
+                                room_number,
+                                resident_name,
+                                rri.issue_id,
+                                work_status,
+                                s.fullname,
+                                wp.completed_date,
+                                wp.deadline_date
+                from dbo.ResidentReportedIssue rri
+                         inner join
+                     dbo.FaultedDevice fd
+                     on rri.issue_id = fd.issue_id
+                         join WorkProgress wp
+                              on fd.work_progress_id = wp.work_progress_id
+                         join Staff s
+                              on s.staff_id = fd.assign_staff_id
+                         join Room r
+                              on r.room_id = rri.room_id
+                where staff_id = ?
+                order by date_reported desc 
+                """;
+
+        return jdbcTemplate.query(sql, new Object[]{assignedStaffId}, (rs, rowNum) -> new ResidentReportedIssueFaultedDeviceWorkProgressStaffRoomDTO(
+                rs.getDate("date_reported").toLocalDate(),
+                rs.getString("room_number"),
+                rs.getString("resident_name"),
+                rs.getInt("issue_id"),
+                rs.getString("work_status"),
+                rs.getString("fullname"),
+                rs.getDate("completed_date") == null ? null : rs.getDate("completed_date").toLocalDate(),
+                rs.getDate("deadline_date") == null ? null : rs.getDate("deadline_date").toLocalDate()
+        ));
     }
 }

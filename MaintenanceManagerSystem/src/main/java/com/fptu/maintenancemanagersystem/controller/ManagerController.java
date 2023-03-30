@@ -1,8 +1,8 @@
 package com.fptu.maintenancemanagersystem.controller;
 
-import com.fptu.maintenancemanagersystem.model.Floor;
-import com.fptu.maintenancemanagersystem.model.Manager;
-import com.fptu.maintenancemanagersystem.model.Staff;
+import com.fptu.maintenancemanagersystem.model.entities.Floor;
+import com.fptu.maintenancemanagersystem.model.entities.Manager;
+import com.fptu.maintenancemanagersystem.model.entities.Staff;
 import com.fptu.maintenancemanagersystem.service.FloorService;
 import com.fptu.maintenancemanagersystem.service.ManagerService;
 import com.fptu.maintenancemanagersystem.service.StaffService;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -52,7 +50,7 @@ public class ManagerController {
         }
 
         session.setAttribute("manager", existedManager);
-        return "redirect:/manager/residentReportedIssues";
+        return "redirect:/filter?workStatus=default";
     }
 
     @GetMapping("/manager/changePassword")
@@ -97,8 +95,8 @@ staffService.updateStaff(staff);
         return "managerPages/viewStaff";
     }
 
-    @GetMapping("/manager/getForCreateStaff")
-    public String getForCreateStaff(Model model) {
+    @GetMapping("/manager/viewCreateStaffForm")
+    public String viewCreateStaffForm(Model model) {
         List<Floor> floorList = floorService.getAll();
 
         model.addAttribute("floorList", floorList);

@@ -1,7 +1,6 @@
 package com.fptu.maintenancemanagersystem.controller;
 
-import com.fptu.maintenancemanagersystem.model.Floor;
-import com.fptu.maintenancemanagersystem.model.Staff;
+import com.fptu.maintenancemanagersystem.model.entities.Staff;
 import com.fptu.maintenancemanagersystem.service.FloorService;
 import com.fptu.maintenancemanagersystem.service.StaffService;
 import jakarta.servlet.http.HttpSession;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 @Controller
 public class StaffController {
@@ -33,7 +30,7 @@ public class StaffController {
             model.addAttribute("staff", new Staff());
             return "loginPages/maintenanceStaffLogin";
         } else {
-            return "redirect:/staff/workAssignList";
+            return "redirect:/staffFilter?workStatus=default";
         }
     }
 
@@ -49,7 +46,7 @@ public class StaffController {
         }
 
         session.setAttribute("staff", existedStaff);
-        return "redirect:/staff/workAssignList";
+        return "redirect:/staffFilter?workStatus=default";
     }
 
     @GetMapping("/staff/changePassword")

@@ -1,9 +1,9 @@
 package com.fptu.maintenancemanagersystem.dao.WorkProgress;
 
-import com.fptu.maintenancemanagersystem.model.WorkProgress;
-import com.fptu.maintenancemanagersystem.model.WorkProgressAndIssueByResidentReportedIssue;
-import com.fptu.maintenancemanagersystem.model.WorkProgressAndStaffNameRecord;
-import com.fptu.maintenancemanagersystem.model.WorkStatusAndDeadlineDate;
+import com.fptu.maintenancemanagersystem.model.entities.WorkProgress;
+import com.fptu.maintenancemanagersystem.model.dto.WorkProgressAndIssueByResidentReportedIssue;
+import com.fptu.maintenancemanagersystem.model.dto.WorkProgressAndStaffNameRecord;
+import com.fptu.maintenancemanagersystem.model.dto.WorkStatusAndDeadlineDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

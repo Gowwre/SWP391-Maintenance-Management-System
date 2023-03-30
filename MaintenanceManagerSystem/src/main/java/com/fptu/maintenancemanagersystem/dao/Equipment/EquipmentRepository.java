@@ -4,7 +4,7 @@
  */
 package com.fptu.maintenancemanagersystem.dao.Equipment;
 
-import com.fptu.maintenancemanagersystem.model.Equipment;
+import com.fptu.maintenancemanagersystem.model.entities.Equipment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

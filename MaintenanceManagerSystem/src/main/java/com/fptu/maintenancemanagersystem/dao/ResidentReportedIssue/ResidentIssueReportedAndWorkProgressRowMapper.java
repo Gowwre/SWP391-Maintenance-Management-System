@@ -1,7 +1,7 @@
 package com.fptu.maintenancemanagersystem.dao.ResidentReportedIssue;
 
 
-import com.fptu.maintenancemanagersystem.model.ResidentIssueReportedAndWorkProgress;
+import com.fptu.maintenancemanagersystem.model.dto.ResidentIssueReportedAndWorkProgress;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

@@ -4,7 +4,7 @@
  */
 package com.fptu.maintenancemanagersystem.dao.Floor;
 
-import com.fptu.maintenancemanagersystem.model.Floor;
+import com.fptu.maintenancemanagersystem.model.entities.Floor;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

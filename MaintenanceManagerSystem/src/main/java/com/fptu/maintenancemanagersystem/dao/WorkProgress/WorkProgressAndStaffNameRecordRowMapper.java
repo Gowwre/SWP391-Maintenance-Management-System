@@ -1,6 +1,6 @@
 package com.fptu.maintenancemanagersystem.dao.WorkProgress;
 
-import com.fptu.maintenancemanagersystem.model.WorkProgressAndStaffNameRecord;
+import com.fptu.maintenancemanagersystem.model.dto.WorkProgressAndStaffNameRecord;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

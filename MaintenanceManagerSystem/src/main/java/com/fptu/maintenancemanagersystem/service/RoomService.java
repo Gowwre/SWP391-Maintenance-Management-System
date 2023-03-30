@@ -1,7 +1,7 @@
 package com.fptu.maintenancemanagersystem.service;
 
 import com.fptu.maintenancemanagersystem.dao.Room.RoomRepository;
-import com.fptu.maintenancemanagersystem.model.Room;
+import com.fptu.maintenancemanagersystem.model.entities.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

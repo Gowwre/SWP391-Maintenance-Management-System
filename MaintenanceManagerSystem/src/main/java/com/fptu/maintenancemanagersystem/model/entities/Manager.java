@@ -1,4 +1,4 @@
-package com.fptu.maintenancemanagersystem.model;
+package com.fptu.maintenancemanagersystem.model.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
