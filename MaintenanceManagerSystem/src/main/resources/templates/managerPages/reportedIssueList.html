@@ -24,7 +24,8 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link mx-2" style="color: black;" href="#" th:href="@{/manager/staffList}">Quản lý nhân viên</a>
+                    <a class="nav-link mx-2" style="color: black;" href="#" th:href="@{/manager/staffList}">Quản lý nhân
+                        viên</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -37,7 +38,8 @@
                         <li><a class="dropdown-item" style="color: black;" th:href="@{/manager/changePassword}">Đổi
                             mật
                             khẩu</a></li>
-                        <li><a class="dropdown-item" style="color: black;" href="#" th:href="@{/logout}">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" style="color: black;" href="#" th:href="@{/logout}">Đăng xuất</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -47,12 +49,18 @@
 <br/>
 
 <div class="d-flex justify-content-center">
-Lọc theo:
-    <a href="/filter?workStatus=default" id="filterButton" class="btn btn-primary" onclick="removePathFromUrlAndSubmit()">Tất cả</a>
-    <a href="/filter?workStatus=Đang Sửa Chữa" class="btn btn-primary">Đang Sửa Chữa</a>
-    <a href="/filter?workStatus=Đã hoàn thành" class="btn btn-primary">Đã hoàn thành</a>
-    <a href="/filter?workStatus=Quá thời hạn" class="btn btn-primary">Quá Thời Hạn</a>
+    <div class="card">
+        <div class="card-header d-flex justify-content-center">Bộ Lọc Trạng Thái Làm Việc</div>
+        <div class="card-body">
+            <a href="/filter?workStatus=default" id="filterButton" class="btn btn-primary">Tất cả</a>
+            <a href="/filter?workStatus=Đang Sửa Chữa" class="btn btn-primary">Đang Sửa Chữa</a>
+            <a href="/filter?workStatus=Đã hoàn thành" class="btn btn-primary">Đã hoàn thành</a>
+            <a href="/filter?workStatus=Quá thời hạn" class="btn btn-primary">Quá Thời Hạn</a>
+        </div>
+    </div>
+
 </div>
+
 
 <div class="container my-4">
     <h1>Danh sách báo cáo của người ở chung cư</h1>
@@ -75,14 +83,14 @@ Lọc theo:
             <th:block th:unless="${filtered == true}">
                 <tr th:each="reportedIssue : ${residentReportedIssueList}">
                     <td>
-                        <span  th:text="${reportedIssue.dateReported}"></span>
+                        <span th:text="${reportedIssue.dateReported}"></span>
                     </td>
                     <td>
 
                         <span th:text="${reportedIssue.roomNumber}"></span>
 
                     </td>
-                    <td ><span th:text="${reportedIssue.residentFullName()}"></span></td>
+                    <td><span th:text="${reportedIssue.residentFullName()}"></span></td>
                     <td>
                         <a class="btn btn-primary"
                            th:href="@{/manager/viewIssue/{id}(id=${reportedIssue.issueId()})}">Xem chi tiết
@@ -90,7 +98,7 @@ Lọc theo:
                     </td>
                     <td>
                     <span
-                          th:text="${reportedIssue.staffFullName()}">Staff Assigned</span>
+                            th:text="${reportedIssue.staffFullName()}">Staff Assigned</span>
                     </td>
                     <td>
                         <th:block th:if="${reportedIssue.workStatus()!=null}">
@@ -99,27 +107,27 @@ Lọc theo:
                         </th:block>
 
                         <th:block th:if="${reportedIssue.workStatus()==null}">
-                        <span></span>
+                            <span></span>
                         </th:block>
                     </td>
                     <td>
                     <span
-                          th:text="${reportedIssue.completedDate()}">Completed Date</span>
+                            th:text="${reportedIssue.completedDate()}">Completed Date</span>
                     </td>
                     <td>
                     <span
-                          th:text="${reportedIssue.deadlineDate()}">DeadLine Date</span>
+                            th:text="${reportedIssue.deadlineDate()}">DeadLine Date</span>
                     </td>
                 </tr>
             </th:block>
             <th:block th:if="${filtered==true}">
                 <tr th:each="reportedIssue :${filteredReportedIssues}">
-                    <td >
+                    <td>
                         <span th:text="${reportedIssue.dateReported}"></span>
                     </td>
-                    <td><span  th:text="${reportedIssue.roomNumber}"></span></td>
+                    <td><span th:text="${reportedIssue.roomNumber}"></span></td>
                     <td>
-                        <span  th:text="${reportedIssue.residentFullName}"></span>
+                        <span th:text="${reportedIssue.residentFullName}"></span>
                     </td>
                     <td>
                         <a class="btn btn-primary"
@@ -127,13 +135,13 @@ Lọc theo:
                         </a>
                     </td>
                     <td th:text="${reportedIssue.staffFullName}">Staff Assigned</td>
-                    <td >
+                    <td>
                         <span th:text="${reportedIssue.workStatus}"
-                               th:classappend="${reportedIssue.workStatus().equalsIgnoreCase('đã hoàn thành')? 'badge bg-success': (reportedIssue.workStatus().equalsIgnoreCase('đang sửa chữa')? 'badge bg-warning' : 'badge bg-danger')}" ></span>
+                              th:classappend="${reportedIssue.workStatus().equalsIgnoreCase('đã hoàn thành')? 'badge bg-success': (reportedIssue.workStatus().equalsIgnoreCase('đang sửa chữa')? 'badge bg-warning' : 'badge bg-danger')}"></span>
                     </td>
                     <td
-                            ><span th:text="${reportedIssue.completedDate}"></span></td>
-                    <td >
+                    ><span th:text="${reportedIssue.completedDate}"></span></td>
+                    <td>
                         <span th:text="${reportedIssue.deadlineDate}"></span>
                     </td>
                 </tr>
@@ -147,7 +155,7 @@ Lọc theo:
     &copy; 2023 Maintenance System. All rights reserved.
 </footer>
 </body>
-<script >
+<script>
 
 </script>
 </html>

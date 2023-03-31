@@ -20,10 +20,21 @@
 </nav>
 <div class="container my-4">
 
-    <div class="d-flex align-content-center">
-        <a class="btn btn-primary" th:href="@{/residentFilter(email=${email},residentConfirmation='')}">Xem tất cả</a>
-        <a class="btn btn-primary" th:href="@{/residentFilter(email=${email},residentConfirmation=true)}">Đã Xác Nhận</a>
-        <a class="btn btn-primary" th:href="@{/residentFilter(email=${email},residentConfirmation=false)}">Chưa Xác Nhận</a>
+    <div class="d-flex justify-content-center">
+        <div class="card">
+            <div class="card-header d-flex justify-content-center">
+                Bộ Lọc Trạng Thái Báo Cáo
+            </div>
+            <div class="card-body">
+                <a class="btn btn-primary" th:href="@{/residentFilter(email=${email},residentConfirmation='')}">Xem tất
+                    cả</a>
+                <a class="btn btn-primary" th:href="@{/residentFilter(email=${email},residentConfirmation=true)}">Đã Xác
+                    Nhận</a>
+                <a class="btn btn-primary" th:href="@{/residentFilter(email=${email},residentConfirmation=false)}">Chưa
+                    Xác Nhận</a>
+            </div>
+        </div>
+
     </div>
 
     <h1>Danh sách các báo cáo</h1>
@@ -47,13 +58,13 @@
                     <tbody>
                     <tr th:each="residentIssueReportedAndWorkProgress : ${residentIssueReportedAndWorkProgressByEmail}">
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.dateReported()}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.dateReported()}"></span>
                         </td>
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.roomNumber()}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.roomNumber()}"></span>
                         </td>
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.residentName}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.residentName}"></span>
                         </td>
                         <td>
                             <a th:href="@{/viewResidentIssue/{id}(id=${residentIssueReportedAndWorkProgress.issueId()})}"
@@ -61,13 +72,14 @@
                             </a>
                         </td>
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.staffName()}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.staffName()}"></span>
                         </td>
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.deadlineDate()}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.deadlineDate()}"></span>
                         </td>
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.residentCompletionConfirmation() == true? 'Đã Xác Nhận' : 'Chưa Xác Nhận' }" th:classappend="${residentIssueReportedAndWorkProgress.residentCompletionConfirmation() == true? 'badge bg-success' : 'badge bg-danger'}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.residentCompletionConfirmation() == true? 'Đã Xác Nhận' : 'Chưa Xác Nhận' }"
+                                  th:classappend="${residentIssueReportedAndWorkProgress.residentCompletionConfirmation() == true? 'badge bg-success' : 'badge bg-danger'}"></span>
                         </td>
 
                     </tbody>
@@ -103,13 +115,13 @@
                     <tbody>
                     <tr th:each="residentIssueReportedAndWorkProgress : ${residentIssueReportedAndWorkProgressByEmailFiltered}">
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.dateReported()}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.dateReported()}"></span>
                         </td>
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.roomNumber()}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.roomNumber()}"></span>
                         </td>
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.residentName}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.residentName}"></span>
                         </td>
                         <td>
                             <a th:href="@{/viewResidentIssue/{id}(id=${residentIssueReportedAndWorkProgress.issueId()})}"
@@ -117,13 +129,14 @@
                             </a>
                         </td>
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.staffName()}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.staffName()}"></span>
                         </td>
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.deadlineDate()}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.deadlineDate()}"></span>
                         </td>
                         <td>
-                            <span  th:text="${residentIssueReportedAndWorkProgress.residentCompletionConfirmation() == true? 'Đã Xác Nhận' : 'Chưa Xác Nhận' }" th:classappend="${residentIssueReportedAndWorkProgress.residentCompletionConfirmation() == true? 'badge bg-success' : 'badge bg-danger'}"></span>
+                            <span th:text="${residentIssueReportedAndWorkProgress.residentCompletionConfirmation() == true? 'Đã Xác Nhận' : 'Chưa Xác Nhận' }"
+                                  th:classappend="${residentIssueReportedAndWorkProgress.residentCompletionConfirmation() == true? 'badge bg-success' : 'badge bg-danger'}"></span>
                         </td>
                     </tr>
                     </tbody>
