@@ -157,7 +157,7 @@ public class ResidentReportedIssueRepository {
                                                     full join WorkProgress WP on FD.work_progress_id = WP.work_progress_id
                                                     full join Room R2 on ResidentReportedIssue.room_id = R2.room_id
                                            where ResidentReportedIssue.issue_id is not null
-                                           order by work_status
+                                           order by work_status asc, date_reported desc
                 """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> new ResidentReportedIssueFaultedDeviceWorkProgressStaffRoomDTO(

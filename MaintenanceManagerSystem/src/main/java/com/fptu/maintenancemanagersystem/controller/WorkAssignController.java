@@ -55,21 +55,7 @@ public class WorkAssignController {
 
     }
 
-    @GetMapping("/staff/workAssignList")
-    public String viewResidentReportedIssue(Model model, HttpSession session) {
 
-            List<Room> rooms = roomService.getAllRooms();
-
-            var assignedStaffId = (Staff) session.getAttribute("staff");
-
-            List<WorkProgressAndIssueByResidentReportedIssue> workProgressAndIssueByResidentReportedIssuesByStaffId = workProgressService.getWorkProgressAndStaffNameBySignedInStaff(assignedStaffId.getStaffId());
-
-            model.addAttribute("assignedTasks", workProgressAndIssueByResidentReportedIssuesByStaffId);
-            model.addAttribute("rooms", rooms);
-
-            return "staffPages/workAssignList";
-
-    }
 
     @GetMapping("/staff/viewWork/{id}")
     public String getReportedIssueByFaultedDeviceRecord(@PathVariable("id") int issueID, Model model) {
