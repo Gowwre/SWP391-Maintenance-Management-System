@@ -58,6 +58,7 @@ public class ResidentReportedIssueController {
             model.addAttribute("residentReportedIssueList", residentReportedIssues);
             return "managerPages/reportedIssueList";
         } else {
+            workProgressService.markOverdueWork();
             var filteredReportedIssues = residentReportedIssueService.getAllReportedIssue()
                     .stream()
                     .filter(issue -> Objects.nonNull(issue.workStatus()) && issue.workStatus().equalsIgnoreCase(workStatus))
