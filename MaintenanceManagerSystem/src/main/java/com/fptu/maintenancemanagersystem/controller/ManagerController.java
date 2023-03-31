@@ -36,7 +36,7 @@ public class ManagerController {
             model.addAttribute("manager", new Manager());
             return "loginPages/maintenanceManagerLogin";
         } else {
-            return "redirect:/manager/residentReportedIssues";
+            return "redirect:/filter?workStatus=default";
         }
     }
 

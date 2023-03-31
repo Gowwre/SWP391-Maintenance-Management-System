@@ -100,11 +100,11 @@
             <form th:action="@{/manager/updateAssignedStaff}" id="assignStaffForm" class="mt-4">
                 <input type="hidden" name="issueId" th:object="${availableIssue}" th:value="${availableIssue.issueId}">
                 <div class="mb-3">
-                    <label for="staffId" class="form-label">Staff</label>
+                    <label for="staffId" class="form-label">Tên Nhân Viên</label>
                     <select class="form-select" name="staffId" id="staffId" aria-label="Chọn nhân viên để sửa chữa:">
                         <option value="0" selected disabled>Chọn nhân viên</option>
                         <option th:each="workingStaff : ${workingStaffs}" th:value="${workingStaff.staffId}"
-                                th:text="${workingStaff.fullname}">Tên nhân viên
+                                th:text="${workingStaff.fullname}">
                         </option>
                     </select>
                 </div>
@@ -123,7 +123,7 @@
     </section>
 
     <p class="d-grid gap-3 mt-4">
-        <a class="btn btn-primary btn-sm-block" th:href="@{/manager/residentReportedIssues}">Trở về danh sách</a>
+        <a class="btn btn-primary btn-sm-block" th:href="@{/filter(workStatus='default')}">Trở về danh sách</a>
     </p>
 </div>
 
