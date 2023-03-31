@@ -11,32 +11,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .navbar-custom {
-            background-color: #343a40 !important;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-custom .navbar-brand {
-            height: 50px;
-            width: auto;
-            margin-right: 10px;
-            color: #ffc107;
-        }
-
-        .footer {
-            background-color: #343a40;
-            color: white;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-        }
-
         .form-container {
             background-color: #ffffff;
             border-radius: 10px;
@@ -50,10 +24,10 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}">
-            <h1> Maintenance System </h1>
+        <a class="navbar-brand" style="color: black" th:href="@{/}">
+            <h1>Maintenance System</h1>
         </a>
     </div>
 </nav>
@@ -62,12 +36,14 @@
         <div class="col-md-8 offset-md-2">
             <div class="form-container">
                 <h1 class="text-center mb-5">Đơn báo cáo thiết bị hư hỏng</h1>
-                <form id="reportFormStep1" th:action="@{/createReport/step2}" method="post" th:object="${residentReportedIssue}">
+                <form id="reportFormStep1" th:action="@{/createReport/step2}" method="post"
+                      th:object="${residentReportedIssue}">
                     <div class="mb-3">
                         <label for="roomNumber" class="form-label">Số Phòng</label>
                         <select name="roomNumber" id="roomNumber" class="form-select" th:field="*{roomId}">
                             <option value="0" selected disabled>Chọn số phòng</option>
-                            <option th:each="room : ${rooms}" th:value="${room.roomId}" th:text="${room.roomNumber}"></option>
+                            <option th:each="room : ${rooms}" th:value="${room.roomId}"
+                                    th:text="${room.roomNumber}"></option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -88,7 +64,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary mt-4">Tiếp tục</button>
                 </form>
-                <a th:href="@{/}" class="btn btn-primary mt-4">Quay lại</a>
+                <div class="d-grid gap-3 mt-4">
+                    <a th:href="@{/}" class="btn btn-primary mt-4">Quay lại</a>
+                </div>
             </div>
         </div>
     </div>
@@ -96,27 +74,27 @@
 </div>
 </br></br></br>
 
-<footer class="text-center py-3 footer">
+<footer class="text-center py-3 bg-dark text-white fixed-bottom">
     &copy; 2023 Maintenance System. All rights reserved.
 </footer>
 </body>
 <script>
     let reportFormStep1 = document.getElementById("reportFormStep1");
     reportFormStep1.addEventListener("submit", function (e) {
-       let vietnamesePhoneRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-       let phoneNumber = document.getElementById("residentPhone").value;
+        let vietnamesePhoneRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        let phoneNumber = document.getElementById("residentPhone").value;
         let isValidPhoneNumber = vietnamesePhoneRegex.test(phoneNumber);
 
-        if (isValidPhoneNumber === false){
-           alert("Số điện thoại không hợp lệ");
-           e.preventDefault();
-       }
+        if (isValidPhoneNumber === false) {
+            alert("Số điện thoại không hợp lệ");
+            e.preventDefault();
+        }
     });
 
     reportFormStep1.addEventListener("submit", function (e) {
         let roomNumber = document.getElementById("roomNumber").value;
 
-        if (roomNumber === "0"){
+        if (roomNumber === "0") {
             alert("Vui lòng chọn số phòng");
             e.preventDefault();
         }

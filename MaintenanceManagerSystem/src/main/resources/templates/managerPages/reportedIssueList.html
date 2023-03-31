@@ -12,7 +12,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/manager/residentReportedIssues}">
+        <a class="navbar-brand" style="color: black;" th:href="@{/manager/residentReportedIssues}">
             <h1> Maintenance System </h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -24,18 +24,20 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#" th:href="@{/manager/staffList}">Quản lý nhân viên</a>
+                    <a class="nav-link mx-2" style="color: black;" href="#" th:href="@{/manager/staffList}">Quản lý nhân viên</a>
                 </li>
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                    <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" style="color: black;"
                        role="button"
+
                        data-bs-toggle="dropdown" aria-expanded="false">Tài khoản của bạn
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/manager/changePassword}">Đổi
+                        <li><a class="dropdown-item" style="color: black;" th:href="@{/manager/changePassword}">Đổi
                             mật
                             khẩu</a></li>
-                        <li><a class="dropdown-item" href="#" th:href="@{/logout}">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" style="color: black;" href="#" th:href="@{/logout}">Đăng xuất</a></li>
                     </ul>
                 </li>
             </ul>

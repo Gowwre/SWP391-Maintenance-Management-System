@@ -49,7 +49,9 @@ public class WorkProgressRepository {
                 FROM WorkProgress wp
                 JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
                 JOIN ResidentReportedIssue r ON fd.issue_id = r.issue_id
-                JOIN Staff s ON fd.assign_staff_id = s.staff_id;""";
+                JOIN Staff s ON fd.assign_staff_id = s.staff_id
+                ORDER BY r.issue_id DESC
+                """;
         return jdbcTemplate.query(SQL, new WorkProgressAndStaffNameRecordRowMapper());
     }
 
@@ -134,6 +136,7 @@ public class WorkProgressRepository {
                                INNER JOIN FaultedDevice fd ON wp.work_progress_id = fd.work_progress_id
                                INNER JOIN ResidentReportedIssue rri ON fd.issue_id = rri.issue_id
                 			where assign_staff_id =  ?
+                			order by rri.issue_id Desc
                 			""";
         try {
             return jdbcTemplate.query(sql, new Object[]{signedInStaffId}, new WorkProgressAndIssueByResidentReportedIssueRowMapper());

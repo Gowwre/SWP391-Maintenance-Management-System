@@ -30,7 +30,7 @@ public class ResidentReportedIssueRepository {
     public List<ResidentReportedIssue> getAll() {
         String SQL = """
                 SELECT * FROM [ResidentReportedIssue]
-                                order by date_reported desc
+
                 """;
         return jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(ResidentReportedIssue.class));
     }
