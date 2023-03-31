@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-public class MainController {
+public class CommonController {
 
 
     @RequestMapping(value = {"/","/index"},method = RequestMethod.GET)
